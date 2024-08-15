@@ -28,6 +28,7 @@ const Navbar: React.FC<Props> = () => {
           <img src="/assets/searchIcon.png" className="h-[20px] w-[20px] mr-2" alt="search-icon" />
           <input type="text" placeholder="Search" className="h-full w-full rounded-none outline-none" />
         </div>
+        
         <div className="flex gap-3">
           <img src="/assets/fi_bell.png" alt="bell-icon" className="h-[32px] w-[32px] object-fill p-1" />
           <img src="/assets/fi_help-circle.png" alt="help-icon" className="h-[32px] w-[32px] object-fill p-1" />
