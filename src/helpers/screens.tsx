@@ -7,7 +7,7 @@ const useDeviceDetect = () => {
     useEffect(() => {
         const checkDeviceType = () => {
             // Default to mobile if window is undefined (e.g., SSR)
-            const mobileWidth = 750;
+            const mobileWidth = 850;
             const screenWidth = window.innerWidth;
             setwidth(screenWidth)
             setIsMobile(screenWidth < mobileWidth);
