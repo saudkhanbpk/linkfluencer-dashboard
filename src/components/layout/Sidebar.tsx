@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react"
-import { Link, NavLink } from 'react-router-dom';
+import { useEffect} from "react"
+import {NavLink } from 'react-router-dom';
 import ProgressBar from "../common/ProgressBar";
 import { useMinimizeContext } from "../../context/LayoutContext";
 
@@ -10,24 +10,24 @@ const Sidebar: React.FC<Props> = () => {
     const sidebarData = [
         {
             label: "Dashboard",
-            icon: "/assets/dashboardIcon.png",
+            icon: "/assets/dashboardIcon.svg",
             route: "/",
         },
         {
             label: "My Links",
-            icon: "/assets/linkIcon.png",
+            icon: "/assets/linkIcon.svg",
             route: "/my-links"
         }, {
             label: "Bulk Upload",
-            icon: "/assets/uploadIcon.png",
+            icon: "/assets/uploadIcon.svg",
             route: "/bulk-upload"
         }, {
             label: "Analytics",
-            icon: "/assets/analyticsIcon.png",
+            icon: "/assets/analyticsIcon.svg",
             route: "/analytics"
         }, {
             label: "Campaign",
-            icon: "/assets/compaignIcon.png",
+            icon: "/assets/compaignIcon.svg",
             // route: "/#",
             commingSoon: true
         },
@@ -46,14 +46,14 @@ const Sidebar: React.FC<Props> = () => {
                         val.route ?
                             <NavLink
                                 to={val.route}
-                                className={({ isActive }) => `flex items-center cursor-pointer py-[12px] px-[20px] rounded-full font-content ${isActive ? 'bg-gray-100 text-black' : 'bg-transparent text-[#4D494F]'}`}
+                                className={({ isActive }) => `flex items-center cursor-pointer py-[12px] ${!minimize && "px-[5px] lg:px-[20]"} rounded-full font-content ${isActive ? 'bg-gray-100 text-black' : 'bg-transparent text-[#4D494F]'}`}
                             >
-                                <img src={val?.icon} alt="dashboard" className="mr-[12px]" />
+                                <img src={val?.icon} alt="dashboard" className={`ml-[10px] mr-[12px]`} />
                                 <span className={`${minimize ? "hidden" : ""}`}>{val?.label}</span>
                             </NavLink> :
-                            <div className="flex items-center cursor-pointer py-[12px] px-[20px] rounded-full font-content bg-transparent text-[#afafaf]">
-                                <img src={val?.icon} alt="dashboard" className="mr-[12px]" />
-                                <div className="lg:flex">
+                            <div className={`flex items-center cursor-pointer py-[12px] ${!minimize && "px-[5px] lg:px-[20]"} rounded-full font-content bg-transparent text-[#afafaf]`}>
+                                <img src={val?.icon} alt="dashboard" className={`ml-[10px] mr-[12px]`} />
+                                <div className="flex flex-col">
                                 <span className={`${minimize ? "hidden" : "block"} mr-2`}>{val?.label}</span>
                                 <span className={`${minimize ? "hidden" : "block"} text-primary font-bold`}>SOON!</span>
                                 </div>
@@ -67,7 +67,7 @@ const Sidebar: React.FC<Props> = () => {
                 <h1 className="font-header text-[24px] font-[700]">Hay Rahul</h1>
                 <span className="text-[14px] mt-[10px] leading-none font-content"> Your Profile is left Incomplete</span>
                 <div className="my-[24px]">
-                    <ProgressBar />
+                    <ProgressBar completed={74} />
                 </div>
                 <button className="w-full border-[1px] border-[#113E53] font-bold bg-white rounded-full px-[20px] py-[12px] text-[#113E53] font-header">Complete Profile</button>
             </div>
@@ -77,7 +77,11 @@ const Sidebar: React.FC<Props> = () => {
         </div>}
         <div
             className="absolute cursor-pointer -right-3 top-2/4 h-[80px] text-right rounded-2xl border-2 bg-white  border-gray-200 flex items-center"
-            onClick={() => { setMinimize(!minimize) }}
+            onClick={() => {
+                
+                  setMinimize(!minimize);
+              
+              }}
         >
             {!minimize && <svg
                 viewBox="0 0 24 24"
