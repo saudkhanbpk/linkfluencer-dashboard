@@ -14,7 +14,7 @@ const Layout: React.FC<Props> = () => {
     return <div className="w-full">
         <Navbar />
         <div className="flex w-full z-50">
-            {!isMobile && <div className={`${minimize?"min-w-[95px] w-[95px]":"lg:w-1/5 w-2/6"}  transition-all duration-500 ease-in-out`}>
+            {!isMobile && <div className={`${minimize?"min-w-[95px] w-[95px]":"xl:w-1/5 w-2/6"}  transition-all duration-500 ease-in-out`}>
                 <Sidebar />
             </div>}
             <div 
