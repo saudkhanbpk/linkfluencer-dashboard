@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from 'react';
 
 // Define the shape of the context value
 interface MinimizeContextType {
@@ -7,13 +13,17 @@ interface MinimizeContextType {
 }
 
 // Create the context with a default value
-const MinimizeContext = createContext<MinimizeContextType | undefined>(undefined);
+const MinimizeContext = createContext<MinimizeContextType | undefined>(
+  undefined,
+);
 
 // A custom hook to access the context
 export const useMinimizeContext = () => {
   const context = useContext(MinimizeContext);
   if (!context) {
-    throw new Error('useMinimizeContext must be used within a MinimizeContextProvider');
+    throw new Error(
+      'useMinimizeContext must be used within a MinimizeContextProvider',
+    );
   }
   return context;
 };
@@ -23,7 +33,9 @@ interface MinimizeContextProviderProps {
   children: ReactNode;
 }
 
-export const MinimizeContextProvider: React.FC<MinimizeContextProviderProps> = ({ children }) => {
+export const MinimizeContextProvider: React.FC<
+  MinimizeContextProviderProps
+> = ({ children }) => {
   const [minimize, setMinimize] = useState<boolean>(false); // Default to false
 
   // Run once on load to set minimize based on screen size

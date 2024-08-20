@@ -1,24 +1,14 @@
 import './App.css';
-import Layout from './components/layout/Layout';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Dashboard from './pages/Dashboard';
-import MyLinks from './pages/MyLinks';
-import BulkUpload from './pages/BulkUpload';
-import Analytics from './pages/Analytics';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { MinimizeContextProvider } from './context/LayoutContext';
+import RoutesConfig from './routes/RoutesConfig';
+
 function App() {
   return (
-    <div className='max-w-[1920px] m-auto'>
+    <div className="max-w-[1920px] m-auto">
       <Router>
         <MinimizeContextProvider>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Dashboard />} />
-            <Route path="/my-links" element={<MyLinks />} />
-            <Route path="/bulk-upload" element={<BulkUpload />} />
-            <Route path="/analytics" element={<Analytics />} />
-          </Route>
-        </Routes>
+          <RoutesConfig />
         </MinimizeContextProvider>
       </Router>
     </div>
