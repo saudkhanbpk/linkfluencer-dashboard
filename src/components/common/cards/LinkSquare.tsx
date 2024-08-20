@@ -1,5 +1,6 @@
 import IndicateDown from './IndicateDown';
 import IndicateUp from './IndicateUp';
+
 interface Props {
   link: string;
   totalClicks: number;
