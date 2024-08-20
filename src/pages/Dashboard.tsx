@@ -1,10 +1,10 @@
-import { empty_dashboard } from "../sampleData";
+import { empty_dashboard } from '../sampleData';
 
 const Dashboard: React.FC = () => {
   return (
     <div className="p-[24px]">
       <div>
-        <h4 className="text-gray-500 font-content">Rahul's</h4>
+        <h4 className="text-gray-500 font-content">Rahul&rsquo;s</h4>
         <h1 className="text-2xl font-header">Dashboard</h1>
       </div>
       <div className="mt-[24px] flex md:flex-row flex-col items-center">
@@ -37,7 +37,7 @@ const Dashboard: React.FC = () => {
         <img
           src="/assets/dashboard/socialLabels.svg"
           className="absolute bottom-0 hidden lg:block right-0 h-[120px] md:w-[400px] md:h-[150px] lg:w-[490px] lg:h-[190px]"
-        alt="social-labels"
+          alt="social-labels"
         />
         <div className="w-5/5 lg:w-1/5 p-[20px] ">
           <img
@@ -76,18 +76,20 @@ const Dashboard: React.FC = () => {
               {empty_dashboard?.description}
             </p>
           </div>
-         <div className="flex justify-end">
+          <div className="flex justify-end">
             <img
               src="/assets/dashboard/socialLabels.svg"
               className="right-0 w-[280px] h-[120px] lg:hidden md:w-[400px] md:h-[150px] lg:w-[490px] lg:h-[190px] mb-[10px]"
-            alt="social-icons"
+              alt="social-icons"
             />
           </div>
           <div className="w-full flex flex-wrap">
             {empty_dashboard?.blocks.map((val, index) => (
               <div key={index} className="w-full md:w-1/3 p-4">
                 <h3 className="font-content font-bold">{val.title}</h3>
-                <p className="text-[12] lg:text-[16px] font-content">{val.description}</p>
+                <p className="text-[12] lg:text-[16px] font-content">
+                  {val.description}
+                </p>
               </div>
             ))}
           </div>

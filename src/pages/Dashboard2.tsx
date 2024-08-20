@@ -1,51 +1,48 @@
-import { useState } from "react";
-import LinkSquar from "../components/common/cards/LinkSquar";
+import { useState } from 'react';
+import LinkSquare from '../components/common/cards/LinkSquare';
 
-
-interface Props {}
-
-const Dashboard2: React.FC<Props> = () => {
+const Dashboard2 = () => {
   const [selectedTab, setSelectedTab] = useState(0);
   const tabs = [
     {
-      label: "Top Links",
+      label: 'Top Links',
     },
     {
-      label: "Newly Added",
+      label: 'Newly Added',
     },
     {
-      label: "Old Links",
+      label: 'Old Links',
     },
     {
-      label: "Affiliated Links",
+      label: 'Affiliated Links',
     },
   ];
 
   const Links = [
     {
-        logo:"/assets/youtubeLogo.svg",
-        link:"https://linkfluencerstg.addwebprojects.com/nextdor",
-        label:"Youtube",
-        tags:"#Educational Physic",
-        totalClicks:200,
-        percent:18,
-        indicateUp:true
+      logo: '/assets/youtubeLogo.svg',
+      link: 'https://linkfluencerstg.addwebprojects.com/nextdor',
+      label: 'Youtube',
+      tags: '#Educational Physic',
+      totalClicks: 200,
+      percent: 18,
+      indicateUp: true,
     },
     {
-        logo:"/assets/amazonLogo.svg",
-        link:"https://linkfluencerstg.addwebprojects.com/nextdor",
-        label:"Amazon",
-        tags:"#Educational Physic",
-        totalClicks:140,
-        percent:22,
-        indicateUp:false
+      logo: '/assets/amazonLogo.svg',
+      link: 'https://linkfluencerstg.addwebprojects.com/nextdor',
+      label: 'Amazon',
+      tags: '#Educational Physic',
+      totalClicks: 140,
+      percent: 22,
+      indicateUp: false,
     },
-  ]
+  ];
   return (
     <div>
       <div className="p-[24px]">
         <div>
-          <h4 className="text-gray-500 font-content">Rahul's</h4>
+          <h4 className="text-gray-500 font-content">Rahul&rsquo;s</h4>
           <h1 className="text-2xl font-header">Dashboard</h1>
         </div>
         <div className="mt-[24px] flex md:flex-row flex-col items-center">
@@ -83,10 +80,10 @@ const Dashboard2: React.FC<Props> = () => {
               return (
                 <li
                   key={index}
-                  className={`border-b-[3px] text-[#252C32] text-[14px] ${selectedTab === index ? "font-[600] border-[#252C32]":"font-[400]"} border-transparent hover:border-black py-[8px] cursor-pointer duration-500`}
-                 onClick={()=>{
-                    setSelectedTab(index)
-                 }}
+                  className={`border-b-[3px] text-[#252C32] text-[14px] ${selectedTab === index ? 'font-[600] border-[#252C32]' : 'font-[400]'} border-transparent hover:border-black py-[8px] cursor-pointer duration-500`}
+                  onClick={() => {
+                    setSelectedTab(index);
+                  }}
                 >
                   {val?.label}
                 </li>
@@ -95,18 +92,19 @@ const Dashboard2: React.FC<Props> = () => {
           </ul>
         </div>
         <div className="my-4 flex gap-4">
-       {
-        Links.map((val, index)=>{
-            return  <LinkSquar 
-            link={val?.link} 
-            totalClicks={val?.totalClicks} 
-            tags={val.tags} 
-            logo={val?.logo}
-            percent = {val.percent}
-            indicateUp = {val.indicateUp}
-            />
-        })
-       }
+          {Links.map((val, index) => {
+            return (
+              <LinkSquare
+                link={val?.link}
+                totalClicks={val?.totalClicks}
+                tags={val.tags}
+                logo={val?.logo}
+                percent={val.percent}
+                indicateUp={val.indicateUp}
+                key={index}
+              />
+            );
+          })}
         </div>
       </div>
     </div>

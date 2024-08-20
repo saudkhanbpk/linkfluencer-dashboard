@@ -1,39 +1,10 @@
-import { useEffect } from "react";
-import { NavLink } from "react-router-dom";
-import ProgressBar from "../common/ProgressBar";
-import { useMinimizeContext } from "../../context/LayoutContext";
+import { useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
+import ProgressBar from '../common/ProgressBar';
+import { useMinimizeContext } from '../../context/LayoutContext';
+import { sidebarData } from '../../config/sidebarData';
 
-interface Props {}
-const Sidebar: React.FC<Props> = () => {
-  const sidebarData = [
-    {
-      label: "Dashboard",
-      icon: "/assets/dashboardIcon.svg",
-      route: "/",
-    },
-    {
-      label: "My Links",
-      icon: "/assets/linkIcon.svg",
-      route: "/my-links",
-    },
-    {
-      label: "Bulk Upload",
-      icon: "/assets/uploadIcon.svg",
-      route: "/bulk-upload",
-    },
-    {
-      label: "Analytics",
-      icon: "/assets/analyticsIcon.svg",
-      route: "/analytics",
-    },
-    {
-      label: "Campaign",
-      icon: "/assets/compaignIcon.svg",
-      // route: "/#",
-      commingSoon: true,
-    },
-  ];
-
+const Sidebar = () => {
   const { minimize, setMinimize } = useMinimizeContext();
 
   useEffect(() => {
@@ -49,11 +20,11 @@ const Sidebar: React.FC<Props> = () => {
                 to={val.route}
                 className={({ isActive }) =>
                   `flex items-center cursor-pointer py-[12px] ${
-                    !minimize && "px-[5px] lg:px-[20]"
+                    !minimize && 'px-[5px] lg:px-[20]'
                   } rounded-full font-content ${
                     isActive
-                      ? "bg-gray-100 text-black"
-                      : "bg-transparent text-[#4D494F]"
+                      ? 'bg-gray-100 text-black'
+                      : 'bg-transparent text-[#4D494F]'
                   }`
                 }
               >
@@ -62,14 +33,16 @@ const Sidebar: React.FC<Props> = () => {
                   alt="dashboard"
                   className={`ml-[10px] mr-[12px]`}
                 />
-                <span className={`${minimize ? "hidden" : ""} whitespace-nowrap`}>
+                <span
+                  className={`${minimize ? 'hidden' : ''} whitespace-nowrap`}
+                >
                   {val?.label}
                 </span>
               </NavLink>
             ) : (
               <div
                 className={`flex items-center cursor-pointer py-[12px] ${
-                  !minimize && "px-[5px] lg:px-[20]"
+                  !minimize && 'px-[5px] lg:px-[20]'
                 } rounded-full font-content bg-transparent text-[#afafaf]`}
               >
                 <img
@@ -78,12 +51,12 @@ const Sidebar: React.FC<Props> = () => {
                   className={`ml-[10px] mr-[12px]`}
                 />
                 <div className="flex flex-col lg:flex-row">
-                  <span className={`${minimize ? "hidden" : "block"} mr-2`}>
+                  <span className={`${minimize ? 'hidden' : 'block'} mr-2`}>
                     {val?.label}
                   </span>
                   <span
                     className={`${
-                      minimize ? "hidden" : "block"
+                      minimize ? 'hidden' : 'block'
                     } text-primary font-bold`}
                   >
                     SOON!
@@ -94,32 +67,34 @@ const Sidebar: React.FC<Props> = () => {
           </li>
         ))}
       </ul>
-     <div className="">
-     {!minimize && (
-        <div className="mt-[24px]">
-          <div className="bg-[#F0F5FF] p-[24px] rounded-lg overflow-hidden">
-            <h1 className="font-header text-[24px] font-[700] whitespace-nowrap">Hay Rahul</h1>
-            <span className="text-[14px] mt-[10px] leading-none font-content whitespace-nowrap">
-              {" "}
-              Your Profile is left Incomplete
-            </span>
-            <div className="my-[24px]">
-              <ProgressBar completed={74} />
+      <div className="">
+        {!minimize && (
+          <div className="mt-[24px]">
+            <div className="bg-[#F0F5FF] p-[24px] rounded-lg overflow-hidden">
+              <h1 className="font-header text-[24px] font-[700] whitespace-nowrap">
+                Hay Rahul
+              </h1>
+              <span className="text-[14px] mt-[10px] leading-none font-content whitespace-nowrap">
+                {' '}
+                Your Profile is left Incomplete
+              </span>
+              <div className="my-[24px]">
+                <ProgressBar completed={74} />
+              </div>
+              <button className="w-full whitespace-nowrap border-[1px] border-[#113E53] font-bold bg-white rounded-full px-[20px] py-[12px] text-[#113E53] font-header">
+                Complete Profile
+              </button>
             </div>
-            <button className="w-full whitespace-nowrap border-[1px] border-[#113E53] font-bold bg-white rounded-full px-[20px] py-[12px] text-[#113E53] font-header">
-              Complete Profile
-            </button>
           </div>
-        </div>
-      )}
-      {!minimize && (
-        <div className="text-center mt-[24px]">
-          <span className="text-[12px] text-gray-600 font-content">
-            ©️ 2024 Linkfluencer
-          </span>
-        </div>
-      )}
-     </div>
+        )}
+        {!minimize && (
+          <div className="text-center mt-[24px]">
+            <span className="text-[12px] text-gray-600 font-content">
+              ©️ 2024 Linkfluencer
+            </span>
+          </div>
+        )}
+      </div>
       <div
         className="absolute cursor-pointer -right-3 top-2/4 h-[80px] text-right rounded-2xl border-2 bg-white  border-gray-200 flex items-center"
         onClick={() => {
