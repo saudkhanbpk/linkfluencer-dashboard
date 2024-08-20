@@ -72,7 +72,7 @@ const Sidebar = () => {
           <div className="mt-[24px]">
             <div className="bg-[#F0F5FF] p-[24px] rounded-lg overflow-hidden">
               <h1 className="font-header text-[24px] font-[700] whitespace-nowrap">
-                Hay Rahul
+                Hi Rahul
               </h1>
               <span className="text-[14px] mt-[10px] leading-none font-content whitespace-nowrap">
                 {' '}
