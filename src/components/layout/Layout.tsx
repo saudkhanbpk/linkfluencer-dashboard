@@ -19,7 +19,7 @@ const Layout: React.FC<Props> = () => {
             </div>}
             <div 
             // className=" p-[24px] bg-[#F0F5FF] h-full"
-            className={`${minimize?"w-full":"lg:w-4/5 md:w-4/6, w-full"}  p-[24px] bg-[#F0F5FF] h-[85vh] overflow-y-scroll`}
+            className={`${minimize?"w-full":"lg:w-4/5 md:w-4/6, w-full"} bg-[#F0F5FF] overflow-y-scroll`}
             >
                 {/* <Content /> */}
                 <Outlet/>

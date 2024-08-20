@@ -1,4 +1,4 @@
-const empty_dashboard = {
+export const empty_dashboard = {
     title:"Start Boosting Your Engagement Today!",
     description:"Create smart links that open directly in the native apps, driving higher engagement, boosting followers & subscribers, and better user experience.",
     blocks:[
@@ -18,3 +18,4 @@ const empty_dashboard = {
         },
     ]
 }
+

@@ -6,7 +6,7 @@ const ProgressBar: React.FC<Props> = ({completed}) => {
     // let rest = completed;
 
     console.log({completed})
-    return <div className="h-[5px] flex w-full rounded-full gap-2">
+    return <div className="h-[5px] flex flex-row w-full rounded-full gap-2">
         <div style={{
             width:`${completed}%`
         }} 

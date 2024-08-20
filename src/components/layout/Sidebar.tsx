@@ -41,7 +41,7 @@ const Sidebar: React.FC<Props> = () => {
   }, [minimize]);
   return (
     <div className="relative flex flex-col justify-between w-full border p-[24px] bg-[#FCFCFC] min-h-[90vh]">
-      <ul className="">
+      <ul className=" overflow-hidden">
         {sidebarData.map((val, index) => (
           <li key={index}>
             {val.route ? (
@@ -62,7 +62,7 @@ const Sidebar: React.FC<Props> = () => {
                   alt="dashboard"
                   className={`ml-[10px] mr-[12px]`}
                 />
-                <span className={`${minimize ? "hidden" : ""}`}>
+                <span className={`${minimize ? "hidden" : ""} whitespace-nowrap`}>
                   {val?.label}
                 </span>
               </NavLink>
@@ -97,7 +97,7 @@ const Sidebar: React.FC<Props> = () => {
      <div className="">
      {!minimize && (
         <div className="mt-[24px]">
-          <div className="bg-[#F0F5FF] p-[24px] rounded-lg">
+          <div className="bg-[#F0F5FF] p-[24px] rounded-lg overflow-hidden">
             <h1 className="font-header text-[24px] font-[700] whitespace-nowrap">Hay Rahul</h1>
             <span className="text-[14px] mt-[10px] leading-none font-content whitespace-nowrap">
               {" "}

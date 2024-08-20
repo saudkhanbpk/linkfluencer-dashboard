@@ -6,6 +6,7 @@ import MyLinks from './pages/MyLinks';
 import BulkUpload from './pages/BulkUpload';
 import Analytics from './pages/Analytics';
 import { MinimizeContextProvider } from './context/LayoutContext';
+import Dashboard2 from './pages/Dashboard2';
 function App() {
   return (
     <div className='max-w-[1920px] m-auto'>
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Dashboard />} />
+            <Route path="/test-dashboard" element={<Dashboard2 />} />
             <Route path="/my-links" element={<MyLinks />} />
             <Route path="/bulk-upload" element={<BulkUpload />} />
             <Route path="/analytics" element={<Analytics />} />
