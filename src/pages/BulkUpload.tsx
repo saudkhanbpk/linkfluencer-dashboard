@@ -5,20 +5,23 @@ const BulkUpload: React.FC = () => {
   const [showInfo, setShowInfo] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [uploadComplete, setUploadComplete] = useState(false);
-  const [correctLinks, setCorrectLinks] = useState(0);
-  const [errorLinks, setErrorLinks] = useState(0);
+  const [smartLinksCreated, setSmartLinksCreated] = useState<number | null>(
+    null,
+  );
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       setSelectedFile(file);
       setUploadComplete(false);
+      setSmartLinksCreated(null);
     }
   };
 
   const handleRemoveFile = () => {
     setSelectedFile(null);
     setUploadComplete(false);
+    setSmartLinksCreated(null);
   };
 
   const handleImport = () => {
@@ -29,10 +32,8 @@ const BulkUpload: React.FC = () => {
     if (selectedFile) {
       setUploading(true);
       setTimeout(() => {
-        // Simulate the completion of an upload and analysis process
         setUploading(false);
-        setCorrectLinks(60); // Example number of correct links found
-        setErrorLinks(4); // Example number of errors found
+        setSmartLinksCreated(112); // Example number of smart links created
         setUploadComplete(true);
       }, 2000); // Simulate upload time
     }
@@ -41,6 +42,11 @@ const BulkUpload: React.FC = () => {
   const handleDownloadTemplate = () => {
     console.log('Downloading template...');
     // Logic to handle downloading template goes here
+  };
+
+  const handleGoToLinks = () => {
+    console.log('Navigating to My Links...');
+    // Logic to navigate to the user's links goes here
   };
 
   return (
@@ -62,20 +68,34 @@ const BulkUpload: React.FC = () => {
               ></div>
             </div>
           </div>
-        ) : uploadComplete ? (
-          <div className="flex flex-col justify-center h-64 lg:h-72">
-            <p className="text-gray-500 text-center">
-              Correct link found {correctLinks}...
-            </p>
-            <div className="w-full bg-gray-200 rounded-full h-2.5 mt-4">
-              <div
-                className="bg-blue-600 h-2.5 rounded-full"
-                style={{ width: '85%' }}
-              ></div>
+        ) : uploadComplete && smartLinksCreated !== null ? (
+          <div className="flex flex-col items-center justify-center h-64 lg:h-72 text-center">
+            <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+                stroke="currentColor"
+                className="w-8 h-8 text-blue-600"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M5 13l4 4L19 7"
+                />
+              </svg>
             </div>
-            <p className="text-red-500 text-center mt-4">
-              Error found {errorLinks}...
+            <p className="text-gray-700 font-medium">
+              {smartLinksCreated} Smart link{smartLinksCreated > 1 ? 's' : ''}{' '}
+              has been created successfully
             </p>
+            <button
+              className="mt-4 md:w-[189px] border-[1px] border-[#113E53] font-bold bg-[#113E53] rounded-full px-[20px] py-[12px] text-white font-header"
+              onClick={handleGoToLinks}
+            >
+              Go to My Links
+            </button>
           </div>
         ) : !selectedFile ? (
           <div className="flex flex-col items-center justify-center h-64 lg:h-72">
