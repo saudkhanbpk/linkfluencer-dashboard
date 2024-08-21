@@ -4,7 +4,7 @@ interface Props {
 }
 const IndicateDown: React.FC<Props> = ({ percent }) => {
   return (
-    <div className="flex items-center bg-[#F8E6E6] rounded-full px-2 py-1 h-[24px]">
+    <div className="flex items-center justify-center bg-[#F8E6E6] rounded-full px-2 py-1 h-[24px] w-[65px]">
       <span className="text-[12px] text-[#AE0000] font-[600]">{percent}%</span>
       <svg
         xmlns="http://www.w3.org/2000/svg"

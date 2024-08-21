@@ -13,12 +13,12 @@ indicateUp:boolean,
 
 const LinkSquar: React.FC<Props> = ({link, totalClicks, tags, percent,logo, indicateUp}) => {
   return (
-    <div className="min-w-[350px] w-[350px] min-h-[246px] h-[246px]">
+    <div className="max-h-[246px] h-[246px]">
       <div className=" border-t border-x flex justify-between px-[24px] h-[64px] py-[16px] rounded-t-2xl bg-gray-100">
         <div className="flex flex-row items-center">
           <img
             src={logo}
-            alt="youtube-logo"
+            alt={"social Icon"}
             className="mr-3"
           />
           <label>Youtube</label>

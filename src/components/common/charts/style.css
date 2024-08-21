@@ -1,0 +1,18 @@
+.apexcharts-toolbar{
+   display: none !important;
+}
+.apexcharts-xaxis-texts-g{
+   display: none !important;
+}
+.apexcharts-yaxis{
+    display: none !important;
+}
+.apexcharts-grid{
+    display: none !important;
+}
+.apexcharts-grid-borders{
+    display: none !important;
+}
+.apexcharts-xaxis-tick{
+    display: none !important;
+}

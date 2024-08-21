@@ -1,6 +1,8 @@
 import { useState } from "react";
 import LinkSquar from "../components/common/cards/LinkSquar";
-
+import ApexChart from "../components/common/charts/AreaChatr";
+import IndicateUp from "../components/common/cards/IndicateUp";
+import IndicateDown from "../components/common/cards/indicateDown";
 
 interface Props {}
 
@@ -23,24 +25,33 @@ const Dashboard2: React.FC<Props> = () => {
 
   const Links = [
     {
-        logo:"/assets/youtubeLogo.svg",
-        link:"https://linkfluencerstg.addwebprojects.com/nextdor",
-        label:"Youtube",
-        tags:"#Educational Physic",
-        totalClicks:200,
-        percent:18,
-        indicateUp:true
+      logo: "/assets/youtubeLogo.svg",
+      link: "https://linkfluencerstg.addwebprojects.com/nextdor",
+      label: "Youtube",
+      tags: "#Educational #Sciences",
+      totalClicks: 200,
+      percent: 18,
+      indicateUp: true,
     },
     {
-        logo:"/assets/amazonLogo.svg",
-        link:"https://linkfluencerstg.addwebprojects.com/nextdor",
-        label:"Amazon",
-        tags:"#Educational Physic",
-        totalClicks:140,
-        percent:22,
-        indicateUp:false
+      logo: "/assets/amazonLogo.svg",
+      link: "https://linkfluencerstg.addwebprojects.com/nextdor",
+      label: "Amazon",
+      tags: "#Educational #Physic",
+      totalClicks: 140,
+      percent: 22,
+      indicateUp: false,
     },
-  ]
+    {
+      logo: "/assets/spotifyLogo.svg",
+      link: "https://linkfluencerstg.addwebprojects.com/nextdor",
+      label: "Spotify",
+      tags: "#Educational #Music",
+      totalClicks: 140,
+      percent: 75,
+      indicateUp: true,
+    },
+  ];
   return (
     <div>
       <div className="p-[24px]">
@@ -83,10 +94,15 @@ const Dashboard2: React.FC<Props> = () => {
               return (
                 <li
                   key={index}
-                  className={`border-b-[3px] text-[#252C32] text-[14px] ${selectedTab === index ? "font-[600] border-[#252C32]":"font-[400]"} border-transparent hover:border-black py-[8px] cursor-pointer duration-500`}
-                 onClick={()=>{
-                    setSelectedTab(index)
-                 }}
+                  className={`border-b-[3px] text-[#252C32] text-[14px] ${
+                    selectedTab == index
+                      ? "font-[600] border-[#252C32]"
+                      : "font-[400] border-transparent"
+                  }  hover:border-black py-[8px] cursor-pointer duration-500`}
+                  onClick={() => {
+                    setSelectedTab(index);
+                    console.log({ selectedTab, index });
+                  }}
                 >
                   {val?.label}
                 </li>
@@ -94,19 +110,57 @@ const Dashboard2: React.FC<Props> = () => {
             })}
           </ul>
         </div>
-        <div className="my-4 flex gap-4">
-       {
-        Links.map((val, index)=>{
-            return  <LinkSquar 
-            link={val?.link} 
-            totalClicks={val?.totalClicks} 
-            tags={val.tags} 
-            logo={val?.logo}
-            percent = {val.percent}
-            indicateUp = {val.indicateUp}
-            />
-        })
-       }
+        <div className="my-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {Links.map((val, index) => {
+            return (
+              <div className="mt-8 lg:mt-0">
+                <LinkSquar
+                  link={val?.link}
+                  totalClicks={val?.totalClicks}
+                  tags={val.tags}
+                  logo={val?.logo}
+                  percent={val.percent}
+                  indicateUp={val.indicateUp}
+                />
+              </div>
+            );
+          })}
+        </div>
+        <div className="mt-12">
+          <h1>Analytics</h1>
+          <div className="grid md:grid-cols-3 h-[300px]">
+            <div className="flex border flex-col relative items-center p-[20px] rounded-2xl w-full">
+            <div className="relative flex w-full items-center h-full">
+            <div className="h-full w-full flex flex-col justify-center">
+                <span className="text-[#4C4C4C] font-content whitespace-nowrap">
+                  Youtube yearly earning
+                </span>
+                <h1 className="text-2xl font-content">$19,341.88</h1>
+                <div className="mt-4">
+                  <IndicateUp percent={10} />
+                </div>
+              </div>
+              <div className="absolute -right-6 mt-12 m-[24px] w-[200px]">
+                <ApexChart indicateUp={true}/>
+              </div>
+            </div>
+            <div className="w-full border-[1.5px]"></div>
+            <div className="relative flex w-full items-center h-full">
+            <div className="h-full w-full flex flex-col justify-center">
+                <span className="text-[#4C4C4C] font-content whitespace-nowrap">
+                Youtube this Month earning
+                </span>
+                <h1 className="text-2xl font-content">$199</h1>
+                <div className="mt-4">
+                  <IndicateDown percent={10} />
+                </div>
+              </div>
+              <div className="absolute -right-6 mt-12 m-[24px] w-[200px]">
+                <ApexChart  indicateUp={false}/>
+              </div>
+            </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

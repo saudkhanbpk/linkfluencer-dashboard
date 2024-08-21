@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@media (max-width: 1500px) and (min-width: 1350px) {
+    body {
+      zoom: 80%;
+    }
+  }
