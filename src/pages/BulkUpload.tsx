@@ -1,4 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import UploadButton from '../components/BulkUpload/UploadButton';
+import ProgressBar from '../components/BulkUpload/ProgressBar';
+import FileInfo from '../components/BulkUpload/FileInfo';
+import SuccessMessage from '../components/BulkUpload/SuccessMessage';
+import InfoPopup from '../components/BulkUpload/InfoPopup';
 
 const BulkUpload: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -8,6 +14,24 @@ const BulkUpload: React.FC = () => {
   const [smartLinksCreated, setSmartLinksCreated] = useState<number | null>(
     null,
   );
+  const [progress, setProgress] = useState(0);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!uploading) return;
+
+    const interval = setInterval(() => {
+      setProgress((prevProgress) => {
+        if (prevProgress >= 100) {
+          clearInterval(interval);
+          return 100;
+        }
+        return prevProgress + 1;
+      });
+    }, 100);
+
+    return () => clearInterval(interval);
+  }, [uploading]);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -33,70 +57,34 @@ const BulkUpload: React.FC = () => {
       setUploading(true);
       setTimeout(() => {
         setUploading(false);
-        setSmartLinksCreated(112); // Example number of smart links created
+        setSmartLinksCreated(112);
         setUploadComplete(true);
-      }, 2000); // Simulate upload time
+      }, 2000);
     }
   };
 
   const handleDownloadTemplate = () => {
     console.log('Downloading template...');
-    // Logic to handle downloading template goes here
   };
 
   const handleGoToLinks = () => {
-    console.log('Navigating to My Links...');
-    // Logic to navigate to the user's links goes here
+    navigate('/my-links');
   };
 
   return (
     <div className="flex flex-col items-center px-4 py-8 lg:py-16 lg:px-32 bg-white">
-      {/* Header Section */}
       <div className="p-6 w-full flex flex-col items-start">
         <h1 className="text-2xl font-header text-left">Bulk Upload</h1>
       </div>
 
-      {/* File Upload Section */}
       <div className="border-dashed border-2 border-gray-300 rounded-lg w-full lg:max-w-4xl p-8 lg:p-16 mt-4">
         {uploading ? (
-          <div className="flex flex-col items-center justify-center h-64 lg:h-72">
-            <p className="text-gray-500 text-center">Uploading...</p>
-            <div className="w-full bg-gray-200 rounded-full h-2.5 mt-4">
-              <div
-                className="bg-blue-600 h-2.5 rounded-full"
-                style={{ width: '70%' }}
-              ></div>
-            </div>
-          </div>
+          <ProgressBar progress={progress} />
         ) : uploadComplete && smartLinksCreated !== null ? (
-          <div className="flex flex-col items-center justify-center h-64 lg:h-72 text-center">
-            <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={2}
-                stroke="currentColor"
-                className="w-8 h-8 text-blue-600"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M5 13l4 4L19 7"
-                />
-              </svg>
-            </div>
-            <p className="text-gray-700 font-medium">
-              {smartLinksCreated} Smart link{smartLinksCreated > 1 ? 's' : ''}{' '}
-              has been created successfully
-            </p>
-            <button
-              className="mt-4 md:w-[189px] border-[1px] border-[#113E53] font-bold bg-[#113E53] rounded-full px-[20px] py-[12px] text-white font-header"
-              onClick={handleGoToLinks}
-            >
-              Go to My Links
-            </button>
-          </div>
+          <SuccessMessage
+            smartLinksCreated={smartLinksCreated}
+            onGoToLinks={handleGoToLinks}
+          />
         ) : !selectedFile ? (
           <div className="flex flex-col items-center justify-center h-64 lg:h-72">
             <img
@@ -117,56 +105,23 @@ const BulkUpload: React.FC = () => {
               id="file-upload"
             />
             <div className="flex flex-col lg:flex-row gap-4 mt-8 lg:mt-12">
-              <button
-                className="w-full mt-4 md:mt-0 md:w-[189px] border-[1px] border-[#113E53] font-bold bg-[#113E53] rounded-full px-[20px] py-[12px] text-white font-header"
-                onClick={handleImport}
-              >
-                Import
-              </button>
-              <button
+              <UploadButton label="Import" onClick={handleImport} />
+              <UploadButton
+                label="Download Template"
                 onClick={handleDownloadTemplate}
-                className="w-full mt-4 md:mt-0 md:w-[189px] font-bold bg-[#F1F5F9] rounded-full px-[20px] py-[12px] text-[#113E53] font-header whitespace-nowrap"
-              >
-                Download Template
-              </button>
+                variant="outline"
+              />
             </div>
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-center h-64 lg:h-72">
-            <img
-              src="/assets/fileIcon.svg"
-              alt="File Icon"
-              className="w-12 h-12 mb-4"
-            />
-
-            <div className="flex flex-col lg:flex-row items-center justify-center">
-              <p className="text-gray-500 text-center mr-2 lg:mr-4 whitespace-nowrap">
-                Selected file
-              </p>
-              <p className="text-gray-700 text-center font-semibold mr-2 lg:mr-4 whitespace-nowrap">
-                {selectedFile.name}
-              </p>
-              <p className="text-sm text-gray-400 text-center mr-2 lg:mr-4 whitespace-nowrap">
-                {(selectedFile.size / (1024 * 1024)).toFixed(1)}mb
-              </p>
-              <button
-                className="text-gray-500 hover:text-gray-700"
-                onClick={handleRemoveFile}
-              >
-                &times;
-              </button>
-            </div>
-            <button
-              className="w-full mt-4 md:w-[189px] border-[1px] border-[#113E53] font-bold bg-[#113E53] rounded-full px-[20px] py-[12px] text-white font-header"
-              onClick={handleUpload}
-            >
-              Upload
-            </button>
-          </div>
+          <FileInfo
+            file={selectedFile}
+            onRemoveFile={handleRemoveFile}
+            onUpload={handleUpload}
+          />
         )}
       </div>
 
-      {/* More Info Button */}
       <div className="flex justify-end w-full lg:max-w-4xl mt-2">
         <button
           onClick={() => setShowInfo(true)}
@@ -192,41 +147,7 @@ const BulkUpload: React.FC = () => {
         </button>
       </div>
 
-      {/* Popup d'informations supplémentaires */}
-      {showInfo && (
-        <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white rounded-lg p-6 max-w-sm lg:max-w-lg mx-4 shadow-lg">
-            <h2 className="text-xl font-semibold mb-4">Bulk Upload</h2>
-            <div className="text-sm text-gray-700">
-              <p className="font-bold">Campaign Name, Link Tags:</p>
-              <ul className="list-disc pl-5 mb-4">
-                <li>Character limit: 3 to 200 characters</li>
-                <li>
-                  Allowed characters: Letters (uppercase & lowercase), numbers,
-                  spaces, underscores (_), and hyphens (-)
-                </li>
-              </ul>
-              <p className="font-bold">Prefix & Suffix:</p>
-              <ul className="list-disc pl-5">
-                <li>Character limit: Minimum of 5 characters</li>
-                <li>Allowed characters: Lowercase letters and numbers</li>
-                <li>
-                  Uniqueness: Ensure both prefix and suffix are unique for all
-                  smart links you&apos;re creating in this bulk upload.
-                </li>
-              </ul>
-            </div>
-            <div className="flex justify-end mt-6">
-              <button
-                onClick={() => setShowInfo(false)}
-                className="py-2 px-4 bg-white text-[#113E53] border-[1px] border-[#113E53] rounded-full shadow-sm hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <InfoPopup show={showInfo} onClose={() => setShowInfo(false)} />
     </div>
   );
 };
