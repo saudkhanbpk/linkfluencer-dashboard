@@ -5,11 +5,14 @@ const BulkUpload: React.FC = () => {
   const [showInfo, setShowInfo] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [uploadComplete, setUploadComplete] = useState(false);
+  const [correctLinks, setCorrectLinks] = useState(0);
+  const [errorLinks, setErrorLinks] = useState(0);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       setSelectedFile(file);
+      setUploadComplete(false);
     }
   };
 
@@ -26,7 +29,10 @@ const BulkUpload: React.FC = () => {
     if (selectedFile) {
       setUploading(true);
       setTimeout(() => {
+        // Simulate the completion of an upload and analysis process
         setUploading(false);
+        setCorrectLinks(60); // Example number of correct links found
+        setErrorLinks(4); // Example number of errors found
         setUploadComplete(true);
       }, 2000); // Simulate upload time
     }
@@ -46,7 +52,32 @@ const BulkUpload: React.FC = () => {
 
       {/* File Upload Section */}
       <div className="border-dashed border-2 border-gray-300 rounded-lg w-full lg:max-w-4xl p-8 lg:p-16 mt-4">
-        {!selectedFile ? (
+        {uploading ? (
+          <div className="flex flex-col items-center justify-center h-64 lg:h-72">
+            <p className="text-gray-500 text-center">Uploading...</p>
+            <div className="w-full bg-gray-200 rounded-full h-2.5 mt-4">
+              <div
+                className="bg-blue-600 h-2.5 rounded-full"
+                style={{ width: '70%' }}
+              ></div>
+            </div>
+          </div>
+        ) : uploadComplete ? (
+          <div className="flex flex-col justify-center h-64 lg:h-72">
+            <p className="text-gray-500 text-center">
+              Correct link found {correctLinks}...
+            </p>
+            <div className="w-full bg-gray-200 rounded-full h-2.5 mt-4">
+              <div
+                className="bg-blue-600 h-2.5 rounded-full"
+                style={{ width: '85%' }}
+              ></div>
+            </div>
+            <p className="text-red-500 text-center mt-4">
+              Error found {errorLinks}...
+            </p>
+          </div>
+        ) : !selectedFile ? (
           <div className="flex flex-col items-center justify-center h-64 lg:h-72">
             <img
               src="/assets/uploadIcon.svg"
