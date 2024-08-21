@@ -25,6 +25,7 @@ const ApexChart = ({indicateUp = true,}) => {
       },
       stroke: {
         curve: "smooth",
+        width:2
       },
       xaxis: {
         type: "datetime",

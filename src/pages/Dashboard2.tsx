@@ -127,8 +127,8 @@ const Dashboard2: React.FC<Props> = () => {
           })}
         </div>
         <div className="mt-12">
-          <h1>Analytics</h1>
-          <div className="grid md:grid-cols-3 h-[300px]">
+          <h1 className="font-[600] font-content">Analytics</h1>
+          <div className="grid md:grid-cols-3 h-[300px] mt-4">
             <div className="flex border flex-col relative items-center p-[20px] rounded-2xl w-full">
             <div className="relative flex w-full items-center h-full">
             <div className="h-full w-full flex flex-col justify-center">
