@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useState } from "react";
 import LinkSquar from "../components/common/cards/LinkSquar";
 import ApexChart from "../components/common/charts/AreaChatr";
@@ -7,41 +8,62 @@ import IndicateDown from "../components/common/cards/indicateDown";
 interface Props {}
 
 const Dashboard2: React.FC<Props> = () => {
+=======
+import { useState } from 'react';
+import LinkSquare from '../components/common/cards/LinkSquare';
+
+const Dashboard2 = () => {
+>>>>>>> 218aa8ce88990bcb2cc297c79fb6a3d12ead02ba
   const [selectedTab, setSelectedTab] = useState(0);
   const tabs = [
     {
-      label: "Top Links",
+      label: 'Top Links',
     },
     {
-      label: "Newly Added",
+      label: 'Newly Added',
     },
     {
-      label: "Old Links",
+      label: 'Old Links',
     },
     {
-      label: "Affiliated Links",
+      label: 'Affiliated Links',
     },
   ];
 
   const Links = [
     {
+<<<<<<< HEAD
       logo: "/assets/youtubeLogo.svg",
       link: "https://linkfluencerstg.addwebprojects.com/nextdor",
       label: "Youtube",
       tags: "#Educational #Sciences",
+=======
+      logo: '/assets/youtubeLogo.svg',
+      link: 'https://linkfluencerstg.addwebprojects.com/nextdor',
+      label: 'Youtube',
+      tags: '#Educational Physic',
+>>>>>>> 218aa8ce88990bcb2cc297c79fb6a3d12ead02ba
       totalClicks: 200,
       percent: 18,
       indicateUp: true,
     },
     {
+<<<<<<< HEAD
       logo: "/assets/amazonLogo.svg",
       link: "https://linkfluencerstg.addwebprojects.com/nextdor",
       label: "Amazon",
       tags: "#Educational #Physic",
+=======
+      logo: '/assets/amazonLogo.svg',
+      link: 'https://linkfluencerstg.addwebprojects.com/nextdor',
+      label: 'Amazon',
+      tags: '#Educational Physic',
+>>>>>>> 218aa8ce88990bcb2cc297c79fb6a3d12ead02ba
       totalClicks: 140,
       percent: 22,
       indicateUp: false,
     },
+<<<<<<< HEAD
     {
       logo: "/assets/spotifyLogo.svg",
       link: "https://linkfluencerstg.addwebprojects.com/nextdor",
@@ -51,12 +73,14 @@ const Dashboard2: React.FC<Props> = () => {
       percent: 75,
       indicateUp: true,
     },
+=======
+>>>>>>> 218aa8ce88990bcb2cc297c79fb6a3d12ead02ba
   ];
   return (
     <div>
       <div className="p-[24px]">
         <div>
-          <h4 className="text-gray-500 font-content">Rahul's</h4>
+          <h4 className="text-gray-500 font-content">Rahul&rsquo;s</h4>
           <h1 className="text-2xl font-header">Dashboard</h1>
         </div>
         <div className="mt-[24px] flex md:flex-row flex-col items-center">
@@ -94,6 +118,7 @@ const Dashboard2: React.FC<Props> = () => {
               return (
                 <li
                   key={index}
+<<<<<<< HEAD
                   className={`border-b-[3px] text-[#252C32] text-[14px] ${
                     selectedTab == index
                       ? "font-[600] border-[#252C32]"
@@ -102,6 +127,11 @@ const Dashboard2: React.FC<Props> = () => {
                   onClick={() => {
                     setSelectedTab(index);
                     console.log({ selectedTab, index });
+=======
+                  className={`border-b-[3px] text-[#252C32] text-[14px] ${selectedTab === index ? 'font-[600] border-[#252C32]' : 'font-[400]'} border-transparent hover:border-black py-[8px] cursor-pointer duration-500`}
+                  onClick={() => {
+                    setSelectedTab(index);
+>>>>>>> 218aa8ce88990bcb2cc297c79fb6a3d12ead02ba
                   }}
                 >
                   {val?.label}
@@ -110,6 +140,7 @@ const Dashboard2: React.FC<Props> = () => {
             })}
           </ul>
         </div>
+<<<<<<< HEAD
         <div className="my-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {Links.map((val, index) => {
             return (
@@ -161,6 +192,22 @@ const Dashboard2: React.FC<Props> = () => {
             </div>
             </div>
           </div>
+=======
+        <div className="my-4 flex gap-4">
+          {Links.map((val, index) => {
+            return (
+              <LinkSquare
+                link={val?.link}
+                totalClicks={val?.totalClicks}
+                tags={val.tags}
+                logo={val?.logo}
+                percent={val.percent}
+                indicateUp={val.indicateUp}
+                key={index}
+              />
+            );
+          })}
+>>>>>>> 218aa8ce88990bcb2cc297c79fb6a3d12ead02ba
         </div>
       </div>
     </div>

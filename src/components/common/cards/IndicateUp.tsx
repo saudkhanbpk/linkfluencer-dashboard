@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 interface Props {}
 interface Props {
     percent: number
@@ -22,6 +23,13 @@ const IndicateUp: React.FC<Props> = ({percent}) => {
       </svg>
     </span>
   );
+=======
+import React from 'react';
+import Indicate from './Indicate';
+
+const IndicateUp: React.FC<{ percent: number }> = ({ percent }) => {
+  return <Indicate percent={percent} color="#00AE3E" direction="up" />;
+>>>>>>> 218aa8ce88990bcb2cc297c79fb6a3d12ead02ba
 };
 
-export default IndicateUp
+export default IndicateUp;

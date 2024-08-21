@@ -1,26 +1,36 @@
-import IndicateDown from "./indicateDown";
-import IndicateUp from "./IndicateUp";
-interface Props{
-link:string,
-totalClicks:number,
-tags:string,
-percent:number,
-logo:string,
-indicateUp:boolean,
+import IndicateDown from './IndicateDown';
+import IndicateUp from './IndicateUp';
 
+interface Props {
+  link: string;
+  totalClicks: number;
+  tags: string;
+  percent: number;
+  logo: string;
+  indicateUp: boolean;
 }
 
-
-const LinkSquar: React.FC<Props> = ({link, totalClicks, tags, percent,logo, indicateUp}) => {
+const LinkSquare: React.FC<Props> = ({
+  link,
+  totalClicks,
+  tags,
+  percent,
+  logo,
+  indicateUp,
+}) => {
   return (
     <div className="max-h-[246px] h-[246px]">
       <div className=" border-t border-x flex justify-between px-[24px] h-[64px] py-[16px] rounded-t-2xl bg-gray-100">
         <div className="flex flex-row items-center">
+<<<<<<< HEAD:src/components/common/cards/LinkSquar.tsx
           <img
             src={logo}
             alt={"social Icon"}
             className="mr-3"
           />
+=======
+          <img src={logo} alt="youtube-logo" className="mr-3" />
+>>>>>>> 218aa8ce88990bcb2cc297c79fb6a3d12ead02ba:src/components/common/cards/LinkSquare.tsx
           <label>Youtube</label>
         </div>
         <div className="flex flex-row items-center gap-4">
@@ -61,19 +71,25 @@ const LinkSquar: React.FC<Props> = ({link, totalClicks, tags, percent,logo, indi
         </div>
       </div>
       <div className="border-x border-b p-[24px] flex flex-col justify-between bg-gray-50 rounded-b-lg">
-        <span className="text-[14px] font-content break-words">
-         {link}
-        </span>
+        <span className="text-[14px] font-content break-words">{link}</span>
         <span className="my-4 text-[#5890FF]">{tags}</span>
         <div>
           <span className="text-[12px] text-[#9B919D]">Total Clicked</span>
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <h1 className="text-[24px] font-content mr-2">{totalClicks} </h1>
-              {indicateUp?  <IndicateUp percent={percent}/> : <IndicateDown percent={percent}/>}
+              {indicateUp ? (
+                <IndicateUp percent={percent} />
+              ) : (
+                <IndicateDown percent={percent} />
+              )}
             </div>
             <div className="p-2 rounded-full hover:bg-gray-200 duration-150">
-              <svg fill="currentColor" viewBox="0 0 16 16" className="size-4 cursor-pointer">
+              <svg
+                fill="currentColor"
+                viewBox="0 0 16 16"
+                className="size-4 cursor-pointer"
+              >
                 <path
                   fillRule="evenodd"
                   d="M1 8a.5.5 0 01.5-.5h11.793l-3.147-3.146a.5.5 0 01.708-.708l4 4a.5.5 0 010 .708l-4 4a.5.5 0 01-.708-.708L13.293 8.5H1.5A.5.5 0 011 8z"
@@ -87,4 +103,4 @@ const LinkSquar: React.FC<Props> = ({link, totalClicks, tags, percent,logo, indi
   );
 };
 
-export default LinkSquar;
+export default LinkSquare;
