@@ -1,4 +1,4 @@
-import IndicateDown from './IndicateDown';
+import IndicateDown from './indicateDown'
 import IndicateUp from './IndicateUp';
 
 interface Props {
@@ -19,7 +19,7 @@ const LinkSquare: React.FC<Props> = ({
   indicateUp,
 }) => {
   return (
-    <div className="max-h-[246px] h-[246px]">
+    <div className="">
       <div className=" border-t border-x flex justify-between px-[24px] h-[64px] py-[16px] rounded-t-2xl bg-gray-100">
         <div className="flex flex-row items-center">
           <img src={logo} alt={'social Icon'} className="mr-3" />

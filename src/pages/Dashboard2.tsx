@@ -2,7 +2,7 @@ import { useState } from 'react';
 import LinkSquare from '../components/common/cards/LinkSquare';
 import ApexChart from '../components/common/charts/AreaChatr';
 import IndicateUp from '../components/common/cards/IndicateUp';
-import IndicateDown from '../components/common/cards/IndicateDown';
+import IndicateDown from '../components/common/cards/indicateDown';
 import CalumnChart from '../components/common/charts/columnChart';
 import useDeviceDetect from '../helpers/screens';
 import Dropdown from '../components/common/Dropdown';
@@ -143,7 +143,7 @@ const Dashboard2: React.FC = () => {
           ) : (
             <div className="flex items-center gap-2">
               <span
-                className={`text-[#252C32] flex items-center text-[14px] py-[8px] cursor-pointer duration-500 mr-2`}
+                className={`text-[#252C32] flex items-center text-[14px] py-[8px] cursor-pointer duration-500`}
               >
                 <svg fill="currentColor" viewBox="0 0 16 16" className="size-8">
                   <path d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
@@ -168,12 +168,12 @@ const Dashboard2: React.FC = () => {
               }
 
               children={
-                <ul className='bg-white w-auto shadow-md rounded-lg'>
+                <ul className='bg-white w-auto shadow-md border-0.5 rounded-lg py-2'>
                   {tabs.map((val, index) => {
                 return (
                   <li
                     key={index}
-                    className={`text-[#252C32] text-[14px] p-3 ${
+                    className={`text-[#252C32] text-[14px] px-3 py-2 border-b ${
                       selectedTab == index
                         ? 'font-[600]'
                         : 'font-[400]'
