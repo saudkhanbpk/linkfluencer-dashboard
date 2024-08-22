@@ -60,7 +60,7 @@ const Dropdown: React.FC<DropdownProps> = ({
       </span>
       {isOpen && (
         <div className="origin-top-right absolute right-0 mt-2 ring-black ring-opacity-5 focus:outline-none">
-          <div className="">{children}</div>
+          <div className="" onClick={toggleDropdown}>{children}</div>
         </div>
       )}
     </div>

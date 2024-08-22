@@ -1,7 +1,7 @@
 interface Props {
-    percent: number
+  percent: number;
 }
-const IndicateUp: React.FC<Props> = ({percent}) => {
+const IndicateUp: React.FC<Props> = ({ percent }) => {
   return (
     <span className="flex items-center justify-center bg-[#E6F8F0] rounded-full px-2 py-1 h-[24px] w-[65px]">
       <span className="text-[12px] text-[#00AE3E] font-[600]">{percent}%</span>

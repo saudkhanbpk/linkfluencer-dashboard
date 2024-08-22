@@ -7,7 +7,6 @@ const useDeviceDetect = () => {
   const [width, setWidth] = useState(0);
 
   const checkDeviceType = useCallback(() => {
-    // Default to mobile if window is undefined (e.g., SSR)
     const screenWidth = window.innerWidth;
     setWidth(screenWidth);
     setIsMobile(screenWidth < MOBILE_WIDTH);

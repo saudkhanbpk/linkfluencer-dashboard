@@ -70,7 +70,7 @@ const Sidebar = () => {
       <div className="">
         {!minimize && (
           <div className="mt-[24px]">
-            <div className="bg-[#F0F5FF] p-[24px] rounded-lg overflow-hidden">
+            <div className="bg-[#F0F5FF] p-[15px] rounded-lg overflow-hidden">
               <h1 className="font-header text-[24px] font-[700] whitespace-nowrap">
                 Hi Rahul
               </h1>
