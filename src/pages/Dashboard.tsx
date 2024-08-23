@@ -11,7 +11,7 @@ const Dashboard: React.FC = () => {
         <div className="flex items-center justify-between md:w-[340px] w-full h-[48px] rounded-full px-[16px] bg-white py-1">
           <input
             type="text"
-            placeholder="Search"
+            placeholder="Paste your link here"
             className="h-full rounded-none w-full outline-none"
           />
           <svg

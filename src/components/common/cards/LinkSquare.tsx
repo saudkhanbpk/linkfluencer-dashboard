@@ -9,6 +9,7 @@ interface Props {
   logo: string;
   indicateUp: boolean;
   minimize?:boolean;
+  isDelete?:boolean
 }
 
 const LinkSquare: React.FC<Props> = ({
@@ -18,7 +19,8 @@ const LinkSquare: React.FC<Props> = ({
   percent,
   logo,
   indicateUp,
-  minimize
+  minimize,
+  isDelete
 }) => {
   return (
     <div className="">
@@ -27,7 +29,7 @@ const LinkSquare: React.FC<Props> = ({
           <img src={logo} alt={'social Icon'} className="mr-3" />
           <label>Youtube</label>
         </div>
-        <div className="flex flex-row items-center gap-4">
+       {!isDelete? <div className="flex flex-row items-center gap-4">
           <svg
             viewBox="0 0 24 24"
             fill="currentColor"
@@ -62,7 +64,9 @@ const LinkSquare: React.FC<Props> = ({
             <path d="M11 9 H20 A2 2 0 0 1 22 11 V20 A2 2 0 0 1 20 22 H11 A2 2 0 0 1 9 20 V11 A2 2 0 0 1 11 9 z" />
             <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
           </svg>
-        </div>
+        </div> : 
+            <input type="checkbox" className="w-6 h-6 cursor-pointer" />
+        }
       </div>
       <div className="border-x border-b p-[24px] flex flex-col justify-between bg-gray-50 rounded-b-lg">
         {!minimize && <><span className="text-[14px] font-content break-words">{link}</span>
@@ -98,7 +102,3 @@ const LinkSquare: React.FC<Props> = ({
 };
 
 export default LinkSquare;
-
-LinkSquare.defaultProps = {
-  minimize : false
-}
