@@ -8,6 +8,7 @@ interface Props {
   percent: number;
   logo: string;
   indicateUp: boolean;
+  minimize?:boolean;
 }
 
 const LinkSquare: React.FC<Props> = ({
@@ -17,6 +18,7 @@ const LinkSquare: React.FC<Props> = ({
   percent,
   logo,
   indicateUp,
+  minimize
 }) => {
   return (
     <div className="">
@@ -63,8 +65,8 @@ const LinkSquare: React.FC<Props> = ({
         </div>
       </div>
       <div className="border-x border-b p-[24px] flex flex-col justify-between bg-gray-50 rounded-b-lg">
-        <span className="text-[14px] font-content break-words">{link}</span>
-        <span className="my-4 text-[#5890FF]">{tags}</span>
+        {!minimize && <><span className="text-[14px] font-content break-words">{link}</span>
+        <span className="my-4 text-[#5890FF]">{tags}</span></>}
         <div>
           <span className="text-[12px] text-[#9B919D]">Total Clicked</span>
           <div className="flex items-center justify-between">
@@ -96,3 +98,7 @@ const LinkSquare: React.FC<Props> = ({
 };
 
 export default LinkSquare;
+
+LinkSquare.defaultProps = {
+  minimize : false
+}

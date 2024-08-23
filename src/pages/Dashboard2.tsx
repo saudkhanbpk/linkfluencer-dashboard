@@ -9,6 +9,7 @@ import Dropdown from '../components/common/Dropdown';
 
 const Dashboard2: React.FC = () => {
   const [selectedTab, setSelectedTab] = useState(0);
+  const [minimize, setMinimize] = useState(false)
   const { isMobile } = useDeviceDetect();
   const tabs = [
     {
@@ -81,6 +82,7 @@ const Dashboard2: React.FC = () => {
       socialLogo: '/assets/estyLogo.svg',
     },
   ];
+
 
   return (
     <div>
@@ -204,6 +206,7 @@ const Dashboard2: React.FC = () => {
                   logo={val?.logo}
                   percent={val.percent}
                   indicateUp={val.indicateUp}
+                  minimize={minimize}
                 />
               </div>
             );
