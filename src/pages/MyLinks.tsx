@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import LinkSquare from '../components/common/cards/LinkSquare';
-import FaviconFetcher from '../components/common/FaviconFetcher';
 import { LinksData } from '../sampleData';
 import Table from '../components/common/table';
+import Button from '../components/common/Button';
 const MyLinks: React.FC = () => {
   const [minimize, setMinimize] = useState(false);
   const [isTable, setIsTable] = useState(false);
+  const [isDelete, setIsDelete] = useState(false);
   const columns = [
     {
       title: 'Channel',
@@ -106,7 +107,7 @@ const MyLinks: React.FC = () => {
               className="border-none outline-none bg-transparent p-[10px]"
             />
           </div>
-          <div className="flex items-center gap-2 justify-end mt-[16px] md:mt-0">
+          {!isDelete?<div className="flex items-center gap-2 justify-end mt-[16px] md:mt-0">
             {!isTable ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -144,70 +145,75 @@ const MyLinks: React.FC = () => {
                 />
               </svg>
             )}
-            {!isTable && <div className="p-2 rounded-full hover:bg-gray-100 duration-200">
-              {!minimize ? (
-                <svg
-                  fill="currentColor"
-                  viewBox="0 0 16 16"
-                  className="size-5 cursor-pointer"
-                  onClick={() => {
-                    setMinimize(!minimize);
-                  }}
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M.172 15.828a.5.5 0 00.707 0l4.096-4.096V14.5a.5.5 0 101 0v-3.975a.5.5 0 00-.5-.5H1.5a.5.5 0 000 1h2.768L.172 15.121a.5.5 0 000 .707zM15.828.172a.5.5 0 00-.707 0l-4.096 4.096V1.5a.5.5 0 10-1 0v3.975a.5.5 0 00.5.5H14.5a.5.5 0 000-1h-2.768L15.828.879a.5.5 0 000-.707z"
-                  />
-                </svg>
-              ) : (
-                <svg
-                  fill="currentColor"
-                  viewBox="0 0 16 16"
-                  className="size-5 cursor-pointer"
-                  onClick={() => {
-                    setMinimize(!minimize);
-                  }}
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M5.828 10.172a.5.5 0 00-.707 0l-4.096 4.096V11.5a.5.5 0 00-1 0v3.975a.5.5 0 00.5.5H4.5a.5.5 0 000-1H1.732l4.096-4.096a.5.5 0 000-.707zm4.344-4.344a.5.5 0 00.707 0l4.096-4.096V4.5a.5.5 0 101 0V.525a.5.5 0 00-.5-.5H11.5a.5.5 0 000 1h2.768l-4.096 4.096a.5.5 0 000 .707z"
-                  />
-                </svg>
-              )}
-            </div>}
-           <div className='p-2 rounded-full hover:bg-gray-100 duration-200'>
-           <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="size-5 cursor-pointer"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 0 1-.659 1.591l-5.432 5.432a2.25 2.25 0 0 0-.659 1.591v2.927a2.25 2.25 0 0 1-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 0 0-.659-1.591L3.659 7.409A2.25 2.25 0 0 1 3 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0 1 12 3Z"
-              />
-            </svg>
-           </div>
-           <div className='p-2 rounded-full hover:bg-gray-100 duration-200'>
-           <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="size-5 cursor-pointer"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
-              />
-            </svg>
-           </div>
-          </div>
+            {!isTable && (
+              <div className="p-2 rounded-full hover:bg-gray-100 duration-200">
+                {!minimize ? (
+                  <svg
+                    fill="currentColor"
+                    viewBox="0 0 16 16"
+                    className="size-5 cursor-pointer"
+                    onClick={() => {
+                      setMinimize(!minimize);
+                    }}
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M.172 15.828a.5.5 0 00.707 0l4.096-4.096V14.5a.5.5 0 101 0v-3.975a.5.5 0 00-.5-.5H1.5a.5.5 0 000 1h2.768L.172 15.121a.5.5 0 000 .707zM15.828.172a.5.5 0 00-.707 0l-4.096 4.096V1.5a.5.5 0 10-1 0v3.975a.5.5 0 00.5.5H14.5a.5.5 0 000-1h-2.768L15.828.879a.5.5 0 000-.707z"
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    fill="currentColor"
+                    viewBox="0 0 16 16"
+                    className="size-5 cursor-pointer"
+                    onClick={() => {
+                      setMinimize(!minimize);
+                    }}
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M5.828 10.172a.5.5 0 00-.707 0l-4.096 4.096V11.5a.5.5 0 00-1 0v3.975a.5.5 0 00.5.5H4.5a.5.5 0 000-1H1.732l4.096-4.096a.5.5 0 000-.707zm4.344-4.344a.5.5 0 00.707 0l4.096-4.096V4.5a.5.5 0 101 0V.525a.5.5 0 00-.5-.5H11.5a.5.5 0 000 1h2.768l-4.096 4.096a.5.5 0 000 .707z"
+                    />
+                  </svg>
+                )}
+              </div>
+            )}
+            <div className="p-2 rounded-full hover:bg-gray-100 duration-200">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="size-5 cursor-pointer"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 0 1-.659 1.591l-5.432 5.432a2.25 2.25 0 0 0-.659 1.591v2.927a2.25 2.25 0 0 1-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 0 0-.659-1.591L3.659 7.409A2.25 2.25 0 0 1 3 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0 1 12 3Z"
+                />
+              </svg>
+            </div>
+            <div className="p-2 rounded-full hover:bg-gray-100 duration-200">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="size-5 cursor-pointer"
+                onClick={()=>{setIsDelete(true)}}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+                />
+              </svg>
+            </div>
+          </div> : 
+          <Button label={'Delete'} background={'#113E53'} width='20' height='20' color='white'/>
+          }
         </div>
         {!isTable ? (
           <div className="my-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ">
