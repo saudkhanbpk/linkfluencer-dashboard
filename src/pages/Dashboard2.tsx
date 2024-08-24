@@ -6,10 +6,11 @@ import IndicateDown from '../components/common/cards/indicateDown';
 import CalumnChart from '../components/common/charts/columnChart';
 import useDeviceDetect from '../helpers/screens';
 import Dropdown from '../components/common/Dropdown';
+import { DotIcon, FilterIcon, Link45Icon } from '../svg';
 
 const Dashboard2: React.FC = () => {
   const [selectedTab, setSelectedTab] = useState(0);
-  const [minimize, setMinimize] = useState(false)
+  const [minimize, setMinimize] = useState(false);
   const { isMobile } = useDeviceDetect();
   const tabs = [
     {
@@ -83,7 +84,6 @@ const Dashboard2: React.FC = () => {
     },
   ];
 
-
   return (
     <div>
       <div className="p-[24px]">
@@ -98,20 +98,7 @@ const Dashboard2: React.FC = () => {
               placeholder="Paste your link here"
               className="h-full rounded-none w-full outline-none"
             />
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="size-5 text-gray-400"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244"
-              />
-            </svg>
+            <Link45Icon className={'size-5 text-gray-400'} />
           </div>
           <button className="w-full mt-[16px] md:mt-0 md:ml-2 ml-0 md:w-[189px] border-[1px] border-[#113E53] font-bold bg-[#113E53] rounded-full px-[20px] py-[12px] text-white font-header">
             Create Smart Link
@@ -147,50 +134,34 @@ const Dashboard2: React.FC = () => {
               <span
                 className={`text-[#252C32] flex items-center text-[14px] py-[8px] cursor-pointer duration-500`}
               >
-                <svg fill="currentColor" viewBox="0 0 16 16" className="size-8">
-                  <path d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
-                </svg>
-                <span className='font-[600] font-content'> {tabs[selectedTab].label}</span>
+                <DotIcon className="size-8" />
+                <span className="font-[600] font-content">
+                  {' '}
+                  {tabs[selectedTab].label}
+                </span>
               </span>
-              <Dropdown label={
-                <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="size-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 0 1-.659 1.591l-5.432 5.432a2.25 2.25 0 0 0-.659 1.591v2.927a2.25 2.25 0 0 1-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 0 0-.659-1.591L3.659 7.409A2.25 2.25 0 0 1 3 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0 1 12 3Z"
-                />
-              </svg>
-              }
-
-              children={
-                <ul className='bg-white w-auto shadow-md border-0.5 rounded-lg py-2'>
-                  {tabs.map((val, index) => {
-                return (
-                  <li
-                    key={index}
-                    className={`text-[#252C32] text-[14px] px-3 py-2 border-b ${
-                      selectedTab == index
-                        ? 'font-[600]'
-                        : 'font-[400]'
-                    } py-[8px] cursor-pointer duration-500 font-content whitespace-nowrap hover:bg-gray-200`}
-                    onClick={() => {
-                      setSelectedTab(index);
-                      console.log({ selectedTab, index });
-                    }}
-                  >
-                    {val?.label}
-                  </li>
-                );
-              })}
-                </ul>
-              }
+              <Dropdown
+                label={<FilterIcon className="size-6" />}
+                children={
+                  <ul className="bg-white w-auto shadow-md border-0.5 rounded-lg py-2">
+                    {tabs.map((val, index) => {
+                      return (
+                        <li
+                          key={index}
+                          className={`text-[#252C32] text-[14px] px-3 py-2 border-b ${
+                            selectedTab == index ? 'font-[600]' : 'font-[400]'
+                          } py-[8px] cursor-pointer duration-500 font-content whitespace-nowrap hover:bg-gray-200`}
+                          onClick={() => {
+                            setSelectedTab(index);
+                            console.log({ selectedTab, index });
+                          }}
+                        >
+                          {val?.label}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                }
               />
             </div>
           )}
