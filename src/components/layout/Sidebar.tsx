@@ -96,7 +96,7 @@ const Sidebar = () => {
         )}
       </div>
       <div
-        className="absolute cursor-pointer -right-3 top-2/4 h-[80px] text-right rounded-2xl border-2 bg-white  border-gray-200 flex items-center"
+        className="absolute cursor-pointer -right-3 top-2/4 h-[80px] text-right rounded-2xl border-2 bg-white  border-gray-200 flex items-center z-50"
         onClick={() => {
           setMinimize(!minimize);
         }}

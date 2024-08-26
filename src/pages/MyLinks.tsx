@@ -1,15 +1,9 @@
-import {
-  JSXElementConstructor,
-  ReactElement,
-  ReactNode,
-  ReactPortal,
-  useEffect,
-  useState,
-} from 'react';
+import { useEffect, useState } from 'react';
 import LinkSquare from '../components/common/cards/LinkSquare';
 import { LinksData } from '../sampleData';
 import Table from '../components/common/table';
 import {
+  CrossIcon,
   DeleteIcon,
   FilterIcon,
   FourSquarIcon,
@@ -20,11 +14,20 @@ import {
   SearchIcon,
 } from '../svg';
 import Indicate from '../components/common/cards/Indicate';
+import Dropdown from '../components/common/Dropdown';
+import Model from '../components/common/models/Model';
 
 const MyLinks: React.FC = () => {
   const [minimize, setMinimize] = useState(false);
   const [isTable, setIsTable] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
+  const [edit, setEdit] = useState({
+    logo:"",
+    channel:"",
+    link:"",
+    tags:""
+  })
+  // const {isMobile} = useDeviceDetect()
   const columns = [
     {
       title: 'Channel',
@@ -50,12 +53,15 @@ const MyLinks: React.FC = () => {
     {
       title: 'Total Clicked',
       dataIndex: 'totalClicks',
-      // render: (row: any) => (
-      //   <div className="flex items-center">
-      //     <label>{row.totalClicks}</label>
-      //     <Indicate direction='up' percent={20} color='green'/>
-      //   </div>
-      // ),
+      render: (row: any) => (
+        <div className="flex items-center">
+          <label className="mr-2">{row.totalClicks}</label>
+          <Indicate
+            direction={row.indicateUp ? 'up' : 'down'}
+            percent={row.percent}
+          />
+        </div>
+      ),
       key: 'totalClicks',
       width: '150px',
       headerAlign: 'left',
@@ -64,6 +70,9 @@ const MyLinks: React.FC = () => {
     {
       title: 'Category',
       dataIndex: 'tags',
+      render: (row: any) => (
+        <span className="text-blue-500 font-content">{row.tags}</span>
+      ),
       key: 'tags',
       width: '',
       headerAlign: 'left',
@@ -74,12 +83,81 @@ const MyLinks: React.FC = () => {
   const tableData = {
     select: isDelete,
   };
+
+  const [filteredData, setFilteredData] = useState(LinksData);
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleModalOpen = (value:any) => {
+    setIsModalOpen(true)
+
+    // alert(typeof value)
+    const data = LinksData.find((val, index)=>{
+      // alert(typeof index)
+      return val.id === value
+    })
+console.log({data});
+
+    setEdit({
+      logo:data?.logo ?? '',
+      channel:data?.label ?? '',
+      link:data?.link??'',
+      tags:data?.tags ?? '',
+    });
+    
+  };
+  const handleModalClose = () => setIsModalOpen(false);
+
+  const handleSearch = (event: any) => {
+    setSearchTerm(event.target.value);
+  };
+  
   useEffect(() => {
-    console.log({ LinksData });
-  }, []);
+    const results = LinksData.filter((item) =>
+      Object.values(item).some((val) =>
+        String(val).toLowerCase().includes(searchTerm.toLowerCase()),
+      ),
+    );
+    setFilteredData(results);
+  }, [searchTerm]);
 
   return (
-    <div className="w-full">
+    <div className="w-full border pb-2 relative">
+      <Model isOpen={isModalOpen} onClose={handleModalClose}>
+        <div className="md:w-[500px]">
+          <h1 className="text-[24px] font-header">Edit Link</h1>
+          <div className="flex justify-between items-center my-[18px]">
+            <div className="flex items-center gap-2">
+              <img
+                src={edit.logo}
+                className="w-[46px] h-[33px]"
+                alt="social Media Logo"
+              />
+              <label className="font-header text-[20px]">{edit.channel}</label>
+            </div>
+            <CrossIcon className={'size-5 text-black'} onClick={handleModalClose} />
+          </div>
+          <input
+            type="text"
+            value={edit.link}
+            className="w-full p-2 rounded-full border border-gray-400 my-[16px]"
+          />
+          <input
+            type="text"
+            value={edit.tags}
+            className="w-full p-2 rounded-full border border-gray-400 mb-[16px]"
+          />
+          <div className={"mt-2 flex justify-end items-center gap-2"}>
+          <button className="w-[113px] border border-gray-800 font-bold rounded-full px-[20px] py-[8px] font-header">
+            Ok
+          </button>
+          <button className="w-[113px] border-[1px] font-bold bg-[#531111] rounded-full px-[20px] py-[8px] text-white font-header">
+            Save
+          </button>
+          </div>
+        </div>
+      </Model>
       <div className="flex flex-col p-[24px]">
         <div>
           <h1 className="text-2xl font-header">My Links</h1>
@@ -108,6 +186,8 @@ const MyLinks: React.FC = () => {
                 placeholder="Search"
                 name="search"
                 id="search"
+                onChange={handleSearch}
+                value={searchTerm}
                 className="border-none outline-none bg-transparent p-[10px]"
               />
             </div>
@@ -146,8 +226,28 @@ const MyLinks: React.FC = () => {
                   )}
                 </div>
               )}
-              <div className="p-2 rounded-full hover:bg-gray-100 duration-200">
-                <FilterIcon className="size-5 cursor-pointer" />
+              <div className="">
+                <Dropdown
+                  label={
+                    <FilterIcon className="size-8 cursor-pointer hover:bg-gray-100 p-1 rounded-full duration-200" />
+                  }
+                  children={
+                    <ul className="w-[200px] flex justify-center flex-col items-center border bg-white rounded-2xl py-1 shadow-md">
+                      <li className=" w-full px-4  font-content py-2 border-b">
+                        Hight to Low Clicks
+                      </li>
+                      <li className=" w-full px-4  font-content py-2 border-b">
+                        Low to High Clicks
+                      </li>
+                      <li className=" w-full px-4  font-content py-2 border-b">
+                        <span>By Dates</span>
+                      </li>
+                      <li className=" w-full px-4  font-content py-2">
+                        Menue Item x
+                      </li>
+                    </ul>
+                  }
+                />
               </div>
               <div className="p-2 rounded-full hover:bg-gray-100 duration-200">
                 <DeleteIcon
@@ -186,7 +286,7 @@ const MyLinks: React.FC = () => {
         )}
         {!isTable ? (
           <div className="my-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ">
-            {LinksData.map((val, index) => {
+            {filteredData.map((val, index) => {
               return (
                 <div key={index} className=" ">
                   <LinkSquare
@@ -198,6 +298,8 @@ const MyLinks: React.FC = () => {
                     indicateUp={val.indicateUp}
                     minimize={minimize}
                     isDelete={isDelete}
+                    id = {val.id}
+                    handleModalOpen={handleModalOpen}
                   />
                 </div>
               );
@@ -206,7 +308,7 @@ const MyLinks: React.FC = () => {
         ) : (
           <Table
             columns={columns}
-            dataSource={LinksData}
+            dataSource={filteredData}
             tableData={tableData}
           />
         )}

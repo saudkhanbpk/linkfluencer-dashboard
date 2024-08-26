@@ -11,6 +11,10 @@ interface Props {
   indicateUp: boolean;
   minimize?: boolean;
   isDelete?: boolean;
+  handleModalOpen?:(val:number)=>void;
+  index?:number
+  id?:number
+  // handleEdit?:()=>void;
 }
 
 const LinkSquare: React.FC<Props> = ({
@@ -22,17 +26,23 @@ const LinkSquare: React.FC<Props> = ({
   indicateUp,
   minimize,
   isDelete,
+  handleModalOpen,
+  id,
 }) => {
+
+  const handleClick = (id:number) =>{
+    handleModalOpen?.(id)
+  }
   return (
-    <div className="">
-      <div className=" border-t border-x flex justify-between px-[24px] h-[64px] py-[16px] rounded-t-2xl bg-gray-100">
+    <div className="rounded-2xl bg-gray-100 border hover:border-black duration-150">
+      <div className="flex justify-between h-[64px] px-[24px]">
         <div className="flex flex-row items-center">
           <img src={logo} alt={'social Icon'} className="mr-3" />
           <label>Youtube</label>
         </div>
         {!isDelete ? (
           <div className="flex flex-row items-center gap-4">
-            <EditIcon className="size-4 text-[#4D494F] cursor-pointer select-none" />
+            <EditIcon className="size-4 text-[#4D494F] cursor-pointer select-none" onClick={()=>handleClick(id??0)}/>
             <ShareIcon className="size-4 text-[#4D494F] cursor-pointer select-none" />
             <SaveIcon className="size-4 text-[#4D494F] bg-white h-8 w-8 p-2 rounded-full cursor-pointer select-none" />
           </div>
@@ -40,7 +50,7 @@ const LinkSquare: React.FC<Props> = ({
           <input type="checkbox" className="w-6 h-6 cursor-pointer" />
         )}
       </div>
-      <div className="border-x border-b p-[24px] flex flex-col justify-between bg-gray-50 rounded-b-lg">
+      <div className="border-x border-b p-[24px] h-auto flex flex-col justify-between bg-gray-50 rounded-b-2xl">
         {!minimize && (
           <>
             <span className="text-[14px] font-content break-words">{link}</span>
@@ -59,7 +69,7 @@ const LinkSquare: React.FC<Props> = ({
               )}
             </div>
             <div className="p-2 rounded-full hover:bg-gray-200 duration-150">
-              <RightArrow className="size-4 cursor-pointer" />
+              <RightArrow className="size-4 cursor-pointer"/>
             </div>
           </div>
         </div>

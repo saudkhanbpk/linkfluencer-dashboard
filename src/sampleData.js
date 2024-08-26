@@ -33,6 +33,7 @@ export const LinksData = [
     totalClicks: 200,
     percent: 18,
     indicateUp: true,
+    id:1,
   },
   {
     logo: '/assets/amazonLogo.svg',
@@ -42,6 +43,7 @@ export const LinksData = [
     totalClicks: 140,
     percent: 22,
     indicateUp: false,
+    id:2,
   },
   {
     logo: '/assets/spotifyLogo.svg',
@@ -51,6 +53,7 @@ export const LinksData = [
     totalClicks: 140,
     percent: 75,
     indicateUp: true,
+    id:3,
   },
   {
     logo: '/assets/youtubeLogo.svg',
@@ -60,6 +63,7 @@ export const LinksData = [
     totalClicks: 200,
     percent: 18,
     indicateUp: true,
+    id:4,
   },
   {
     logo: '/assets/amazonLogo.svg',
@@ -69,6 +73,7 @@ export const LinksData = [
     totalClicks: 140,
     percent: 22,
     indicateUp: false,
+  id:5
   },
   {
     logo: '/assets/spotifyLogo.svg',
@@ -78,6 +83,7 @@ export const LinksData = [
     totalClicks: 140,
     percent: 75,
     indicateUp: true,
+    id:6,
   },
   {
     logo: '/assets/youtubeLogo.svg',
@@ -87,6 +93,7 @@ export const LinksData = [
     totalClicks: 200,
     percent: 18,
     indicateUp: true,
+    id:7,
   },
   {
     logo: '/assets/amazonLogo.svg',
@@ -96,6 +103,7 @@ export const LinksData = [
     totalClicks: 140,
     percent: 22,
     indicateUp: false,
+    id:8,
   },
   {
     logo: '/assets/spotifyLogo.svg',
@@ -103,8 +111,9 @@ export const LinksData = [
     label: 'Spotify',
     tags: '#Educational #Music',
     totalClicks: 140,
-    percent: 75,
+    percent: 7,
     indicateUp: true,
+    id:9,
   },
   {
     logo: '/assets/youtubeLogo.svg',
@@ -114,6 +123,7 @@ export const LinksData = [
     totalClicks: 200,
     percent: 18,
     indicateUp: true,
+    id:10,
   },
   {
     logo: '/assets/amazonLogo.svg',
@@ -121,8 +131,9 @@ export const LinksData = [
     label: 'Amazon',
     tags: '#Educational #Medicne',
     totalClicks: 170,
-    percent: 29,
+    percent: 290,
     indicateUp: false,
+    id:11,
   },
   {
     logo: '/assets/spotifyLogo.svg',
@@ -130,7 +141,88 @@ export const LinksData = [
     label: 'Spotify',
     tags: '#Educational #Music',
     totalClicks: 10,
-    percent: 23,
+    percent: 2,
     indicateUp: false,
+    id:12,
   },
+  {
+    logo: '/assets/amazonLogo.svg',
+    link: 'https://linkfluencerstg.addwebprojects.com/nextdor',
+    label: 'Amazon',
+    tags: '#Educational #Physic',
+    totalClicks: 140,
+    percent: 22,
+    indicateUp: false,
+    id:13,
+  },
+  {
+    logo: '/assets/spotifyLogo.svg',
+    link: 'https://linkfluencerstg.addwebprojects.com/nextdor',
+    label: 'Spotify',
+    tags: '#Educational #Music',
+    totalClicks: 140,
+    percent: 75,
+    indicateUp: true,
+    id:14
+  },
+  {
+    logo: '/assets/youtubeLogo.svg',
+    link: 'https://linkfluencerstg.addwebprojects.com/nextdor',
+    label: 'Youtube',
+    tags: '#Educational #Sciences',
+    totalClicks: 200,
+    percent: 18,
+    indicateUp: true,
+    id:15
+  },
+  {
+    logo: '/assets/amazonLogo.svg',
+    link: 'https://linkfluencerstg.addwebprojects.com/nextdor',
+    label: 'Amazon',
+    tags: '#Educational #Physic',
+    totalClicks: 140,
+    percent: 22,
+    indicateUp: false,
+    id:16
+  },
+  {
+    logo: '/assets/spotifyLogo.svg',
+    link: 'https://linkfluencerstg.addwebprojects.com/nextdor',
+    label: 'Spotify',
+    tags: '#Educational #Music',
+    totalClicks: 140,
+    percent: 7,
+    indicateUp: true,
+    id:17
+  },
+  {
+    logo: '/assets/youtubeLogo.svg',
+    link: 'https://linkfluencerstg.addwebprojects.com/nextdor',
+    label: 'Youtube',
+    tags: '#Educational #Sciences',
+    totalClicks: 200,
+    percent: 18,
+    indicateUp: true,
+    id:18
+  },
+  {
+    logo: '/assets/amazonLogo.svg',
+    link: 'https://linkfluencerstg.addwebprojects.com/nextdor',
+    label: 'Amazon',
+    tags: '#Educational #Medicne',
+    totalClicks: 170,
+    percent: 290,
+    indicateUp: false,
+    id:19
+  },
+  {
+    logo: '/assets/spotifyLogo.svg',
+    link: 'https://linkfluencerstg.addwebprojects.com/nextdor',
+    label: 'Spotify',
+    tags: '#Educational #Music',
+    totalClicks: 10,
+    percent: 2,
+    indicateUp: false,
+    id:20
+  }, 
 ];

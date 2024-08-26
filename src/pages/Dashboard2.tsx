@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import LinkSquare from '../components/common/cards/LinkSquare';
-import ApexChart from '../components/common/charts/AreaChatr';
+import ApexChart from '../components/common/charts/AreaChat';
 import IndicateUp from '../components/common/cards/IndicateUp';
 import IndicateDown from '../components/common/cards/indicateDown';
 import CalumnChart from '../components/common/charts/columnChart';
@@ -185,7 +185,7 @@ const Dashboard2: React.FC = () => {
         </div>
         <div className="mt-12">
           <h1 className="font-[600] font-content">Analytics</h1>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-4">
             <div className="flex border h-[300px] flex-col relative items-center p-[20px] rounded-2xl w-full">
               <div className="relative flex w-full items-center h-full">
                 <div className="h-full w-full flex flex-col justify-center">
@@ -221,7 +221,7 @@ const Dashboard2: React.FC = () => {
               <span className="text-[#4C4C4C] font-content whitespace-nowrap">
                 Top Sources
               </span>
-              <div className="flex h-full gap-6">
+              <div className="flex justify-between w-full h-full gap-6">
                 {topSources.map((val, index) => {
                   return (
                     <div key={index} className="relative h-full">

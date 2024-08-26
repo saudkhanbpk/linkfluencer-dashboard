@@ -10,7 +10,7 @@ const Layout = () => {
   const { isMobile } = useDeviceDetect();
 
   return (
-    <div className="w-full">
+    <div className="w-full fixed">
       <Navbar />
       <div className="flex w-full z-50">
         {!isMobile && (
@@ -22,7 +22,7 @@ const Layout = () => {
         )}
         <div
           // className=" p-[24px] bg-[#F0F5FF] h-full"
-          className={`${minimize ? 'w-full' : 'lg:w-4/5 md:w-4/6, w-full'} bg-[#F0F5FF] overflow-y-scroll`}
+          className={`${minimize ? 'w-full' : 'lg:w-4/5 md:w-4/6, w-full'} bg-[#F0F5FF] overflow-y-scroll h-[90vh]`}
         >
           {/* <Content /> */}
           <Outlet />

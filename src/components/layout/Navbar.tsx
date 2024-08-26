@@ -11,7 +11,7 @@ const Navbar = () => {
   const [expand, setExpand] = useState<boolean>(false);
 
   return (
-    <nav className="w-full flex flex-row justify-between items-center">
+    <nav className="w-full flex flex-row justify-between items-center border">
       {!isMobile && (
         <div className="w-1/5 px-[24px] py-[16px]">
           <div className="w-full h-[64px] flex items-center">
@@ -101,7 +101,7 @@ const Navbar = () => {
       )}
 
       {isMobile && (
-        <div className="w-full px-[20px]">
+        <div className="w-full px-[20px] rounded-b-md">
           <div
             className={`w-full ${
               expand ? 'h-[680px]' : 'h-[60px]'

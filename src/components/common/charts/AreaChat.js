@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
-import './style.css';
+import './AreaChart.css';
 
 const ApexChart = ({ indicateUp = true }) => {
   const color = indicateUp ? '#00FF00' : '#AE0000';
@@ -47,7 +47,7 @@ const ApexChart = ({ indicateUp = true }) => {
   });
 
   return (
-    <div>
+    <div className='areachart'>
       <ReactApexChart
         options={chartOptions.options}
         series={chartOptions.series}
