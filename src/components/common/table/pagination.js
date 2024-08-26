@@ -17,9 +17,6 @@ const Pagination = ({
     }
   };
 
-  useEffect(() => {
-    console.log({ currentPage });
-  }, []);
   return (
     <div className="flex justify-between items-center mt-1">
       <span className="text-sm font-content text-gray-700">{`showing ${limit.start} to ${limit.end} from ${totalItems} entries`}</span>
