@@ -3,7 +3,7 @@ import { Link45Icon } from '../svg';
 
 const Dashboard: React.FC = () => {
   return (
-    <div className="p-[24px]">
+    <div className="p-[12px] sm:p-[24px]">
       <div>
         <h4 className="text-gray-500 font-content">Rahul&rsquo;s</h4>
         <h1 className="text-2xl font-header">Dashboard</h1>

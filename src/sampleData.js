@@ -33,7 +33,7 @@ export const LinksData = [
     totalClicks: 200,
     percent: 18,
     indicateUp: true,
-    id:1,
+    id: 1,
   },
   {
     logo: '/assets/amazonLogo.svg',
@@ -43,7 +43,7 @@ export const LinksData = [
     totalClicks: 140,
     percent: 22,
     indicateUp: false,
-    id:2,
+    id: 2,
   },
   {
     logo: '/assets/spotifyLogo.svg',
@@ -53,7 +53,7 @@ export const LinksData = [
     totalClicks: 140,
     percent: 75,
     indicateUp: true,
-    id:3,
+    id: 3,
   },
   {
     logo: '/assets/youtubeLogo.svg',
@@ -63,7 +63,7 @@ export const LinksData = [
     totalClicks: 200,
     percent: 18,
     indicateUp: true,
-    id:4,
+    id: 4,
   },
   {
     logo: '/assets/amazonLogo.svg',
@@ -73,7 +73,7 @@ export const LinksData = [
     totalClicks: 140,
     percent: 22,
     indicateUp: false,
-  id:5
+    id: 5,
   },
   {
     logo: '/assets/spotifyLogo.svg',
@@ -83,7 +83,7 @@ export const LinksData = [
     totalClicks: 140,
     percent: 75,
     indicateUp: true,
-    id:6,
+    id: 6,
   },
   {
     logo: '/assets/youtubeLogo.svg',
@@ -93,7 +93,7 @@ export const LinksData = [
     totalClicks: 200,
     percent: 18,
     indicateUp: true,
-    id:7,
+    id: 7,
   },
   {
     logo: '/assets/amazonLogo.svg',
@@ -103,7 +103,7 @@ export const LinksData = [
     totalClicks: 140,
     percent: 22,
     indicateUp: false,
-    id:8,
+    id: 8,
   },
   {
     logo: '/assets/spotifyLogo.svg',
@@ -113,7 +113,7 @@ export const LinksData = [
     totalClicks: 140,
     percent: 7,
     indicateUp: true,
-    id:9,
+    id: 9,
   },
   {
     logo: '/assets/youtubeLogo.svg',
@@ -123,7 +123,7 @@ export const LinksData = [
     totalClicks: 200,
     percent: 18,
     indicateUp: true,
-    id:10,
+    id: 10,
   },
   {
     logo: '/assets/amazonLogo.svg',
@@ -133,7 +133,7 @@ export const LinksData = [
     totalClicks: 170,
     percent: 290,
     indicateUp: false,
-    id:11,
+    id: 11,
   },
   {
     logo: '/assets/spotifyLogo.svg',
@@ -143,7 +143,7 @@ export const LinksData = [
     totalClicks: 10,
     percent: 2,
     indicateUp: false,
-    id:12,
+    id: 12,
   },
   {
     logo: '/assets/amazonLogo.svg',
@@ -153,7 +153,7 @@ export const LinksData = [
     totalClicks: 140,
     percent: 22,
     indicateUp: false,
-    id:13,
+    id: 13,
   },
   {
     logo: '/assets/spotifyLogo.svg',
@@ -163,7 +163,7 @@ export const LinksData = [
     totalClicks: 140,
     percent: 75,
     indicateUp: true,
-    id:14
+    id: 14,
   },
   {
     logo: '/assets/youtubeLogo.svg',
@@ -173,7 +173,7 @@ export const LinksData = [
     totalClicks: 200,
     percent: 18,
     indicateUp: true,
-    id:15
+    id: 15,
   },
   {
     logo: '/assets/amazonLogo.svg',
@@ -183,7 +183,7 @@ export const LinksData = [
     totalClicks: 140,
     percent: 22,
     indicateUp: false,
-    id:16
+    id: 16,
   },
   {
     logo: '/assets/spotifyLogo.svg',
@@ -193,7 +193,7 @@ export const LinksData = [
     totalClicks: 140,
     percent: 7,
     indicateUp: true,
-    id:17
+    id: 17,
   },
   {
     logo: '/assets/youtubeLogo.svg',
@@ -203,7 +203,7 @@ export const LinksData = [
     totalClicks: 200,
     percent: 18,
     indicateUp: true,
-    id:18
+    id: 18,
   },
   {
     logo: '/assets/amazonLogo.svg',
@@ -213,7 +213,7 @@ export const LinksData = [
     totalClicks: 170,
     percent: 290,
     indicateUp: false,
-    id:19
+    id: 19,
   },
   {
     logo: '/assets/spotifyLogo.svg',
@@ -223,6 +223,39 @@ export const LinksData = [
     totalClicks: 10,
     percent: 2,
     indicateUp: false,
-    id:20
-  }, 
+    id: 20,
+  },
 ];
+
+export const UserManagementData = [
+  {
+    id:'EKG3345543',
+    name:'Cameron Williamson',
+    email:'harrystyls123@gmail.com',
+    role:'users',
+    date:'15 Dec, 2024',
+    invitedBy:'cameron Williamson',
+  },
+  {
+    id:'EKG3345543',
+    name:'Cameron Williamson',
+    email:'harrystyls123@gmail.com',
+    role:'users',
+    date:'15 Dec, 2024',
+    invitedBy:'cameron Williamson',
+  },{
+    id:'EKG3345543',
+    name:'Cameron Williamson',
+    email:'harrystyls123@gmail.com',
+    role:'users',
+    date:'15 Dec, 2024',
+    invitedBy:'cameron Williamson',
+  },{
+    id:'EKG3345543',
+    name:'Cameron Williamson',
+    email:'harrystyls123@gmail.com',
+    role:'users',
+    date:'15 Dec, 2024',
+    invitedBy:'cameron Williamson',
+  },
+]

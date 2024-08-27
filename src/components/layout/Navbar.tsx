@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import Avatar from '../common/Avatar';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import useDeviceDetect from '../../helpers/screens';
 import Dropdown from '../common/Dropdown';
 import ProgressBar from '../common/ProgressBar';
 import { sidebarData, COUNTRIES } from '../../config/sidebarData';
+import { LogoutIcon, SinglePersonIcon } from '../../svg';
 
 const Navbar = () => {
   const { isMobile } = useDeviceDetect();
@@ -53,15 +54,30 @@ const Navbar = () => {
                 alt="wallet-icon"
                 className="h-[32px] w-[32px] object-contain p-1 cursor-pointer"
               />
-              <Dropdown label={<Avatar image="/assets/User 05a.png" />}>
+              <Dropdown label={<Avatar image="/assets/User 05a.png" />}side='right'>
                 <div>
-                  <ul className="w-[80px] flex justify-center flex-col items-center bg-white border shadow-lg rounded-lg py-2">
-                    <li className="hover:bg-gray-100 w-full p-2">Profile</li>
-                    <li className="hover:bg-gray-100 w-full p-2">Logout</li>
+                  <ul className="w-[150px] flex justify-center flex-col items-center bg-white border shadow-lg rounded-lg py-2">
+                    <li className="hover:bg-gray-100 w-full">
+                      <Link to={'/profile'} className="flex items-center p-2">
+                        <SinglePersonIcon
+                          className={'size-5 mr-2'}
+                          onClick={() => {}}
+                        />
+                        <span>Profile</span>
+                      </Link>
+                    </li>
+                    <li className="hover:bg-gray-100 w-full p-2 flex items-cente">
+                      <LogoutIcon
+                        className={'size-5 mr-2'}
+                        onClick={() => {}}
+                      />
+                      <span>Logout</span>
+                    </li>
                   </ul>
                 </div>
               </Dropdown>
               <Dropdown
+              side='right'
                 label={
                   <div className="flex items-center gap-2 ml-1 select-none cursor-pointer">
                     <span>EN</span>
@@ -101,7 +117,7 @@ const Navbar = () => {
       )}
 
       {isMobile && (
-        <div className="w-full px-[20px] rounded-b-md">
+        <div className="w-full px-[12px] sm:px-[20px] rounded-b-md">
           <div
             className={`w-full ${
               expand ? 'h-[680px]' : 'h-[60px]'
@@ -157,13 +173,19 @@ const Navbar = () => {
                   className="h-[32px] w-[32px] object-contain p-1 cursor-pointer"
                 />
                 <div className="flex flex-grow">
-                  <Dropdown label={<Avatar image="/assets/User 05a.png" />}>
+                  <Dropdown label={<Avatar image="/assets/User 05a.png" />} side='left'>
                     <div>
-                      <ul className="w-[80px] flex justify-center flex-col items-center bg-white border shadow-lg rounded-lg py-2">
-                        <li className="hover:bg-gray-100 w-full p-2">
-                          Profile
-                        </li>
-                        <li className="hover:bg-gray-100 w-full p-2">Logout</li>
+                      <ul className="w-[150px] flex justify-center flex-col items-center bg-white border shadow-lg rounded-lg py-2">
+                      <li className="hover:bg-gray-100 w-full">
+                      <Link to={"/profile"} className='flex items-center p-2'>
+                      <SinglePersonIcon className={'size-5 mr-2'} onClick={()=>{}}/>
+                      <span>Profile</span>
+                      </Link>
+                    </li>
+                    <li className="hover:bg-gray-100 w-full p-2 flex items-cente">
+                      <LogoutIcon className={'size-5 mr-2'} onClick={()=>{}}/>
+                      <span>Logout</span>
+                      </li>
                       </ul>
                     </div>
                   </Dropdown>

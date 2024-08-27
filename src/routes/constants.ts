@@ -4,4 +4,6 @@ export const ROUTES = {
   MY_LINKS: '/my-links',
   BULK_UPLOAD: '/bulk-upload',
   ANALYTICS: '/analytics',
+  USER_MANAGEMENT:'/user_management',
+  PROFILE:'/profile'
 };

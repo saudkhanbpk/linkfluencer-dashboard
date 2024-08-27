@@ -86,7 +86,7 @@ const Dashboard2: React.FC = () => {
 
   return (
     <div>
-      <div className="p-[24px]">
+      <div className="p-[12px] sm:p-[24px]">
         <div>
           <h4 className="text-gray-500 font-content">Rahul&rsquo;s</h4>
           <h1 className="text-2xl font-header">Dashboard</h1>
@@ -105,7 +105,7 @@ const Dashboard2: React.FC = () => {
           </button>
         </div>
       </div>
-      <div className="bg-white p-[24px]">
+      <div className="bg-white p-[12px] sm:p-[24px]">
         <div className="flex flex-row justify-between items-center">
           <h1 className="font-[600] font-content">My Links</h1>
           {!isMobile ? (

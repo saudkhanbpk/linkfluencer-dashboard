@@ -35,7 +35,7 @@ const LinkSquare: React.FC<Props> = ({
   }
   return (
     <div className="rounded-2xl bg-gray-100 border hover:border-black duration-150">
-      <div className="flex justify-between h-[64px] px-[24px]">
+      <div className="flex justify-between items-center h-[64px] px-[24px]">
         <div className="flex flex-row items-center">
           <img src={logo} alt={'social Icon'} className="mr-3" />
           <label>Youtube</label>

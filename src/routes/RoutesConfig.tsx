@@ -6,6 +6,8 @@ import BulkUpload from '../pages/BulkUpload';
 import Analytics from '../pages/Analytics';
 import Dashboard2 from '../pages/Dashboard2';
 import { ROUTES } from './constants';
+import UserManagement from '../pages/userManagement';
+import Profile from '../pages/Profile';
 
 const RoutesConfig = () => (
   <Routes>
@@ -15,6 +17,8 @@ const RoutesConfig = () => (
       <Route path={ROUTES.MY_LINKS} element={<MyLinks />} />
       <Route path={ROUTES.BULK_UPLOAD} element={<BulkUpload />} />
       <Route path={ROUTES.ANALYTICS} element={<Analytics />} />
+      <Route path={ROUTES.USER_MANAGEMENT} element={<UserManagement />} />
+      <Route path={ROUTES.PROFILE} element={<Profile />} />
     </Route>
   </Routes>
 );

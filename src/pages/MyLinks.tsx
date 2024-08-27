@@ -86,19 +86,15 @@ const MyLinks: React.FC = () => {
 
   const [filteredData, setFilteredData] = useState(LinksData);
   const [searchTerm, setSearchTerm] = useState('');
-
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleModalOpen = (value:any) => {
     setIsModalOpen(true)
-
     // alert(typeof value)
     const data = LinksData.find((val, index)=>{
       // alert(typeof index)
       return val.id === value
     })
-console.log({data});
-
     setEdit({
       logo:data?.logo ?? '',
       channel:data?.label ?? '',

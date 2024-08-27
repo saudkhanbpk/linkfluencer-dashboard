@@ -3,7 +3,7 @@ import Pagination from "./pagination";
 import useDeviceDetect from "../../../helpers/screens";
 const Index = ({ columns, dataSource, tableData }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(12)
+  const [itemsPerPage] = useState(8)
   const [limit] = useState({
     start: 1,
     end: itemsPerPage, 
@@ -86,13 +86,13 @@ const Index = ({ columns, dataSource, tableData }) => {
           </div>
         </div>
       </div>
-      <Pagination
+     {dataSource.length >itemsPerPage && <Pagination
         totalItems={dataSource.length}
         itemsPerPage={itemsPerPage}
         currentPage={currentPage}
         onPageChange={handlePageChange}
         limit={{ start: startIndex + 1, end: Math.min(endIndex, dataSource.length) }} 
-      />
+      />}
     </div>
   );
 };
