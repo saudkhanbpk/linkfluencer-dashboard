@@ -10,9 +10,8 @@ import { LogoutIcon, SinglePersonIcon } from '../../svg';
 const Navbar = () => {
   const { isMobile } = useDeviceDetect();
   const [expand, setExpand] = useState<boolean>(false);
-
   return (
-    <nav className="w-full flex flex-row justify-between items-center border">
+    <nav className="w-full flex flex-row justify-between items-center z-50 border-b">
       {!isMobile && (
         <div className="w-1/5 px-[24px] py-[16px]">
           <div className="w-full h-[64px] flex items-center">
@@ -49,11 +48,13 @@ const Navbar = () => {
             </div>
 
             <div className="flex items-center gap-3">
+              <Link to="/wallet">
               <img
                 src="/assets/walletIcon.svg"
                 alt="wallet-icon"
                 className="h-[32px] w-[32px] object-contain p-1 cursor-pointer"
               />
+              </Link>
               <Dropdown label={<Avatar image="/assets/User 05a.png" />}side='right'>
                 <div>
                   <ul className="w-[150px] flex justify-center flex-col items-center bg-white border shadow-lg rounded-lg py-2">
@@ -283,7 +284,7 @@ const Navbar = () => {
             </div>
           </div>
           <div
-            className={`${expand ? 'h-0' : 'h-[100%]'} transition-all ease-in-out`}
+            className={`${expand ? 'hidden' : 'block'} transition-all ease-in-out`}
           >
             <div className="flex flex-row items-center justify-between mb-4">
               <h1 className="font-header text-[14px] font-bold mr-[16px] text-[#113E53]">

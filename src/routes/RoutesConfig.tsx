@@ -7,7 +7,8 @@ import Analytics from '../pages/Analytics';
 import Dashboard2 from '../pages/Dashboard2';
 import { ROUTES } from './constants';
 import UserManagement from '../pages/userManagement';
-import Profile from '../pages/Profile';
+import Profile from '../pages/profile/Profile';
+import MyWallet from '../pages/MyWallet';
 
 const RoutesConfig = () => (
   <Routes>
@@ -19,6 +20,7 @@ const RoutesConfig = () => (
       <Route path={ROUTES.ANALYTICS} element={<Analytics />} />
       <Route path={ROUTES.USER_MANAGEMENT} element={<UserManagement />} />
       <Route path={ROUTES.PROFILE} element={<Profile />} />
+      <Route path={ROUTES.WALLET} element={<MyWallet />} />
     </Route>
   </Routes>
 );

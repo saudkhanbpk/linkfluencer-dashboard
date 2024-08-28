@@ -1,4 +1,4 @@
-import { EditIcon } from '../../../svg';
+import { DeleteIcon } from '../../../svg';
 import Avatar from '../Avatar';
 interface User {
   id: string;
@@ -29,7 +29,7 @@ const UserSquare: React.FC<Props> = ({ isDelete, values, handleModalOpen }) => {
         </div>
         {!isDelete ? (
           <div className="flex flex-row items-center gap-4">
-            <EditIcon
+            <DeleteIcon
               className="size-4 text-[#4D494F] cursor-pointer select-none"
               onClick={() => {handleClick(values?.id ?? '')}}
             />

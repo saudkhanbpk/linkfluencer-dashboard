@@ -5,5 +5,7 @@ export const ROUTES = {
   BULK_UPLOAD: '/bulk-upload',
   ANALYTICS: '/analytics',
   USER_MANAGEMENT:'/user_management',
-  PROFILE:'/profile'
+  PROFILE:'/profile',
+  WALLET:'/wallet',
+  
 };

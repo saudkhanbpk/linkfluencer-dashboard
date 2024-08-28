@@ -37,11 +37,11 @@ const Dropdown: React.FC<DropdownProps> = ({
   return (
     <div
       ref={dropdownRef}
-      className="relative inline-block text-left cursor-pointer"
+      className="relative inline-block text-left cursor-pointer z-50"
     >
       <span
         onClick={toggleDropdown}
-        className="inline-flex justify-between py-2 bg-white text-sm font-medium text-gray-700 focus:outline-none"
+        className="inline-flex justify-between py-2 text-sm font-medium text-gray-700 focus:outline-none"
       >
         {label}
         {dropIcon && (

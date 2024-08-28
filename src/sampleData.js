@@ -259,3 +259,29 @@ export const UserManagementData = [
     invitedBy:'cameron Williamson',
   },
 ]
+export const walletData = [
+  {
+    id:'EKG3345543',
+    invoiceDate:'10, Dec, 2021',
+    datePaid:'10, Dec, 2021',
+    status:'pending',
+    paymentMode:'398********723 (Visa)',
+    amount:'$129 USD',
+  },
+  {
+    id:'EKG3345543',
+    invoiceDate:'10, Dec, 2021',
+    datePaid:'10, Dec, 2021',
+    status:'failed',
+    paymentMode:'398********723 (Visa)',
+    amount:'$129 USD',
+  },
+  {
+    id:'EKG3345543',
+    invoiceDate:'10, Dec, 2021',
+    datePaid:'10, Dec, 2021',
+    status:'success',
+    paymentMode:'398********723 (Visa)',
+    amount:'$129 USD',
+  },
+]
