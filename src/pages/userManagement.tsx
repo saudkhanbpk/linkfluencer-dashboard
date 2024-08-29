@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Table from '../components/common/table';
 import { UserManagementData } from '../sampleData';
-import { CrossIcon, DeleteIcon, FilterIcon, SearchIcon } from '../svg';
+import { DeleteIcon, FilterIcon, SearchIcon } from '../svg';
 import Dropdown from '../components/common/Dropdown';
 import useDeviceDetect from '../helpers/screens';
 import UserSquare from '../components/common/cards/userSquar';
@@ -13,24 +13,9 @@ const UserManagement: React.FC<Props> = () => {
   const [filteredData, setFilteredData] = useState(UserManagementData);
   const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [edit, setEdit] = useState({
-    name: '',
-    email: '',
-    role: '',
-  });
   const { isMobile } = useDeviceDetect();
   const handleModalOpen = () => {
     setIsModalOpen(true);
-    // // alert(typeof value)
-    // const data = UserManagementData.find((val, index) => {
-    //   // alert(typeof index)
-    //   return val.id === value;
-    // });
-    // setEdit({
-    //   name: '',
-    //   email: '',
-    //   role: '',
-    // });
   };
   const handleModalClose = () => setIsModalOpen(false);
   const columns = [

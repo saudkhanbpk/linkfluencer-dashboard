@@ -25,6 +25,11 @@ export const sidebarData = [
     label:'User Management',
     icon:'/assets/users.svg',
     route:ROUTES.USER_MANAGEMENT,
+  },
+  {
+    label:'Compaign',
+    icon:'/assets/compaignIcon.svg',
+    route:undefined
   }
 ];
 
