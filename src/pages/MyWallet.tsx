@@ -2,28 +2,17 @@ import { useEffect, useState } from 'react';
 import Table from '../components/common/table';
 import { walletData } from '../sampleData';
 import {
-  CrossIcon,
-  DeleteIcon,
   DropIcon,
-  FilterIcon,
-  SearchIcon,
 } from '../svg';
 import Dropdown from '../components/common/Dropdown';
 import useDeviceDetect from '../helpers/screens';
-import UserSquare from '../components/common/cards/userSquar';
-import Model from '../components/common/models/Model';
 interface Props {}
 
 const MyWallet: React.FC<Props> = () => {
   const [filteredData, setFilteredData] = useState(walletData);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm] = useState('');
   const [limit, setLimit] = useState('All');
-  // const [isModalOpen, setIsModalOpen] = useState(false);
   const { isMobile } = useDeviceDetect();
-  // const handleModalOpen = () => {
-  //   setIsModalOpen(true);
-  // };
-  // const handleModalClose = () => setIsModalOpen(false);
   const columns = [
     {
       title: 'No.',
@@ -54,7 +43,7 @@ const MyWallet: React.FC<Props> = () => {
       dataIndex: 'status',
       render: (row: any) => (
         <button
-          className={`${row.status == 'pending' ? 'bg-gray-100' : row.status == 'success' ? 'bg-green-100 text-green-500' : 'bg-red-100 text-red-500'} px-4 rounded-full`}
+          className={`${row.status === 'pending' ? 'bg-gray-100' : row.status === 'success' ? 'bg-green-100 text-green-500' : 'bg-red-100 text-red-500'} px-4 rounded-full`}
         >
           {row.status}
         </button>
@@ -95,45 +84,6 @@ const MyWallet: React.FC<Props> = () => {
 
   return (
     <div className="">
-      {/* <Model isOpen={isModalOpen} onClose={handleModalClose}>
-        <div className="md:w-[400px]">
-          <h1 className="text-[24px] font-header text-[#212121]">
-            Add New User
-          </h1>
-          <input
-            type="text"
-            placeholder="Full Name"
-            className="w-full p-3 rounded-full border border-gray-400 my-[16px] font-content"
-          />
-          <input
-            type="text"
-            // value={edit.tags}
-            placeholder="Work Email"
-            className="w-full p-3 rounded-full border border-gray-400 mb-[16px] font-content"
-          />
-          <select className="w-full cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100 p-3 rounded-full border outline-none border-gray-400 mb-[16px]">
-            <option value="" selected>
-              Select Role
-            </option>
-            <option className="">User</option>
-            <option>Manager</option>
-            <option>Admin</option>
-          </select>
-          <div className={'mt-2 flex justify-end items-center gap-2'}>
-            <button
-              onClick={() => {
-                setIsModalOpen(false);
-              }}
-              className=" border border-gray-800 font-bold rounded-full px-[20px] py-[8px] font-header"
-            >
-              Cancel
-            </button>
-            <button className=" border-[1px] font-bold bg-[#020D3A] rounded-full px-[20px] py-[8px] text-white font-header">
-              Create User
-            </button>
-          </div>
-        </div>
-      </Model> */}
       <div className="flex flex-col p-[12px] sm:p-[24px]">
         <div className="flex flex-col">
           <h1 className="text-2xl font-header">My Wallett</h1>
@@ -190,7 +140,7 @@ const MyWallet: React.FC<Props> = () => {
                 onClick={() => {
                   setLimit('All');
                 }}
-                className={`${limit == 'All' ? 'text-blue-500' : 'text-[#9B919D]'} cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
+                className={`${limit === 'All' ? 'text-blue-500' : 'text-[#9B919D]'} cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
               >
                 All
               </li>
@@ -198,7 +148,7 @@ const MyWallet: React.FC<Props> = () => {
                 onClick={() => {
                   setLimit('Week');
                 }}
-                className={`${limit == 'Week' ? 'text-blue-500' : 'text-[#9B919D]'} cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
+                className={`${limit === 'Week' ? 'text-blue-500' : 'text-[#9B919D]'} cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
               >
                 Week
               </li>
@@ -206,7 +156,7 @@ const MyWallet: React.FC<Props> = () => {
                 onClick={() => {
                   setLimit('Month');
                 }}
-                className={`${limit == 'Month' ? 'text-blue-500' : 'text-[#9B919D]'} cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
+                className={`${limit === 'Month' ? 'text-blue-500' : 'text-[#9B919D]'} cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
               >
                 Month
               </li>
@@ -214,7 +164,7 @@ const MyWallet: React.FC<Props> = () => {
                 onClick={() => {
                   setLimit('Year');
                 }}
-                className={`${limit == 'Year' ? 'text-blue-500' : 'text-[#9B919D]'} cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
+                className={`${limit === 'Year' ? 'text-blue-500' : 'text-[#9B919D]'} cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
               >
                 Year
               </li>
@@ -256,25 +206,25 @@ const MyWallet: React.FC<Props> = () => {
                onClick={() => {
                 setLimit('All');
               }}
-              className={`${limit == 'All' ? 'text-blue-500' : 'text-[#9B919D]'} cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
+              className={`${limit === 'All' ? 'text-blue-500' : 'text-[#9B919D]'} cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
               >All</li>
               <li 
                onClick={() => {
                 setLimit('Week');
               }}
-              className={`${limit == 'Week' ? 'text-blue-500' : 'text-[#9B919D]'} cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
+              className={`${limit === 'Week' ? 'text-blue-500' : 'text-[#9B919D]'} cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
               >Week</li>
               <li 
                onClick={() => {
                 setLimit('Month');
               }}
-              className={`${limit == 'Month' ? 'text-blue-500' : 'text-[#9B919D]'} cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
+              className={`${limit === 'Month' ? 'text-blue-500' : 'text-[#9B919D]'} cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
               >Month</li>
               <li 
                onClick={() => {
                 setLimit('Year');
               }}
-              className={`${limit == 'Year' ? 'text-blue-500' : 'text-[#9B919D]'} cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
+              className={`${limit === 'Year' ? 'text-blue-500' : 'text-[#9B919D]'} cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
               >Year</li>
             </ul>
            }
@@ -307,7 +257,7 @@ const MyWallet: React.FC<Props> = () => {
                 <tr className=" font-content">
                   <td className="  font-semibold py-2 pr-4 text-sm sm:text-[16px]">Status</td>
                   <td className={" text-[#020D3A] text-sm sm:text-[16px]"}>
-                    <span className={`${val.status == 'pending' ? 'bg-gray-100' : val.status == 'success' ? 'bg-green-100 text-green-500' : 'bg-red-100 text-red-500'} px-4 rounded-full`}>{val?.status}</span>
+                    <span className={`${val.status === 'pending' ? 'bg-gray-100' : val.status === 'success' ? 'bg-green-100 text-green-500' : 'bg-red-100 text-red-500'} px-4 rounded-full`}>{val?.status}</span>
                   </td>
                 </tr>
                 <tr className=" font-content">

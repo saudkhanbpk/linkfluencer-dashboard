@@ -1,24 +1,43 @@
-interface Props {}
-const PricingCard: React.FC<Props> = () => {
+interface Pricing{
+  Label:string,
+  description:string,
+  price:string,
+  image:string,
+  points:string[],
+  clicks:string,
+  btnLabel:string
+}
+interface Props {
+  data:Pricing
+}
+const PricingCard: React.FC<Props> = ({data}) => {
   return (
-    <div className="border border-[#172B4D]">
-      <div className="bg-[#172B4D] rounded-t-3xl">
-        <p className="text-gray-100 font-header p-3 text-center text-[20px]">Starter</p>
+    <div className="border hover:border-[#172B4D] rounded-3xl group">
+      <div className="bg-white rounded-t-3xl text-[#121111] group-hover:bg-[#113E53] duration-200">
+        <p className="font-header p-3 text-center text-[20px] group-hover:text-white">
+         {data.Label}
+        </p>
       </div>
-      <div>
-        <p>Start to measure the impact of your daily engagement</p>
-        <h1 className="font-bold font-content text-[32px]">$ 49.99</h1>
-        <img src="/assets/engagement.svg" alt="engagement-pic" />
-        <ul>
-          <ol>Open Smart Links to ver 30+ Native Apps</ol>
-          <ol>Traffic Source Analysis</ol>
-          <ol>Location Analysis</ol>
-          <ol>Conversion Analysis</ol>
-          <ol>Shorten URLs</ol>
-          <ol>Customise the generated URLs</ol>
+      <div className="px-[24px] flex flex-col items-center bg-gray-50 rounded-b-3xl">
+        <p className="text-center font-content leading-none mt-[12px]">
+          {data.description}
+        </p>
+        <h1 className="font-bold font-content text-[32px] mt-[12px] text-[#4C4C4C]">
+          {data.price}
+        </h1>
+        <img
+          src="/assets/engagement.svg"
+          alt="engagement-pic"
+          className="w-[250px] h-[170px] my-[12px]"
+        />
+        <h2 className="text-[20px] font-content my-[12px]">{data.clicks}</h2>
+        <ul className="font-content text-xs list-disc list-outside space-y-2 px-[24px] mt-2">
+          {data.points.map((val, index)=>{
+            return <li key={index}>{val}</li>
+          })}
         </ul>
-        <button className="w-[200px] border-[#113E53] font-bold bg-[#113E53] rounded-full px-[20px] py-[8px] text-white font-header">
-          Buy Now
+        <button className="w-[200px] m-[24px] cursor-pointer border border-[#113E53] group-hover:text-[#113E53] group-hover:bg-white duration-200 font-bold bg-[#113E53] rounded-full px-[20px] py-[8px] text-white font-header">
+          {data.btnLabel}
         </button>
       </div>
     </div>
