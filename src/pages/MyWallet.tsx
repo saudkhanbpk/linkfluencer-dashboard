@@ -95,45 +95,6 @@ const MyWallet: React.FC<Props> = () => {
 
   return (
     <div className="">
-      {/* <Model isOpen={isModalOpen} onClose={handleModalClose}>
-        <div className="md:w-[400px]">
-          <h1 className="text-[24px] font-header text-[#212121]">
-            Add New User
-          </h1>
-          <input
-            type="text"
-            placeholder="Full Name"
-            className="w-full p-3 rounded-full border border-gray-400 my-[16px] font-content"
-          />
-          <input
-            type="text"
-            // value={edit.tags}
-            placeholder="Work Email"
-            className="w-full p-3 rounded-full border border-gray-400 mb-[16px] font-content"
-          />
-          <select className="w-full cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100 p-3 rounded-full border outline-none border-gray-400 mb-[16px]">
-            <option value="" selected>
-              Select Role
-            </option>
-            <option className="">User</option>
-            <option>Manager</option>
-            <option>Admin</option>
-          </select>
-          <div className={'mt-2 flex justify-end items-center gap-2'}>
-            <button
-              onClick={() => {
-                setIsModalOpen(false);
-              }}
-              className=" border border-gray-800 font-bold rounded-full px-[20px] py-[8px] font-header"
-            >
-              Cancel
-            </button>
-            <button className=" border-[1px] font-bold bg-[#020D3A] rounded-full px-[20px] py-[8px] text-white font-header">
-              Create User
-            </button>
-          </div>
-        </div>
-      </Model> */}
       <div className="flex flex-col p-[12px] sm:p-[24px]">
         <div className="flex flex-col">
           <h1 className="text-2xl font-header">My Wallett</h1>

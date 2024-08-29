@@ -15,6 +15,7 @@ const PricingCard: React.FC<Props> = () => {
           <ol>Location Analysis</ol>
           <ol>Conversion Analysis</ol>
           <ol>Shorten URLs</ol>
+          
           <ol>Customise the generated URLs</ol>
         </ul>
         <button className="w-[200px] border-[#113E53] font-bold bg-[#113E53] rounded-full px-[20px] py-[8px] text-white font-header">
