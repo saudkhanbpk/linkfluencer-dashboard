@@ -109,18 +109,16 @@ const MyLinks: React.FC = () => {
       tags: data?.tags ?? '',
     });
   };
-  const detailsModelOpen = (value:any) => {
+  const detailsModelOpen = (value: any) => {
     const data = LinksData.find((val, index) => {
       return val.id === value;
     });
-    setDetails(
-      {
-        logo: data?.logo ?? '',
-        channel: data?.label ?? '',
-        link: data?.link ?? '',
-        tags: data?.tags ?? '',
-      } 
-    )
+    setDetails({
+      logo: data?.logo ?? '',
+      channel: data?.label ?? '',
+      link: data?.link ?? '',
+      tags: data?.tags ?? '',
+    });
     setIsDetailsModalOpen(true);
   };
   const handleEditModalClose = () => {
@@ -147,13 +145,13 @@ const MyLinks: React.FC = () => {
   return (
     <div className="w-full border pb-2 relative">
       <Model isOpen={isEditModalOpen} onClose={handleEditModalClose}>
-        <LinkEditCard
-          data={edit}
-          handleModalClose={handleEditModalClose}
-        />
+        <LinkEditCard data={edit} handleModalClose={handleEditModalClose} />
       </Model>
       <Model isOpen={isDetailsModalOpen} onClose={handleDetailsModalClose}>
-        <LinkDetailsCard data={details}  handleDetailsModalClose={handleDetailsModalClose}/>
+        <LinkDetailsCard
+          data={details}
+          handleDetailsModalClose={handleDetailsModalClose}
+        />
       </Model>
       <div className="flex flex-col p-[24px]">
         <div>
@@ -225,6 +223,7 @@ const MyLinks: React.FC = () => {
               )}
               <div className="">
                 <Dropdown
+                  side="right"
                   label={
                     <FilterIcon className="size-8 cursor-pointer hover:bg-gray-100 p-1 rounded-full duration-200" />
                   }
@@ -297,7 +296,7 @@ const MyLinks: React.FC = () => {
                     isDelete={isDelete}
                     id={val.id}
                     editModalOpen={editModalOpen}
-                    detailsModelOpen = {detailsModelOpen}
+                    detailsModelOpen={detailsModelOpen}
                   />
                 </div>
               );

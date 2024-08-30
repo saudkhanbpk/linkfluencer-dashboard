@@ -7,6 +7,9 @@ import CalumnChart from '../components/common/charts/columnChart';
 import useDeviceDetect from '../helpers/screens';
 import Dropdown from '../components/common/Dropdown';
 import { DotIcon, FilterIcon, Link45Icon } from '../svg';
+import Model from '../components/common/models/Model';
+import LinkEditCard from '../components/common/cards/LinkEdit';
+import LinkDetailsCard from '../components/common/cards/LinkDetails';
 
 const Dashboard2: React.FC = () => {
   const [selectedTab, setSelectedTab] = useState(0);
@@ -29,6 +32,7 @@ const Dashboard2: React.FC = () => {
 
   const Links = [
     {
+      id:1,
       logo: '/assets/youtubeLogo.svg',
       link: 'https://linkfluencerstg.addwebprojects.com/nextdor',
       label: 'Youtube',
@@ -38,6 +42,7 @@ const Dashboard2: React.FC = () => {
       indicateUp: true,
     },
     {
+      id:2,
       logo: '/assets/amazonLogo.svg',
       link: 'https://linkfluencerstg.addwebprojects.com/nextdor',
       label: 'Amazon',
@@ -47,6 +52,7 @@ const Dashboard2: React.FC = () => {
       indicateUp: false,
     },
     {
+      id:3,
       logo: '/assets/spotifyLogo.svg',
       link: 'https://linkfluencerstg.addwebprojects.com/nextdor',
       label: 'Spotify',
@@ -84,8 +90,62 @@ const Dashboard2: React.FC = () => {
     },
   ];
 
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
+  const [edit, setEdit] = useState({
+    logo: '',
+    channel: '',
+    link: '',
+    tags: '',
+  });
+  const [details, setDetails] = useState({
+    logo: '',
+    channel: '',
+    link: '',
+    tags: '',
+  });
+  const editModalOpen = (value: any) => {
+    setIsEditModalOpen(true);
+    const data = Links.find((val, index) => {
+      return val.id === value;
+    });
+    setEdit({
+      logo: data?.logo ?? '',
+      channel: data?.label ?? '',
+      link: data?.link ?? '',
+      tags: data?.tags ?? '',
+    });
+  };
+  const detailsModelOpen = (value: any) => {
+    const data = Links.find((val, index) => {
+      return val.id === value;
+    });
+    setDetails({
+      logo: data?.logo ?? '',
+      channel: data?.label ?? '',
+      link: data?.link ?? '',
+      tags: data?.tags ?? '',
+    });
+    setIsDetailsModalOpen(true);
+  };
+  const handleEditModalClose = () => {
+    setIsEditModalOpen(false);
+  };
+
+  const handleDetailsModalClose = () => {
+    setIsDetailsModalOpen(false);
+  };
   return (
     <div>
+      <Model isOpen={isEditModalOpen} onClose={handleEditModalClose}>
+        <LinkEditCard data={edit} handleModalClose={handleEditModalClose} />
+      </Model>
+      <Model isOpen={isDetailsModalOpen} onClose={handleDetailsModalClose}>
+        <LinkDetailsCard
+          data={details}
+          handleDetailsModalClose={handleDetailsModalClose}
+        />
+      </Model>
       <div className="p-[12px] sm:p-[24px]">
         <div>
           <h4 className="text-gray-500 font-content">Rahul&rsquo;s</h4>
@@ -142,8 +202,9 @@ const Dashboard2: React.FC = () => {
               </span>
               <Dropdown
                 label={<FilterIcon className="size-6" />}
+                side="right"
                 children={
-                  <ul className="bg-white w-auto shadow-md border-0.5 rounded-lg py-2">
+                  <ul className="bg-white w-auto shadow-md border-0.5 rounded-lg py-2 border">
                     {tabs.map((val, index) => {
                       return (
                         <li
@@ -178,6 +239,11 @@ const Dashboard2: React.FC = () => {
                   percent={val.percent}
                   indicateUp={val.indicateUp}
                   minimize={minimize}
+                  // isDelete={isDelete}
+                  id={val.id}
+                  editModalOpen={editModalOpen}
+                  detailsModelOpen={detailsModelOpen}
+
                 />
               </div>
             );
