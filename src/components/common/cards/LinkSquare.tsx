@@ -11,7 +11,8 @@ interface Props {
   indicateUp: boolean;
   minimize?: boolean;
   isDelete?: boolean;
-  handleModalOpen?:(val:number)=>void;
+  editModalOpen?:(val:number)=>void;
+  detailsModelOpen?:(val:number)=>void;
   index?:number
   id?:number
   // handleEdit?:()=>void;
@@ -26,12 +27,17 @@ const LinkSquare: React.FC<Props> = ({
   indicateUp,
   minimize,
   isDelete,
-  handleModalOpen,
+  editModalOpen,
+  detailsModelOpen,
   id,
 }) => {
 
   const handleClick = (id:number) =>{
-    handleModalOpen?.(id)
+    editModalOpen?.(id)
+  }
+
+  const handleDetailsClick = (id:number) =>{
+    detailsModelOpen?.(id)
   }
   return (
     <div className="rounded-2xl bg-gray-100 border hover:border-black duration-150">
@@ -69,7 +75,7 @@ const LinkSquare: React.FC<Props> = ({
               )}
             </div>
             <div className="p-2 rounded-full hover:bg-gray-200 duration-150">
-              <RightArrow className="size-4 cursor-pointer"/>
+              <RightArrow className="size-4 cursor-pointer" onClick={()=>{handleDetailsClick(id??0)}}/>
             </div>
           </div>
         </div>

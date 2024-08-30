@@ -10,7 +10,7 @@ import { DotIcon, FilterIcon, Link45Icon } from '../svg';
 
 const Dashboard2: React.FC = () => {
   const [selectedTab, setSelectedTab] = useState(0);
-  const [minimize, setMinimize] = useState(false);
+  const [minimize] = useState(false);
   const { isMobile } = useDeviceDetect();
   const tabs = [
     {
@@ -115,7 +115,7 @@ const Dashboard2: React.FC = () => {
                   <li
                     key={index}
                     className={`border-b-[3px] text-[#252C32] text-[14px] ${
-                      selectedTab == index
+                      selectedTab === index
                         ? 'font-[600] border-[#252C32]'
                         : 'font-[400] border-transparent'
                     }  hover:border-black py-[8px] cursor-pointer duration-500 font-content`}
@@ -149,7 +149,7 @@ const Dashboard2: React.FC = () => {
                         <li
                           key={index}
                           className={`text-[#252C32] text-[14px] px-3 py-2 border-b ${
-                            selectedTab == index ? 'font-[600]' : 'font-[400]'
+                            selectedTab === index ? 'font-[600]' : 'font-[400]'
                           } py-[8px] cursor-pointer duration-500 font-content whitespace-nowrap hover:bg-gray-200`}
                           onClick={() => {
                             setSelectedTab(index);

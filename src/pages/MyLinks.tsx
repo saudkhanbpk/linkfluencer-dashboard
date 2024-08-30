@@ -16,17 +16,25 @@ import {
 import Indicate from '../components/common/cards/Indicate';
 import Dropdown from '../components/common/Dropdown';
 import Model from '../components/common/models/Model';
+import LinkDetailsCard from '../components/common/cards/LinkDetails';
+import LinkEditCard from '../components/common/cards/LinkEdit';
 
 const MyLinks: React.FC = () => {
   const [minimize, setMinimize] = useState(false);
   const [isTable, setIsTable] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
   const [edit, setEdit] = useState({
-    logo:"",
-    channel:"",
-    link:"",
-    tags:""
-  })
+    logo: '',
+    channel: '',
+    link: '',
+    tags: '',
+  });
+  const [details, setDetails] = useState({
+    logo: '',
+    channel: '',
+    link: '',
+    tags: '',
+  });
   // const {isMobile} = useDeviceDetect()
   const columns = [
     {
@@ -86,29 +94,47 @@ const MyLinks: React.FC = () => {
 
   const [filteredData, setFilteredData] = useState(LinksData);
   const [searchTerm, setSearchTerm] = useState('');
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
 
-  const handleModalOpen = (value:any) => {
-    setIsModalOpen(true)
-    // alert(typeof value)
-    const data = LinksData.find((val, index)=>{
-      // alert(typeof index)
-      return val.id === value
-    })
-    setEdit({
-      logo:data?.logo ?? '',
-      channel:data?.label ?? '',
-      link:data?.link??'',
-      tags:data?.tags ?? '',
+  const editModalOpen = (value: any) => {
+    setIsEditModalOpen(true);
+    const data = LinksData.find((val, index) => {
+      return val.id === value;
     });
-    
+    setEdit({
+      logo: data?.logo ?? '',
+      channel: data?.label ?? '',
+      link: data?.link ?? '',
+      tags: data?.tags ?? '',
+    });
   };
-  const handleModalClose = () => setIsModalOpen(false);
+  const detailsModelOpen = (value:any) => {
+    const data = LinksData.find((val, index) => {
+      return val.id === value;
+    });
+    setDetails(
+      {
+        logo: data?.logo ?? '',
+        channel: data?.label ?? '',
+        link: data?.link ?? '',
+        tags: data?.tags ?? '',
+      } 
+    )
+    setIsDetailsModalOpen(true);
+  };
+  const handleEditModalClose = () => {
+    setIsEditModalOpen(false);
+  };
+
+  const handleDetailsModalClose = () => {
+    setIsDetailsModalOpen(false);
+  };
 
   const handleSearch = (event: any) => {
     setSearchTerm(event.target.value);
   };
-  
+
   useEffect(() => {
     const results = LinksData.filter((item) =>
       Object.values(item).some((val) =>
@@ -120,39 +146,14 @@ const MyLinks: React.FC = () => {
 
   return (
     <div className="w-full border pb-2 relative">
-      <Model isOpen={isModalOpen} onClose={handleModalClose}>
-        <div className="md:w-[500px]">
-          <h1 className="text-[24px] font-header">Edit Link</h1>
-          <div className="flex justify-between items-center my-[18px]">
-            <div className="flex items-center gap-2">
-              <img
-                src={edit.logo}
-                className="w-[46px] h-[33px]"
-                alt="social Media Logo"
-              />
-              <label className="font-header text-[20px]">{edit.channel}</label>
-            </div>
-            <CrossIcon className={'size-5 text-black'} onClick={handleModalClose} />
-          </div>
-          <input
-            type="text"
-            value={edit.link}
-            className="w-full p-2 rounded-full border border-gray-400 my-[16px]"
-          />
-          <input
-            type="text"
-            value={edit.tags}
-            className="w-full p-2 rounded-full border border-gray-400 mb-[16px]"
-          />
-          <div className={"mt-2 flex justify-end items-center gap-2"}>
-          <button className="w-[113px] border border-gray-800 font-bold rounded-full px-[20px] py-[8px] font-header">
-            Ok
-          </button>
-          <button className="w-[113px] border-[1px] font-bold bg-[#531111] rounded-full px-[20px] py-[8px] text-white font-header">
-            Save
-          </button>
-          </div>
-        </div>
+      <Model isOpen={isEditModalOpen} onClose={handleEditModalClose}>
+        <LinkEditCard
+          data={edit}
+          handleModalClose={handleEditModalClose}
+        />
+      </Model>
+      <Model isOpen={isDetailsModalOpen} onClose={handleDetailsModalClose}>
+        <LinkDetailsCard data={details}  handleDetailsModalClose={handleDetailsModalClose}/>
       </Model>
       <div className="flex flex-col p-[24px]">
         <div>
@@ -294,8 +295,9 @@ const MyLinks: React.FC = () => {
                     indicateUp={val.indicateUp}
                     minimize={minimize}
                     isDelete={isDelete}
-                    id = {val.id}
-                    handleModalOpen={handleModalOpen}
+                    id={val.id}
+                    editModalOpen={editModalOpen}
+                    detailsModelOpen = {detailsModelOpen}
                   />
                 </div>
               );

@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
 import './AreaChart.css';
 
 const ApexChart = ({ indicateUp = true }) => {
   const color = indicateUp ? '#00FF00' : '#AE0000';
 
-  const [chartOptions, setChartOptions] = useState({
+  const [chartOptions] = useState({
     series: [
       {
         name: 'series1',
