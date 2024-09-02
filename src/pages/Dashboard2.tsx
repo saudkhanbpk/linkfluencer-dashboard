@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import LinkSquare from '../components/common/cards/LinkSquare';
-import ApexChart from '../components/common/charts/AreaChat';
+import ApexChart from '../components/common/charts/LineChart';
 import IndicateUp from '../components/common/cards/IndicateUp';
 import IndicateDown from '../components/common/cards/indicateDown';
 import CalumnChart from '../components/common/charts/columnChart';
@@ -227,10 +227,10 @@ const Dashboard2: React.FC = () => {
             </div>
           )}
         </div>
-        <div className="my-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {Links.map((val, index) => {
             return (
-              <div key={index} className="mt-8 lg:mt-0">
+              <div key={index} className="mt-4 lg:mt-0">
                 <LinkSquare
                   link={val?.link}
                   totalClicks={val?.totalClicks}
