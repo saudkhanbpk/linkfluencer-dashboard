@@ -1,4 +1,5 @@
 import { EditIcon, RightArrow, SaveIcon, ShareIcon } from '../../../svg';
+import Tooltip from '../ToolTip';
 import IndicateDown from './indicateDown';
 import IndicateUp from './IndicateUp';
 
@@ -48,9 +49,15 @@ const LinkSquare: React.FC<Props> = ({
         </div>
         {!isDelete ? (
           <div className="flex flex-row items-center gap-4">
+            <Tooltip text={"Edit"}>
             <EditIcon className="size-4 text-[#4D494F] cursor-pointer select-none" onClick={()=>handleClick(id??0)}/>
+            </Tooltip>
+            <Tooltip text={"Share"}>
             <ShareIcon className="size-4 text-[#4D494F] cursor-pointer select-none" />
+            </Tooltip>
+            <Tooltip text="Save">
             <SaveIcon className="size-4 text-[#4D494F] bg-white h-8 w-8 p-2 rounded-full cursor-pointer select-none" />
+            </Tooltip>
           </div>
         ) : (
           <input type="checkbox" className="w-6 h-6 cursor-pointer" />
@@ -75,7 +82,9 @@ const LinkSquare: React.FC<Props> = ({
               )}
             </div>
             <div className="p-2 rounded-full hover:bg-gray-200 duration-150">
+              <Tooltip text={"Details"}>
               <RightArrow className="size-4 cursor-pointer" onClick={()=>{handleDetailsClick(id??0)}}/>
+              </Tooltip>
             </div>
           </div>
         </div>

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import LinkSquare from '../components/common/cards/LinkSquare';
-import ApexChart from '../components/common/charts/LineChart';
+import ApexChart from '../components/common/charts/LineChart/DashboardChart';
 import IndicateUp from '../components/common/cards/IndicateUp';
 import IndicateDown from '../components/common/cards/indicateDown';
 import CalumnChart from '../components/common/charts/columnChart';
@@ -10,6 +10,7 @@ import { DotIcon, FilterIcon, Link45Icon } from '../svg';
 import Model from '../components/common/models/Model';
 import LinkEditCard from '../components/common/cards/LinkEdit';
 import LinkDetailsCard from '../components/common/cards/LinkDetails';
+import Chart from '../components/common/charts/CircleChart';
 
 const Dashboard2: React.FC = () => {
   const [selectedTab, setSelectedTab] = useState(0);
@@ -300,11 +301,13 @@ const Dashboard2: React.FC = () => {
                 })}
               </div>
             </div>
-            <div className="border h-[300px] flex flex-col justify-between items-start px-[20px] py-[20px] rounded-2xl w-full">
+            <div className="border h-[300px] p-[24px] rounded-2xl relative">
               <span className="text-[#4C4C4C] font-content whitespace-nowrap">
                 Users traffic by region
               </span>
-              <div className="flex h-full gap-6"></div>
+              <div className="h-full mt-4">
+                <Chart/>
+              </div>
             </div>
           </div>
         </div>

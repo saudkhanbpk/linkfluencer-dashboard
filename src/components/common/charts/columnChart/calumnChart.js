@@ -35,15 +35,6 @@ const ApexColumnChart = () => {
 
     dataLabels: {
         enabled: false,
-        // style: {
-        //   fontSize: "14px",
-        //   colors: ["#000"],
-        // },
-        // offsetY: 20, // Moves labels above the bars
-        // position: "top", // Position the labels at the top of the bars
-        // formatter: function (val) {
-        //   return val.toFixed(0); // Format the label value
-        // },
       },
     stroke: {
       show: true,
@@ -113,6 +104,9 @@ const ApexColumnChart = () => {
         height: "100%", // Fixed height
         width: "100%", // Full width of the container
         overflow: "hidden", // Hide overflow
+        // border:"Solid green 2px",
+        padding:0,
+        margin:0,
       }}
     >
       <ReactApexChart options={options} series={series} type="bar" />
