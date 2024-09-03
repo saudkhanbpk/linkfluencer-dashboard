@@ -6,8 +6,8 @@ import Dropdown from '../components/common/Dropdown';
 import useDeviceDetect from '../helpers/screens';
 import UserSquare from '../components/common/cards/userSquar';
 import Model from '../components/common/models/Model';
-interface Props {}
 
+interface Props {}  
 const UserManagement: React.FC<Props> = () => {
   const [isDelete, setIsDelete] = useState(false);
   const [filteredData, setFilteredData] = useState(UserManagementData);

@@ -15,11 +15,13 @@ const Navbar = () => {
       {!isMobile && (
         <div className="w-1/5 px-[24px] py-[16px]">
           <div className="w-full h-[64px] flex items-center">
-            <img
+           <Link to={"/test-dashboard"}>
+           <img
               src="/assets/Logo.svg"
               className="min-w-[150px] w-[190px] min-h-[40px] h-[28px] object-contain"
               alt="logo"
             />
+           </Link>
           </div>
         </div>
       )}

@@ -1,16 +1,20 @@
 import { useState } from 'react';
 import LinkSquare from '../components/common/cards/LinkSquare';
-import ApexChart from '../components/common/charts/AreaChat';
+import ApexChart from '../components/common/charts/LineChart/DashboardChart';
 import IndicateUp from '../components/common/cards/IndicateUp';
 import IndicateDown from '../components/common/cards/indicateDown';
 import CalumnChart from '../components/common/charts/columnChart';
 import useDeviceDetect from '../helpers/screens';
 import Dropdown from '../components/common/Dropdown';
 import { DotIcon, FilterIcon, Link45Icon } from '../svg';
+import Model from '../components/common/models/Model';
+import LinkEditCard from '../components/common/cards/LinkEdit';
+import LinkDetailsCard from '../components/common/cards/LinkDetails';
+import Chart from '../components/common/charts/CircleChart';
 
 const Dashboard2: React.FC = () => {
   const [selectedTab, setSelectedTab] = useState(0);
-  const [minimize, setMinimize] = useState(false);
+  const [minimize] = useState(false);
   const { isMobile } = useDeviceDetect();
   const tabs = [
     {
@@ -29,6 +33,7 @@ const Dashboard2: React.FC = () => {
 
   const Links = [
     {
+      id:1,
       logo: '/assets/youtubeLogo.svg',
       link: 'https://linkfluencerstg.addwebprojects.com/nextdor',
       label: 'Youtube',
@@ -38,6 +43,7 @@ const Dashboard2: React.FC = () => {
       indicateUp: true,
     },
     {
+      id:2,
       logo: '/assets/amazonLogo.svg',
       link: 'https://linkfluencerstg.addwebprojects.com/nextdor',
       label: 'Amazon',
@@ -47,6 +53,7 @@ const Dashboard2: React.FC = () => {
       indicateUp: false,
     },
     {
+      id:3,
       logo: '/assets/spotifyLogo.svg',
       link: 'https://linkfluencerstg.addwebprojects.com/nextdor',
       label: 'Spotify',
@@ -84,8 +91,62 @@ const Dashboard2: React.FC = () => {
     },
   ];
 
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
+  const [edit, setEdit] = useState({
+    logo: '',
+    channel: '',
+    link: '',
+    tags: '',
+  });
+  const [details, setDetails] = useState({
+    logo: '',
+    channel: '',
+    link: '',
+    tags: '',
+  });
+  const editModalOpen = (value: any) => {
+    setIsEditModalOpen(true);
+    const data = Links.find((val, index) => {
+      return val.id === value;
+    });
+    setEdit({
+      logo: data?.logo ?? '',
+      channel: data?.label ?? '',
+      link: data?.link ?? '',
+      tags: data?.tags ?? '',
+    });
+  };
+  const detailsModelOpen = (value: any) => {
+    const data = Links.find((val, index) => {
+      return val.id === value;
+    });
+    setDetails({
+      logo: data?.logo ?? '',
+      channel: data?.label ?? '',
+      link: data?.link ?? '',
+      tags: data?.tags ?? '',
+    });
+    setIsDetailsModalOpen(true);
+  };
+  const handleEditModalClose = () => {
+    setIsEditModalOpen(false);
+  };
+
+  const handleDetailsModalClose = () => {
+    setIsDetailsModalOpen(false);
+  };
   return (
     <div>
+      <Model isOpen={isEditModalOpen} onClose={handleEditModalClose}>
+        <LinkEditCard data={edit} handleModalClose={handleEditModalClose} />
+      </Model>
+      <Model isOpen={isDetailsModalOpen} onClose={handleDetailsModalClose}>
+        <LinkDetailsCard
+          data={details}
+          handleDetailsModalClose={handleDetailsModalClose}
+        />
+      </Model>
       <div className="p-[12px] sm:p-[24px]">
         <div>
           <h4 className="text-gray-500 font-content">Rahul&rsquo;s</h4>
@@ -115,7 +176,7 @@ const Dashboard2: React.FC = () => {
                   <li
                     key={index}
                     className={`border-b-[3px] text-[#252C32] text-[14px] ${
-                      selectedTab == index
+                      selectedTab === index
                         ? 'font-[600] border-[#252C32]'
                         : 'font-[400] border-transparent'
                     }  hover:border-black py-[8px] cursor-pointer duration-500 font-content`}
@@ -142,14 +203,15 @@ const Dashboard2: React.FC = () => {
               </span>
               <Dropdown
                 label={<FilterIcon className="size-6" />}
+                side="right"
                 children={
-                  <ul className="bg-white w-auto shadow-md border-0.5 rounded-lg py-2">
+                  <ul className="bg-white w-auto shadow-md border-0.5 rounded-lg py-2 border">
                     {tabs.map((val, index) => {
                       return (
                         <li
                           key={index}
                           className={`text-[#252C32] text-[14px] px-3 py-2 border-b ${
-                            selectedTab == index ? 'font-[600]' : 'font-[400]'
+                            selectedTab === index ? 'font-[600]' : 'font-[400]'
                           } py-[8px] cursor-pointer duration-500 font-content whitespace-nowrap hover:bg-gray-200`}
                           onClick={() => {
                             setSelectedTab(index);
@@ -166,10 +228,10 @@ const Dashboard2: React.FC = () => {
             </div>
           )}
         </div>
-        <div className="my-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {Links.map((val, index) => {
             return (
-              <div key={index} className="mt-8 lg:mt-0">
+              <div key={index} className="mt-4 lg:mt-0">
                 <LinkSquare
                   link={val?.link}
                   totalClicks={val?.totalClicks}
@@ -178,6 +240,11 @@ const Dashboard2: React.FC = () => {
                   percent={val.percent}
                   indicateUp={val.indicateUp}
                   minimize={minimize}
+                  // isDelete={isDelete}
+                  id={val.id}
+                  editModalOpen={editModalOpen}
+                  detailsModelOpen={detailsModelOpen}
+
                 />
               </div>
             );
@@ -234,11 +301,13 @@ const Dashboard2: React.FC = () => {
                 })}
               </div>
             </div>
-            <div className="border h-[300px] flex flex-col justify-between items-start px-[20px] py-[20px] rounded-2xl w-full">
+            <div className="border h-[300px] p-[24px] rounded-2xl relative">
               <span className="text-[#4C4C4C] font-content whitespace-nowrap">
                 Users traffic by region
               </span>
-              <div className="flex h-full gap-6"></div>
+              <div className="h-full mt-4">
+                <Chart/>
+              </div>
             </div>
           </div>
         </div>
