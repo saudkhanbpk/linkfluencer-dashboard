@@ -10,18 +10,18 @@ const LineChart = ({ indicateUp = true }) => {
       toolbar: {
         show: false,
       },
+      height: 'auto', // Set height to auto to respect the container's height
     },
-    colors: [color], 
+    colors: [color],
     dataLabels: {
       enabled: false,
     },
     stroke: {
       curve: 'smooth',
-      width:2,
+      width: 2,
     },
     xaxis: {
-      categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], // Days of the week on the x-axis
-      title: {},
+      categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
       labels: {
         style: {
           colors: '#666',
@@ -31,16 +31,13 @@ const LineChart = ({ indicateUp = true }) => {
         },
       },
       axisBorder: {
-        show: false, // Hide the x-axis border line
+        show: false,
       },
       axisTicks: {
-        show: false, // Hide the x-axis ticks
+        show: false,
       },
     },
     yaxis: {
-      title: {
-       show:false
-      },
       labels: {
         formatter: function (value) {
           return `$${value}`;
@@ -55,33 +52,44 @@ const LineChart = ({ indicateUp = true }) => {
     grid: {
       xaxis: {
         lines: {
-          show: true, // Show vertical grid lines
+          show: true,
         },
       },
       yaxis: {
         lines: {
-          show: false, // Hide horizontal grid lines
+          show: false,
         },
       },
-      strokeDashArray: 4, // Makes the vertical grid lines dashed
+      strokeDashArray: 4,
     },
   };
 
   const series = [
     {
       name: 'series1',
-      data: [0, 35, 12, 45, 32,55],
+      data: [0, 35, 12, 45, 32, 55],
     },
   ];
 
   return (
-    <div className="areachar w-full max-h-3/5">
-      <ReactApexChart
-        options={options}
-        series={series}
-        type="area"
-      />
-    </div>
+    // <div className="areachar w-full border" style={{ height: 'calc(100vw * 0.5)', maxHeight: '400px' }}>
+    //   <ReactApexChart
+    //     options={options}
+    //     series={series}
+    //     type="area"
+    //     width="100%"
+    //     height="100%"
+    //   />
+    // </div>
+    <div className="areachar w-full h-[100%] max-h-[600px] md:max-h-[320px] pb-2">
+    <ReactApexChart
+      options={options}
+      series={series}
+      type="area"
+      width="100%"
+      height="100%"
+    />
+  </div>
   );
 };
 

@@ -5,7 +5,7 @@ const ApexColumnChart = () => {
   const [series] = useState([
     {
       name: "Series 1",
-      data: [80, 40, 28, 51, 42, 109, 100],
+      data: [31, 40, 28, 51, 42, 109, 100],
     },
   ]);
 
@@ -18,10 +18,11 @@ const ApexColumnChart = () => {
     },
     plotOptions: {
       bar: {
-        columnWidth: "30%", // Width of the columns
+        columnWidth: "50%", // Width of the columns
         endingShape: "rounded", // Rounded ends for bars
         borderRadius: 10, // Rounded corners for bars
         distributed: false, // Distribute columns equally
+        fontSize:"12px",
         colors: {
           backgroundBarColors: [], // No background bar color
           backgroundBarOpacity: 1,
@@ -32,7 +33,7 @@ const ApexColumnChart = () => {
       },
     },
     dataLabels: {
-      enabled: false,
+      enabled: true,
     },
     stroke: {
       show: true,

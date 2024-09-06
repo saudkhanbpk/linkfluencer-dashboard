@@ -27,25 +27,13 @@ const Circle = ({ value, maxValue }) => {
     </div>
   );
 };
-// const Rectangle = ({ value, maxValue }) => {
-//     // Calculate opacity based on value
-//     const opacity = (value / maxValue).toFixed(2);
-//     return (
-//       <div
-//         className="w-12 h-2" // Fixed size for rectangle
-//         style={{
-//             backgroundColor: `#30009C`, opacity: `${opacity}`, // Example color
-//         }}
-//       />
-//     );
-//   };
 
-const CircleChart = () => {
+const DashboardCircleChart = () => {
   const maxValue = Math.max(...data.map((d) => d.value));
 
   return (
     <div className="flex flex-col space-y-4">
-      <div className="grid grid-cols-2 gap-y-4 gap-x-[40px] lg:gap-x-[180px] ">
+      <div className="grid grid-cols-2 gap-y-4 gap-x-[40px] lg:gap-x-[80px] ">
         {data.map((d) => (
           <div
             key={d.country}
@@ -68,4 +56,4 @@ const CircleChart = () => {
   );
 };
 
-export default CircleChart;
+export default DashboardCircleChart;

@@ -2,11 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-@media (max-width: 1500px) and (min-width: 1350px) {
+/* @media (max-width: 1500px) and (min-width: 1350px) {
   body {
     zoom: 80%;
   }
-}
+} */
 
 select {
   -webkit-appearance: none !important;

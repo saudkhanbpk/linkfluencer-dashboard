@@ -55,7 +55,7 @@ const LinkSquare: React.FC<Props> = ({
             <Tooltip text={"Share"}>
             <ShareIcon className="size-4 text-[#4D494F] cursor-pointer select-none" />
             </Tooltip>
-            <Tooltip text="Save">
+            <Tooltip text="Copy">
             <SaveIcon className="size-4 text-[#4D494F] bg-white h-8 w-8 p-2 rounded-full cursor-pointer select-none" />
             </Tooltip>
           </div>

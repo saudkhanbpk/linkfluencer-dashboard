@@ -6,7 +6,7 @@ import Influencer from './Influencer';
 interface Props {}
 
 const Profile: React.FC<Props> = () => {
-  const [role, setRole] = useState('influencer');
+  const [role, setRole] = useState('user');
   return (
     <div className="bg-white p-[12px] sm:p-[24px]">
       <h1 className="font-header text-[24px] text-[#172B4D]">Profile</h1>

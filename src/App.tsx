@@ -5,7 +5,7 @@ import RoutesConfig from './routes/RoutesConfig';
 
 function App() {
   return (
-    <div className="max-w-[1920px] m-auto">
+    <div className="max-w-[2200px] m-auto">
       <Router>
         <MinimizeContextProvider>
           <RoutesConfig />
