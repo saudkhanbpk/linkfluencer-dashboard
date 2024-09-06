@@ -1,56 +1,37 @@
-import React, { useState } from 'react';
-import { getFaviconUrl } from '../../services/faviconService';
+// components/common/FaviconLoader.tsx
+import React, { useEffect } from 'react';
 
-const FaviconFetcher: React.FC = () => {
-  const [url, setUrl] = useState<string>('');
-  const [favicon, setFavicon] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
+interface FaviconLoaderProps {
+  originalUrl: string;
+  setFavicon: (url: string) => void;
+}
 
-  const handleFetchFavicon = async () => {
-    setLoading(true);
-    setError(null);
-    setFavicon(null);
-    try {
-      const faviconUrl = await getFaviconUrl(url);
-      setFavicon(faviconUrl);
-    } catch (err) {
-      setError('Failed to fetch favicon.');
-    } finally {
-      setLoading(false);
-    }
-  };
+const FaviconLoader: React.FC<FaviconLoaderProps> = ({
+  originalUrl,
+  setFavicon,
+}) => {
+  useEffect(() => {
+    const loadFavicon = async () => {
+      try {
+        const link = document.createElement('link');
+        link.rel = 'icon';
+        link.href = new URL('/favicon.ico', originalUrl).href;
 
-  return (
-    <div style={{ textAlign: 'center' }}>
-      <input
-        type="text"
-        value={url}
-        onChange={(e) => setUrl(e.target.value)}
-        placeholder="Enter website URL"
-        style={{ padding: '10px', width: '300px' }}
-      />
-      <button
-        onClick={handleFetchFavicon}
-        style={{ padding: '10px', marginLeft: '10px' }}
-      >
-        Fetch Favicon
-      </button>
+        const img = new Image();
+        img.src = link.href;
+        img.onload = () => setFavicon(link.href);
+        img.setAttribute('style', 'width:32px;height:32px;');
+        img.onerror = () => setFavicon('');
+      } catch (error) {
+        console.error('Error loading favicon:', error);
+        setFavicon('');
+      }
+    };
 
-      {loading && <p>Loading...</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {favicon && (
-        <div>
-          <p>Favicon:</p>
-          <img
-            src={favicon}
-            alt="Favicon"
-            style={{ width: '32px', height: '32px' }}
-          />
-        </div>
-      )}
-    </div>
-  );
+    loadFavicon();
+  }, [originalUrl, setFavicon]);
+
+  return null; // Ce composant n'a pas de rendu visuel, il gère uniquement le chargement
 };
 
-export default FaviconFetcher;
+export default FaviconLoader;

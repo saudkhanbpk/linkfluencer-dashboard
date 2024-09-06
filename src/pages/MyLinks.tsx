@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import LinkSquare from '../components/common/cards/LinkSquare';
+// import LinkSquare from '../components/common/cards/LinkSquare';
 import { LinksData } from '../sampleData';
 import Table from '../components/common/table';
 import {
@@ -227,23 +227,22 @@ const MyLinks: React.FC = () => {
                   label={
                     <FilterIcon className="size-8 cursor-pointer hover:bg-gray-100 p-1 rounded-full duration-200" />
                   }
-                  children={
-                    <ul className="w-[200px] flex justify-center flex-col items-center border bg-white rounded-2xl py-1 shadow-md">
-                      <li className=" w-full px-4  font-content py-2 border-b">
-                        Hight to Low Clicks
-                      </li>
-                      <li className=" w-full px-4  font-content py-2 border-b">
-                        Low to High Clicks
-                      </li>
-                      <li className=" w-full px-4  font-content py-2 border-b">
-                        <span>By Dates</span>
-                      </li>
-                      <li className=" w-full px-4  font-content py-2">
-                        Menue Item x
-                      </li>
-                    </ul>
-                  }
-                />
+                >
+                  <ul className="w-[200px] flex justify-center flex-col items-center border bg-white rounded-2xl py-1 shadow-md">
+                    <li className=" w-full px-4  font-content py-2 border-b">
+                      Hight to Low Clicks
+                    </li>
+                    <li className=" w-full px-4  font-content py-2 border-b">
+                      Low to High Clicks
+                    </li>
+                    <li className=" w-full px-4  font-content py-2 border-b">
+                      <span>By Dates</span>
+                    </li>
+                    <li className=" w-full px-4  font-content py-2">
+                      Menue Item x
+                    </li>
+                  </ul>
+                </Dropdown>
               </div>
               <div className="p-2 rounded-full hover:bg-gray-100 duration-200">
                 <DeleteIcon
@@ -285,19 +284,19 @@ const MyLinks: React.FC = () => {
             {filteredData.map((val, index) => {
               return (
                 <div key={index} className=" ">
-                  <LinkSquare
+                  {/* <LinkSquare
                     link={val?.link}
                     totalClicks={val?.totalClicks}
-                    tags={val.tags}
+                    tags={[val.tags]}
                     logo={val?.logo}
                     percent={val.percent}
                     indicateUp={val.indicateUp}
                     minimize={minimize}
                     isDelete={isDelete}
-                    id={val.id}
+                    id={val.id.toString()}
                     editModalOpen={editModalOpen}
                     detailsModelOpen={detailsModelOpen}
-                  />
+                  /> */}
                 </div>
               );
             })}

@@ -11,10 +11,10 @@ interface linkData {
 }
 interface Prop {
   data: linkData;
-  handleDetailsModalClose:()=>void;
+  handleDetailsModalClose: () => void;
 }
 
-const LinkDetailsCard: React.FC<Prop> = ({ data,handleDetailsModalClose }) => {
+const LinkDetailsCard: React.FC<Prop> = ({ data, handleDetailsModalClose }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
@@ -28,7 +28,10 @@ const LinkDetailsCard: React.FC<Prop> = ({ data,handleDetailsModalClose }) => {
           />
           <label className="font-header text-[20px]">{data.channel}</label>
         </div>
-        <CrossIcon className={'size-5 text-black cursor-pointer'} onClick={handleDetailsModalClose} />
+        <CrossIcon
+          className={'size-5 text-black cursor-pointer'}
+          onClick={handleDetailsModalClose}
+        />
       </div>
       <p>{data.link}</p>
 
@@ -99,8 +102,8 @@ const LinkDetailsCard: React.FC<Prop> = ({ data,handleDetailsModalClose }) => {
         </Swiper>
       </div>
 
-      <div className=' w-full rounded-xl border mt-4'>
-        <ApexColumnChart/>
+      <div className=" w-full rounded-xl border mt-4">
+        <ApexColumnChart />
       </div>
     </div>
   );

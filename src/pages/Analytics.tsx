@@ -74,43 +74,42 @@ const Analytics: React.FC = () => {
                     </div>
                   }
                   side="right"
-                  children={
-                    <ul className="bg-white shadow-md border py-2 rounded-2xl font-content">
-                      <li
-                        onClick={() => {
-                          setLimit('All');
-                        }}
-                        className={`${limit === 'All' ? 'text-blue-500' : 'text-[#9B919D]'} cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
-                      >
-                        All
-                      </li>
-                      <li
-                        onClick={() => {
-                          setLimit('Week');
-                        }}
-                        className={`${limit === 'Week' ? 'text-blue-500' : 'text-[#9B919D]'} cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
-                      >
-                        Week
-                      </li>
-                      <li
-                        onClick={() => {
-                          setLimit('Month');
-                        }}
-                        className={`${limit === 'Month' ? 'text-blue-500' : 'text-[#9B919D]'} cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
-                      >
-                        Month
-                      </li>
-                      <li
-                        onClick={() => {
-                          setLimit('Year');
-                        }}
-                        className={`${limit === 'Year' ? 'text-blue-500' : 'text-[#9B919D]'} cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
-                      >
-                        Year
-                      </li>
-                    </ul>
-                  }
-                />
+                >
+                  <ul className="bg-white shadow-md border py-2 rounded-2xl font-content">
+                    <li
+                      onClick={() => {
+                        setLimit('All');
+                      }}
+                      className={`${limit === 'All' ? 'text-blue-500' : 'text-[#9B919D]'} cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
+                    >
+                      All
+                    </li>
+                    <li
+                      onClick={() => {
+                        setLimit('Week');
+                      }}
+                      className={`${limit === 'Week' ? 'text-blue-500' : 'text-[#9B919D]'} cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
+                    >
+                      Week
+                    </li>
+                    <li
+                      onClick={() => {
+                        setLimit('Month');
+                      }}
+                      className={`${limit === 'Month' ? 'text-blue-500' : 'text-[#9B919D]'} cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
+                    >
+                      Month
+                    </li>
+                    <li
+                      onClick={() => {
+                        setLimit('Year');
+                      }}
+                      className={`${limit === 'Year' ? 'text-blue-500' : 'text-[#9B919D]'} cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
+                    >
+                      Year
+                    </li>
+                  </ul>
+                </Dropdown>
               )}
             </div>
             <Swiper

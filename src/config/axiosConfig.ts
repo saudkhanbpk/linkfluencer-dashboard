@@ -27,7 +27,7 @@ api.interceptors.response.use(
     }
 
     return Promise.reject(error);
-  }
+  },
 );
 
 export const refreshAccessToken = async () => {
@@ -53,6 +53,7 @@ export const handleLogout = async () => {
 };
 
 const updateUserState = () => {
+  // todo
 };
 
 export default api;

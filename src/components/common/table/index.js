@@ -1,20 +1,19 @@
-import { useState } from "react";
-import Pagination from "./pagination";
-import useDeviceDetect from "../../../helpers/screens";
+import { useState } from 'react';
+import Pagination from './pagination';
+import useDeviceDetect from '../../../helpers/screens';
 const Index = ({ columns, dataSource, tableData }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(8)
+  const [itemsPerPage] = useState(8);
   const [limit] = useState({
     start: 1,
-    end: itemsPerPage, 
-  })
+    end: itemsPerPage,
+  });
 
-  const {isMobile} = useDeviceDetect()
+  const { isMobile } = useDeviceDetect();
 
   // Calculate the start and end index of items to be displayed
   const startIndex = (currentPage - 1) * itemsPerPage;
-  console.log({startIndex, itemsPerPage});
-  
+
   const endIndex = startIndex + itemsPerPage;
   const currentItems = dataSource.slice(startIndex, endIndex);
 
@@ -27,7 +26,9 @@ const Index = ({ columns, dataSource, tableData }) => {
       <div className="flex flex-col mt-4 -z-50">
         <div className="overflow-x-auto pb-2 mb-2">
           <div className="min-w-full inline-block align-middle">
-          {isMobile && <span className="text-sm font-content text-gray-700">{`showing ${limit.start} to ${limit.end} from ${dataSource.length} entries`}</span>}
+            {isMobile && (
+              <span className="text-sm font-content text-gray-700">{`showing ${limit.start} to ${limit.end} from ${dataSource.length} entries`}</span>
+            )}
             <div className="overflow-hidden rounded-2xl border border-gray-200 mt-1">
               <table className="table-auto min-w-full rounded-3xl">
                 <thead>
@@ -75,7 +76,9 @@ const Index = ({ columns, dataSource, tableData }) => {
                             width: column.width,
                           }}
                         >
-                          {column.render ? column.render(data) : data[column.dataIndex]}
+                          {column.render
+                            ? column.render(data)
+                            : data[column.dataIndex]}
                         </td>
                       ))}
                     </tr>
@@ -86,13 +89,18 @@ const Index = ({ columns, dataSource, tableData }) => {
           </div>
         </div>
       </div>
-     {dataSource.length >itemsPerPage && <Pagination
-        totalItems={dataSource.length}
-        itemsPerPage={itemsPerPage}
-        currentPage={currentPage}
-        onPageChange={handlePageChange}
-        limit={{ start: startIndex + 1, end: Math.min(endIndex, dataSource.length) }} 
-      />}
+      {dataSource.length > itemsPerPage && (
+        <Pagination
+          totalItems={dataSource.length}
+          itemsPerPage={itemsPerPage}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+          limit={{
+            start: startIndex + 1,
+            end: Math.min(endIndex, dataSource.length),
+          }}
+        />
+      )}
     </div>
   );
 };

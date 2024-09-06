@@ -1,6 +1,4 @@
-interface Props {}
-
-const User: React.FC<Props> = () => {
+const User: React.FC = () => {
   return (
     <div className="h-full">
       <div className="flex flex-col md:flex-row items-center">

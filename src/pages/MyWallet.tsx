@@ -1,14 +1,11 @@
 import { useEffect, useState } from 'react';
 import Table from '../components/common/table';
 import { walletData } from '../sampleData';
-import {
-  DropIcon,
-} from '../svg';
+import { DropIcon } from '../svg';
 import Dropdown from '../components/common/Dropdown';
 import useDeviceDetect from '../helpers/screens';
-interface Props {}
 
-const MyWallet: React.FC<Props> = () => {
+const MyWallet: React.FC = () => {
   const [filteredData, setFilteredData] = useState(walletData);
   const [searchTerm] = useState('');
   const [limit, setLimit] = useState('All');
@@ -110,19 +107,19 @@ const MyWallet: React.FC<Props> = () => {
       <div className="bg-white p-[12px] sm:p-[24px]">
         {!isMobile && (
           <div className="flex items-center justify-between">
-            <Dropdown
-              label={
+            <Dropdown label={<div>Label</div>}>
+              <>
                 <div className="flex items-center gap-4">
                   <h1 className="text-[20px] font-header">
                     Transection History
                   </h1>
                   <DropIcon
                     className={'size-5 text-gray-500'}
-                    onClick={() => {}}
+                    onClick={() => {
+                      console.log('clicked');
+                    }}
                   />
                 </div>
-              }
-              children={
                 <div className="bg-white border shadow-md w-[200px] rounded-3xl">
                   <ul className="text-base">
                     <li className="p-3 cursor-pointer hover:bg-gray-100 my-4">
@@ -133,8 +130,8 @@ const MyWallet: React.FC<Props> = () => {
                     </li>
                   </ul>
                 </div>
-              }
-            />
+              </>
+            </Dropdown>
             <ul className="flex gap-4 items-center">
               <li
                 onClick={() => {
@@ -176,12 +173,12 @@ const MyWallet: React.FC<Props> = () => {
             <Dropdown
               label={
                 <div className="flex items-center gap-4">
-                  <h1 className="font-header">
-                    Transection History
-                  </h1>
+                  <h1 className="font-header">Transection History</h1>
                   <DropIcon
                     className={'size-5 text-gray-500'}
-                    onClick={() => {}}
+                    onClick={() => {
+                      console.log('hello');
+                    }}
                   />
                 </div>
               }
@@ -198,37 +195,51 @@ const MyWallet: React.FC<Props> = () => {
                 </div>
               }
             />
-           <Dropdown label={<div className='flex gap-2 items-center'><span className='text-[#4D494F] font-header'>{limit}</span><DropIcon className={'size-4'} onClick={()=>{}}/></div>}
-           side='right'
-           children={
-            <ul className='bg-white shadow-md border py-2 rounded-2xl font-content'>
-              <li 
-               onClick={() => {
-                setLimit('All');
-              }}
-              className={`${limit === 'All' ? 'text-blue-500' : 'text-[#9B919D]'} cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
-              >All</li>
-              <li 
-               onClick={() => {
-                setLimit('Week');
-              }}
-              className={`${limit === 'Week' ? 'text-blue-500' : 'text-[#9B919D]'} cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
-              >Week</li>
-              <li 
-               onClick={() => {
-                setLimit('Month');
-              }}
-              className={`${limit === 'Month' ? 'text-blue-500' : 'text-[#9B919D]'} cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
-              >Month</li>
-              <li 
-               onClick={() => {
-                setLimit('Year');
-              }}
-              className={`${limit === 'Year' ? 'text-blue-500' : 'text-[#9B919D]'} cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
-              >Year</li>
-            </ul>
-           }
-           />
+            <Dropdown
+              label={
+                <div className="flex gap-2 items-center">
+                  <span className="text-[#4D494F] font-header">{limit}</span>
+                  <DropIcon className={'size-4'} onClick={() => {}} />
+                </div>
+              }
+              side="right"
+              children={
+                <ul className="bg-white shadow-md border py-2 rounded-2xl font-content">
+                  <li
+                    onClick={() => {
+                      setLimit('All');
+                    }}
+                    className={`${limit === 'All' ? 'text-blue-500' : 'text-[#9B919D]'} cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
+                  >
+                    All
+                  </li>
+                  <li
+                    onClick={() => {
+                      setLimit('Week');
+                    }}
+                    className={`${limit === 'Week' ? 'text-blue-500' : 'text-[#9B919D]'} cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
+                  >
+                    Week
+                  </li>
+                  <li
+                    onClick={() => {
+                      setLimit('Month');
+                    }}
+                    className={`${limit === 'Month' ? 'text-blue-500' : 'text-[#9B919D]'} cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
+                  >
+                    Month
+                  </li>
+                  <li
+                    onClick={() => {
+                      setLimit('Year');
+                    }}
+                    className={`${limit === 'Year' ? 'text-blue-500' : 'text-[#9B919D]'} cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
+                  >
+                    Year
+                  </li>
+                </ul>
+              }
+            />
           </div>
         )}
         {!isMobile ? (
@@ -241,31 +252,53 @@ const MyWallet: React.FC<Props> = () => {
           walletData.map((val, index) => {
             return (
               <div className="border-y border-b py-[12px] h-auto flex flex-col justify-between">
-              <table className="">
-                <tr className=" font-content">
-                  <td className="font-semibold py-2 text-sm sm:text-[16px]">Date</td>
-                  <td className=" text-[#020D3A] text-sm sm:text-[16px]">{val?.datePaid}</td>
-                </tr>
-                <tr className=" font-content">
-                  <td className="font-semibold py-2 text-sm sm:text-[16px]">Amount</td>
-                  <td className="text-[#020D3A] text-sm sm:text-[16px]">{val?.amount}</td>
-                </tr>
-                <tr className=" font-content">
-                  <td className=" font-semibold py-2 text-sm sm:text-[16px]">TRN</td>
-                  <td className=" text-[#020D3A] text-sm sm:text-[16px]">{val?.id}</td>
-                </tr>
-                <tr className=" font-content">
-                  <td className="  font-semibold py-2 pr-4 text-sm sm:text-[16px]">Status</td>
-                  <td className={" text-[#020D3A] text-sm sm:text-[16px]"}>
-                    <span className={`${val.status === 'pending' ? 'bg-gray-100' : val.status === 'success' ? 'bg-green-100 text-green-500' : 'bg-red-100 text-red-500'} px-4 rounded-full`}>{val?.status}</span>
-                  </td>
-                </tr>
-                <tr className=" font-content">
-                  <td className="  font-semibold py-2 text-sm sm:text-[16px]">Payment</td>
-                  <td className=" text-[#020D3A] text-sm sm:text-[16px]">{val?.paymentMode}</td>
-                </tr>
-              </table>
-            </div>
+                <table className="">
+                  <tr className=" font-content">
+                    <td className="font-semibold py-2 text-sm sm:text-[16px]">
+                      Date
+                    </td>
+                    <td className=" text-[#020D3A] text-sm sm:text-[16px]">
+                      {val?.datePaid}
+                    </td>
+                  </tr>
+                  <tr className=" font-content">
+                    <td className="font-semibold py-2 text-sm sm:text-[16px]">
+                      Amount
+                    </td>
+                    <td className="text-[#020D3A] text-sm sm:text-[16px]">
+                      {val?.amount}
+                    </td>
+                  </tr>
+                  <tr className=" font-content">
+                    <td className=" font-semibold py-2 text-sm sm:text-[16px]">
+                      TRN
+                    </td>
+                    <td className=" text-[#020D3A] text-sm sm:text-[16px]">
+                      {val?.id}
+                    </td>
+                  </tr>
+                  <tr className=" font-content">
+                    <td className="  font-semibold py-2 pr-4 text-sm sm:text-[16px]">
+                      Status
+                    </td>
+                    <td className={' text-[#020D3A] text-sm sm:text-[16px]'}>
+                      <span
+                        className={`${val.status === 'pending' ? 'bg-gray-100' : val.status === 'success' ? 'bg-green-100 text-green-500' : 'bg-red-100 text-red-500'} px-4 rounded-full`}
+                      >
+                        {val?.status}
+                      </span>
+                    </td>
+                  </tr>
+                  <tr className=" font-content">
+                    <td className="  font-semibold py-2 text-sm sm:text-[16px]">
+                      Payment
+                    </td>
+                    <td className=" text-[#020D3A] text-sm sm:text-[16px]">
+                      {val?.paymentMode}
+                    </td>
+                  </tr>
+                </table>
+              </div>
             );
           })
         )}

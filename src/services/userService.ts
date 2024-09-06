@@ -1,15 +1,10 @@
 import axiosInstance from '../config/axiosConfig';
-
-interface User {
-  id: string;
-  name: string;
-  email: string;
-}
+import { IUser } from '../interfaces/User';
 
 export const fetchUser = async (): Promise<any | null> => {
   try {
-    const response = await axiosInstance.get<User>('/auth/me');
-    
+    const response = await axiosInstance.get<IUser>('/auth/me');
+
     return response.data;
   } catch (error) {
     console.error('Error when fetching user', error);

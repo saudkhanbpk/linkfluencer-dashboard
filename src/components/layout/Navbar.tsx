@@ -15,13 +15,13 @@ const Navbar = () => {
       {!isMobile && (
         <div className="w-1/5 px-[24px] py-[16px]">
           <div className="w-full h-[64px] flex items-center">
-           <Link to={"/test-dashboard"}>
-           <img
-              src="/assets/Logo.svg"
-              className="min-w-[150px] w-[190px] min-h-[40px] h-[28px] object-contain"
-              alt="logo"
-            />
-           </Link>
+            <Link to={'/test-dashboard'}>
+              <img
+                src="/assets/Logo.svg"
+                className="min-w-[150px] w-[190px] min-h-[40px] h-[28px] object-contain"
+                alt="logo"
+              />
+            </Link>
           </div>
         </div>
       )}
@@ -51,20 +51,25 @@ const Navbar = () => {
 
             <div className="flex items-center gap-3">
               <Link to="/wallet">
-              <img
-                src="/assets/walletIcon.svg"
-                alt="wallet-icon"
-                className="h-[32px] w-[32px] object-contain p-1 cursor-pointer"
-              />
+                <img
+                  src="/assets/walletIcon.svg"
+                  alt="wallet-icon"
+                  className="h-[32px] w-[32px] object-contain p-1 cursor-pointer"
+                />
               </Link>
-              <Dropdown label={<Avatar image="/assets/User 05a.png" />}side='right'>
+              <Dropdown
+                label={<Avatar image="/assets/User 05a.png" />}
+                side="right"
+              >
                 <div>
                   <ul className="w-[150px] flex justify-center flex-col items-center bg-white border shadow-lg rounded-lg py-2">
                     <li className="hover:bg-gray-100 w-full">
                       <Link to={'/profile'} className="flex items-center p-2">
                         <SinglePersonIcon
                           className={'size-5 mr-2'}
-                          onClick={() => {}}
+                          onClick={() => {
+                            console.log('Profile');
+                          }}
                         />
                         <span>Profile</span>
                       </Link>
@@ -72,7 +77,9 @@ const Navbar = () => {
                     <li className="hover:bg-gray-100 w-full p-2 flex items-cente">
                       <LogoutIcon
                         className={'size-5 mr-2'}
-                        onClick={() => {}}
+                        onClick={() => {
+                          console.log('Profile');
+                        }}
                       />
                       <span>Logout</span>
                     </li>
@@ -80,7 +87,7 @@ const Navbar = () => {
                 </div>
               </Dropdown>
               <Dropdown
-              side='right'
+                side="right"
                 label={
                   <div className="flex items-center gap-2 ml-1 select-none cursor-pointer">
                     <span>EN</span>
@@ -176,19 +183,35 @@ const Navbar = () => {
                   className="h-[32px] w-[32px] object-contain p-1 cursor-pointer"
                 />
                 <div className="flex flex-grow">
-                  <Dropdown label={<Avatar image="/assets/User 05a.png" />} side='left'>
+                  <Dropdown
+                    label={<Avatar image="/assets/User 05a.png" />}
+                    side="left"
+                  >
                     <div>
                       <ul className="w-[150px] flex justify-center flex-col items-center bg-white border shadow-lg rounded-lg py-2">
-                      <li className="hover:bg-gray-100 w-full">
-                      <Link to={"/profile"} className='flex items-center p-2'>
-                      <SinglePersonIcon className={'size-5 mr-2'} onClick={()=>{}}/>
-                      <span>Profile</span>
-                      </Link>
-                    </li>
-                    <li className="hover:bg-gray-100 w-full p-2 flex items-cente">
-                      <LogoutIcon className={'size-5 mr-2'} onClick={()=>{}}/>
-                      <span>Logout</span>
-                      </li>
+                        <li className="hover:bg-gray-100 w-full">
+                          <Link
+                            to={'/profile'}
+                            className="flex items-center p-2"
+                          >
+                            <SinglePersonIcon
+                              className={'size-5 mr-2'}
+                              onClick={() => {
+                                console.log('Profile');
+                              }}
+                            />
+                            <span>Profile</span>
+                          </Link>
+                        </li>
+                        <li className="hover:bg-gray-100 w-full p-2 flex items-cente">
+                          <LogoutIcon
+                            className={'size-5 mr-2'}
+                            onClick={() => {
+                              console.log('Profile');
+                            }}
+                          />
+                          <span>Logout</span>
+                        </li>
                       </ul>
                     </div>
                   </Dropdown>

@@ -1,13 +1,10 @@
-import Dropdown from "../../components/common/Dropdown"
-import { DropIcon } from "../../svg"
+import Dropdown from '../../components/common/Dropdown';
+import { DropIcon } from '../../svg';
 
-interface Props {
-
-}
-
-const Brand:React.FC<Props> = () =>{
-    return<div>
-    <div className="gap-4 flex flex-col md:flex-row md:h-[250px] relative">
+const Brand: React.FC = () => {
+  return (
+    <div>
+      <div className="gap-4 flex flex-col md:flex-row md:h-[250px] relative">
         <div className="border md:w-3/12 py-[12px] px-[24px] rounded-3xl flex justify-end flex-col bg-[#F0F5FF]">
           <div className="flex flex-col ">
             <img
@@ -40,17 +37,21 @@ const Brand:React.FC<Props> = () =>{
               <Dropdown
                 side="left"
                 label={<span className="rounded-l-full">+92</span>}
-                children={
-                  <ul>
-                    <li>+92</li>
-                    <li>+93</li>
-                    <li>+94</li>
-                    <li>+95</li>
-                    <li>+96</li>
-                  </ul>
-                }
+              >
+                <ul>
+                  <li>+92</li>
+                  <li>+93</li>
+                  <li>+94</li>
+                  <li>+95</li>
+                  <li>+96</li>
+                </ul>
+              </Dropdown>
+              <DropIcon
+                className={'text-gray-500 size-4'}
+                onClick={() => {
+                  console.log('Hello');
+                }}
               />
-              <DropIcon className={'text-gray-500 size-4'} onClick={() => {}} />
             </div>
             <input
               type="text"
@@ -121,6 +122,7 @@ const Brand:React.FC<Props> = () =>{
         </button>
       </div>
     </div>
-}
+  );
+};
 
 export default Brand;

@@ -5,7 +5,7 @@ interface HeaderProps {
   subtitle: string;
 }
 
-const Header: React.FC<HeaderProps> = ({title, subtitle}) => {
+const Header: React.FC<HeaderProps> = ({ title, subtitle }) => {
   return (
     <div>
       <h4 className="text-gray-500 font-content">{title}</h4>

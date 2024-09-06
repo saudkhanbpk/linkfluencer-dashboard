@@ -13,13 +13,10 @@ const useDeviceDetect = () => {
   }, []);
 
   useEffect(() => {
-    // Check on mount
     checkDeviceType();
 
-    // Add event listener for window resize
     window.addEventListener('resize', checkDeviceType);
 
-    // Cleanup event listener on unmount
     return () => window.removeEventListener('resize', checkDeviceType);
   }, [checkDeviceType]);
 

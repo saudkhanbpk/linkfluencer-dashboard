@@ -17,7 +17,7 @@ export interface IUser extends Document {
   address?: string;
   birthDate?: Date;
   role: UserRole;
-  brand?: string
+  brand?: string;
   activationToken?: string;
   otpCode?: string;
   otpExpiry?: Date;

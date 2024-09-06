@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import ProgressBar from '../common/ProgressBar';
 import { useMinimizeContext } from '../../context/LayoutContext';
@@ -7,8 +6,6 @@ import { sidebarData } from '../../config/sidebarData';
 const Sidebar = () => {
   const { minimize, setMinimize } = useMinimizeContext();
 
-  useEffect(() => {
-  }, [minimize]);
   return (
     <div className="relative flex flex-col justify-between w-full border p-[24px] bg-[#FCFCFC] min-h-[90vh]">
       <ul className=" overflow-hidden">

@@ -54,3 +54,10 @@ export enum TransactionStatus {
   Completed = 'completed',
   Failed = 'failed',
 }
+
+export enum SortLinksByOptions {
+  TopLinks = 'topLinks',
+  NewlyAdded = 'newlyAdded',
+  OldLinks = 'oldLinks',
+  AffiliateLinks = 'affiliateLinks',
+}

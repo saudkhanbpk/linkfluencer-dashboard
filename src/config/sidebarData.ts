@@ -22,15 +22,15 @@ export const sidebarData = [
     route: ROUTES.ANALYTICS,
   },
   {
-    label:'User Management',
-    icon:'/assets/users.svg',
-    route:ROUTES.USER_MANAGEMENT,
+    label: 'User Management',
+    icon: '/assets/users.svg',
+    route: ROUTES.USER_MANAGEMENT,
   },
   {
-    label:'Compaign',
-    icon:'/assets/compaignIcon.svg',
-    route:undefined
-  }
+    label: 'Compaign',
+    icon: '/assets/compaignIcon.svg',
+    route: undefined,
+  },
 ];
 
 export const COUNTRIES = [{ name: 'EN' }, { name: 'FR' }, { name: 'ES' }];

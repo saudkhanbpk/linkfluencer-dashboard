@@ -73,9 +73,9 @@ const BulkUpload: React.FC = () => {
 
   return (
     <div className="p-[12px] md:p-[24px] bg-white min-h-[85vh]">
-       <div>
-          <h1 className="text-2xl font-header">Bulk Upload</h1>
-        </div>
+      <div>
+        <h1 className="text-2xl font-header">Bulk Upload</h1>
+      </div>
       <div className="border-dashed border-2 border-gray-300 rounded-lg w-full mt-4 p-8">
         {uploading ? (
           <ProgressBar progress={progress} />

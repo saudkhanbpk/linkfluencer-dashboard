@@ -11,8 +11,7 @@ function App() {
         <MinimizeContextProvider>
           <UserProvider>
             <RoutesConfig />
-            </UserProvider>
-          
+          </UserProvider>
         </MinimizeContextProvider>
       </Router>
     </div>
