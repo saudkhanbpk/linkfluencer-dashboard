@@ -8,7 +8,6 @@ const Sidebar = () => {
   const { minimize, setMinimize } = useMinimizeContext();
 
   useEffect(() => {
-    console.log({ minimize });
   }, [minimize]);
   return (
     <div className="relative flex flex-col justify-between w-full border p-[24px] bg-[#FCFCFC] min-h-[90vh]">

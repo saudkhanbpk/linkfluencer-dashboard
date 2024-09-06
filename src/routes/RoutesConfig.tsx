@@ -6,7 +6,7 @@ import BulkUpload from '../pages/BulkUpload';
 import Analytics from '../pages/Analytics';
 import Dashboard2 from '../pages/Dashboard2';
 import { ROUTES } from './constants';
-import UserManagement from '../pages/userManagement';
+import UserManagement from '../pages/UserManagement';
 import Pricing from '../pages/Pricing'
 import Profile from '../pages/profile/Profile';
 import MyWallet from '../pages/MyWallet';
