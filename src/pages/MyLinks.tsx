@@ -23,17 +23,17 @@ const MyLinks: React.FC = () => {
   const [minimize, setMinimize] = useState(false);
   const [isTable, setIsTable] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
-  const [edit, setEdit] = useState({
+  const [edit, setEdit] = useState<any>({
     logo: '',
     channel: '',
     link: '',
-    tags: '',
+    tags: [],
   });
-  const [details, setDetails] = useState({
+  const [details, setDetails] = useState<any>({
     logo: '',
     channel: '',
     link: '',
-    tags: '',
+    tags: [],
   });
   // const {isMobile} = useDeviceDetect()
   const columns = [
@@ -104,9 +104,9 @@ const MyLinks: React.FC = () => {
     });
     setEdit({
       logo: data?.logo ?? '',
-      channel: data?.label ?? '',
+      channel: data?.channel ?? '',
       link: data?.link ?? '',
-      tags: data?.tags ?? '',
+      tags: data?.tags ?? [],
     });
   };
   const detailsModelOpen = (value: any) => {
@@ -115,9 +115,9 @@ const MyLinks: React.FC = () => {
     });
     setDetails({
       logo: data?.logo ?? '',
-      channel: data?.label ?? '',
+      channel: data?.channel ?? '',
       link: data?.link ?? '',
-      tags: data?.tags ?? '',
+      tags: data?.tags ?? [],
     });
     setIsDetailsModalOpen(true);
   };
@@ -133,6 +133,18 @@ const MyLinks: React.FC = () => {
     setSearchTerm(event.target.value);
   };
 
+  const handleEdit = (e: any) => {
+    const { value, name } = e.target;
+
+    console.log(e.target);
+
+    setEdit((previousValue: any) => {
+      return {
+        ...previousValue,
+        [name]: value,
+      };
+    });
+  };
   useEffect(() => {
     const results = LinksData.filter((item) =>
       Object.values(item).some((val) =>
@@ -145,7 +157,11 @@ const MyLinks: React.FC = () => {
   return (
     <div className="w-full border pb-2 relative">
       <Model isOpen={isEditModalOpen} onClose={handleEditModalClose}>
-        <LinkEditCard data={edit} handleModalClose={handleEditModalClose} />
+        <LinkEditCard
+          data={edit}
+          handleModalClose={handleEditModalClose}
+          handleEdit={handleEdit}
+        />
       </Model>
       <Model isOpen={isDetailsModalOpen} onClose={handleDetailsModalClose}>
         <LinkDetailsCard
@@ -292,6 +308,7 @@ const MyLinks: React.FC = () => {
                     logo={val?.logo}
                     percent={val.percent}
                     indicateUp={val.indicateUp}
+                    channel={val.channel}
                     minimize={minimize}
                     isDelete={isDelete}
                     id={val.id}

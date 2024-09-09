@@ -12,13 +12,14 @@ const MyWallet: React.FC<Props> = () => {
   const [filteredData, setFilteredData] = useState(walletData);
   const [searchTerm] = useState('');
   const [limit, setLimit] = useState('All');
+  const [type, setType] = useState('transaction')
   const { isMobile } = useDeviceDetect();
   const columns = [
     {
       title: 'No.',
       dataIndex: 'id',
       key: 'id',
-      width: '120px',
+      width: '150px',
       headerAlign: 'left',
       cellAlign: 'left',
     },
@@ -26,7 +27,7 @@ const MyWallet: React.FC<Props> = () => {
       title: 'Invoice Date',
       dataIndex: 'invoiceDate',
       key: 'invoiceDate',
-      width: '200px',
+      width: '150px',
       headerAlign: 'left',
       cellAlign: 'left',
     },
@@ -34,7 +35,7 @@ const MyWallet: React.FC<Props> = () => {
       title: 'Date Paid',
       dataIndex: 'datePaid',
       key: 'datePaid',
-      width: '200px',
+      width: '150px',
       headerAlign: 'left',
       cellAlign: 'left',
     },
@@ -49,7 +50,20 @@ const MyWallet: React.FC<Props> = () => {
         </button>
       ),
       key: 'status',
-      width: '200px',
+      width: '120px',
+      headerAlign: 'left',
+      cellAlign: 'left',
+    },
+    type == "purchase" && {
+      title: 'Plan',
+      dataIndex: 'plan',
+      render: (row: any) => (
+        <span className='text-blue-500'>
+          {row.plan}
+        </span>
+      ),
+      key: 'plan',
+      width: '120px',
       headerAlign: 'left',
       cellAlign: 'left',
     },
@@ -57,7 +71,7 @@ const MyWallet: React.FC<Props> = () => {
       title: 'Payment Mode',
       dataIndex: 'paymentMode',
       key: 'paymentMode',
-      width: '200px',
+      width: '250px',
       headerAlign: 'left',
       cellAlign: 'left',
     },
@@ -65,7 +79,7 @@ const MyWallet: React.FC<Props> = () => {
       title: 'Amount',
       dataIndex: 'amount',
       key: 'amount',
-      width: '200px',
+      width: '150px',
       headerAlign: 'left',
       cellAlign: 'left',
     },
@@ -125,10 +139,10 @@ const MyWallet: React.FC<Props> = () => {
               children={
                 <div className="bg-white border shadow-md w-[200px] rounded-3xl">
                   <ul className="text-base">
-                    <li className="p-3 cursor-pointer hover:bg-gray-100 my-4">
+                    <li className="p-3 cursor-pointer hover:bg-gray-100 my-4" onClick={()=>{setType('transaction')}}>
                       Transaction History
                     </li>
-                    <li className="p-3 cursor-pointer hover:bg-gray-100 my-4">
+                    <li className="p-3 cursor-pointer hover:bg-gray-100 my-4" onClick={()=>{setType('purchase')}}>
                       Purchasing History
                     </li>
                   </ul>

@@ -41,7 +41,7 @@ const ApexColumnChart = () => {
       colors: ["transparent"], // Transparent border stroke
     },
     xaxis: {
-      categories: ["M", "T", "W", "T", "F", "S", "S"],
+      categories: ["UT", "AZ", "SY", "TT", "FB", "IG", "X"],
       labels: {
         show: true, // Show x-axis labels
       },

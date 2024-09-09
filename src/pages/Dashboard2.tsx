@@ -93,17 +93,17 @@ const Dashboard2: React.FC = () => {
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
-  const [edit, setEdit] = useState({
+  const [edit, setEdit] = useState<any>({
     logo: '',
     channel: '',
     link: '',
-    tags: '',
+    tags: [],
   });
-  const [details, setDetails] = useState({
+  const [details, setDetails] = useState<any>({
     logo: '',
     channel: '',
     link: '',
-    tags: '',
+    tags: [],
   });
   const editModalOpen = (value: any) => {
     setIsEditModalOpen(true);
@@ -114,7 +114,7 @@ const Dashboard2: React.FC = () => {
       logo: data?.logo ?? '',
       channel: data?.label ?? '',
       link: data?.link ?? '',
-      tags: data?.tags ?? '',
+      tags: data?.tags ?? [],
     });
   };
   const detailsModelOpen = (value: any) => {
@@ -125,7 +125,7 @@ const Dashboard2: React.FC = () => {
       logo: data?.logo ?? '',
       channel: data?.label ?? '',
       link: data?.link ?? '',
-      tags: data?.tags ?? '',
+      tags: data?.tags ?? [],
     });
     setIsDetailsModalOpen(true);
   };

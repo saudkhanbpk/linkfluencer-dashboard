@@ -16,6 +16,7 @@ interface Props {
   detailsModelOpen?:(val:number)=>void;
   index?:number
   id?:number
+  channel?:string
   // handleEdit?:()=>void;
 }
 
@@ -24,6 +25,7 @@ const LinkSquare: React.FC<Props> = ({
   totalClicks,
   tags,
   percent,
+  channel,
   logo,
   indicateUp,
   minimize,
@@ -45,7 +47,7 @@ const LinkSquare: React.FC<Props> = ({
       <div className="flex justify-between items-center h-[64px] px-[24px]">
         <div className="flex flex-row items-center">
           <img src={logo} alt={'social Icon'} className="mr-3" />
-          <label>Youtube</label>
+          <label>{channel}</label>
         </div>
         {!isDelete ? (
           <div className="flex flex-row items-center gap-4">

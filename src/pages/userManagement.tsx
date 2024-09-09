@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Table from '../components/common/table';
 import { UserManagementData } from '../sampleData';
-import { DeleteIcon, FilterIcon, SearchIcon } from '../svg';
+import { DeleteIcon, FilterIcon, InfoIcon, SearchIcon } from '../svg';
 import Dropdown from '../components/common/Dropdown';
 import useDeviceDetect from '../helpers/screens';
 import UserSquare from '../components/common/cards/userSquar';
@@ -123,6 +123,20 @@ const UserManagement: React.FC<Props> = () => {
             <button className=" border-[1px] font-bold bg-[#020D3A] rounded-full px-[20px] py-[8px] text-white font-header">
               Create User
             </button>
+          </div>
+          <div className='p-[24px] bg-[#f0f5ff] rounded-3xl mt-4'>
+           <div className='flex items-start'>
+           <div className='mr-2'>
+           <InfoIcon className={'size-6 text-[#4F4949]'} onClick={()=>{}}/>
+           </div>
+            <div className='mt-[2px]'>
+              <h2 className='font-header text-lg font-[600] leading-none text-[#172b4d] mb-2'>Manager</h2>
+              <p className='font-content text-sm text-[#4F4949]'>
+              A manager can create and edit campaigns, but cannot delete them. A manager can also view analytics and invite creators to join campaigns.
+              </p>
+            </div>
+           </div>
+
           </div>
         </div>
       </Model>
