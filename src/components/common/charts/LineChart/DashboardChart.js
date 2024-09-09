@@ -12,19 +12,19 @@ const LineChart = ({ indicateUp = true }) => {
         show: false,
       },
     },
-    colors: [color], 
+    colors: [color],
     dataLabels: {
       enabled: false,
     },
     stroke: {
       curve: 'smooth',
-      width:2,
+      width: 2,
     },
     xaxis: {
       categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], // Days of the week on the x-axis
       title: {},
       labels: {
-        show:false,
+        show: false,
         style: {
           colors: '#666',
           fontSize: '12px',
@@ -41,10 +41,10 @@ const LineChart = ({ indicateUp = true }) => {
     },
     yaxis: {
       title: {
-       show:false
+        show: false,
       },
       labels: {
-        show:false,
+        show: false,
         formatter: function (value) {
           return `$${value}`;
         },
@@ -73,17 +73,13 @@ const LineChart = ({ indicateUp = true }) => {
   const series = [
     {
       name: 'series1',
-      data: [0, 35, 12, 45, 32,55],
+      data: [0, 35, 12, 45, 32, 55],
     },
   ];
 
   return (
     <div className="areachar w-full max-h-3/5">
-      <ReactApexChart
-        options={options}
-        series={series}
-        type="area"
-      />
+      <ReactApexChart options={options} series={series} type="area" />
     </div>
   );
 };

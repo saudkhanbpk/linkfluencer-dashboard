@@ -8,18 +8,15 @@ import React, {
   SetStateAction,
 } from 'react';
 
-// Define the shape of the context value
 interface MinimizeContextType {
   minimize: boolean;
   setMinimize: Dispatch<SetStateAction<boolean>>;
 }
 
-// Create the context with a default value
 const MinimizeContext = createContext<MinimizeContextType | undefined>(
   undefined,
 );
 
-// A custom hook to access the context
 export const useMinimizeContext = (): MinimizeContextType => {
   const context = useContext(MinimizeContext);
   if (!context) {
@@ -30,7 +27,6 @@ export const useMinimizeContext = (): MinimizeContextType => {
   return context;
 };
 
-// Provider component
 interface MinimizeContextProviderProps {
   children: ReactNode;
 }

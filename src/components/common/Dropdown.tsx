@@ -4,14 +4,14 @@ interface DropdownProps {
   label: React.ReactNode; // Allows the label to be any JSX element
   children: React.ReactNode; // This will be the dropdown items passed as children
   dropIcon?: boolean; // Determines if the dropdown icon should be displayed
-  side?:string
+  side?: string;
 }
 
 const Dropdown: React.FC<DropdownProps> = ({
   label,
   children,
   dropIcon = false,
-  side = 'left'
+  side = 'left',
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -61,8 +61,12 @@ const Dropdown: React.FC<DropdownProps> = ({
         )}
       </span>
       {isOpen && (
-        <div className={`origin-top-right absolute ${side}-0 mt-2 ring-black ring-opacity-5 focus:outline-none`}>
-          <div className="" onClick={toggleDropdown}>{children}</div>
+        <div
+          className={`origin-top-right absolute ${side}-0 mt-2 ring-black ring-opacity-5 focus:outline-none`}
+        >
+          <div className="" onClick={toggleDropdown}>
+            {children}
+          </div>
         </div>
       )}
     </div>

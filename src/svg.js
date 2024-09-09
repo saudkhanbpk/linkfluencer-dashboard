@@ -44,7 +44,7 @@ export const FilterIcon = ({ className }) => {
   );
 };
 
-export const EditIcon = ({ className, onClick = () => {} }) => {
+export const EditIcon = ({ className, onClick }) => {
   return (
     <svg
       viewBox="0 0 24 24"

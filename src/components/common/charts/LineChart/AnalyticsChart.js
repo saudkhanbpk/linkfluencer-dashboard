@@ -38,6 +38,9 @@ const LineChart = ({ indicateUp = true }) => {
       },
     },
     yaxis: {
+      title: {
+       show:false
+      },
       labels: {
         formatter: function (value) {
           return `$${value}`;
@@ -72,24 +75,13 @@ const LineChart = ({ indicateUp = true }) => {
   ];
 
   return (
-    // <div className="areachar w-full border" style={{ height: 'calc(100vw * 0.5)', maxHeight: '400px' }}>
-    //   <ReactApexChart
-    //     options={options}
-    //     series={series}
-    //     type="area"
-    //     width="100%"
-    //     height="100%"
-    //   />
-    // </div>
-    <div className="areachar w-full h-[100%] max-h-[600px] md:max-h-[320px] pb-2">
-    <ReactApexChart
-      options={options}
-      series={series}
-      type="area"
-      width="100%"
-      height="100%"
-    />
-  </div>
+    <div className="areachar w-full max-h-3/5">
+      <ReactApexChart
+        options={options}
+        series={series}
+        type="area"
+      />
+    </div>
   );
 };
 

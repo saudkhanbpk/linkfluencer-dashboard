@@ -7,8 +7,7 @@ import useDeviceDetect from '../helpers/screens';
 import UserSquare from '../components/common/cards/userSquar';
 import Model from '../components/common/models/Model';
 
-interface Props {}  
-const UserManagement: React.FC<Props> = () => {
+const UserManagement: React.FC = () => {
   const [isDelete, setIsDelete] = useState(false);
   const [filteredData, setFilteredData] = useState(UserManagementData);
   const [searchTerm, setSearchTerm] = useState('');
@@ -169,27 +168,26 @@ const UserManagement: React.FC<Props> = () => {
             <div className="flex items-center gap-2 justify-end mt-[8px] md:mt-0">
               <div className="">
                 <Dropdown
-                side='right'
+                  side="right"
                   label={
                     <FilterIcon className="size-8 cursor-pointer hover:bg-gray-100 p-1 rounded-full duration-200" />
                   }
-                  children={
-                    <ul className="w-[200px] flex justify-center flex-col items-center border bg-white rounded-2xl py-1 shadow-md">
-                      <li className=" w-full px-4  font-content py-2 border-b">
-                        Hight to Low Clicks
-                      </li>
-                      <li className=" w-full px-4  font-content py-2 border-b">
-                        Low to High Clicks
-                      </li>
-                      <li className=" w-full px-4  font-content py-2 border-b">
-                        <span>By Dates</span>
-                      </li>
-                      <li className=" w-full px-4  font-content py-2">
-                        Menue Item x
-                      </li>
-                    </ul>
-                  }
-                />
+                >
+                  <ul className="w-[200px] flex justify-center flex-col items-center border bg-white rounded-2xl py-1 shadow-md">
+                    <li className=" w-full px-4  font-content py-2 border-b">
+                      Hight to Low Clicks
+                    </li>
+                    <li className=" w-full px-4  font-content py-2 border-b">
+                      Low to High Clicks
+                    </li>
+                    <li className=" w-full px-4  font-content py-2 border-b">
+                      <span>By Dates</span>
+                    </li>
+                    <li className=" w-full px-4  font-content py-2">
+                      Menue Item x
+                    </li>
+                  </ul>
+                </Dropdown>
               </div>
               <div className="p-2 rounded-full hover:bg-gray-100 duration-200">
                 <DeleteIcon
@@ -240,7 +238,7 @@ const UserManagement: React.FC<Props> = () => {
         ) : (
           UserManagementData.map((val, index) => {
             return (
-              <div className="mb-4">
+              <div className="mb-4" key={index}>
                 <UserSquare
                   isDelete={isDelete}
                   values={val}

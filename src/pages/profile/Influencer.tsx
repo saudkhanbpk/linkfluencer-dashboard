@@ -1,13 +1,10 @@
-import Dropdown from "../../components/common/Dropdown"
-import { DropIcon } from "../../svg"
+import Dropdown from '../../components/common/Dropdown';
+import { DropIcon } from '../../svg';
 
-interface Props {
-
-}
-
-const Influencer:React.FC<Props> = () =>{
-    return<div>
-    <div className="gap-4 flex flex-col md:flex-row relative mt-8">
+const Influencer: React.FC = () => {
+  return (
+    <div>
+      <div className="gap-4 flex flex-col md:flex-row relative mt-8">
         <div className="border md:w-3/12 py-[12px] px-[24px] rounded-3xl flex justify-center flex-col bg-[#F0F5FF]">
           <div className="flex flex-col ">
             <img
@@ -35,7 +32,7 @@ const Influencer:React.FC<Props> = () =>{
             placeholder="Last Name"
             className="p-2 rounded-full border border-[#B3B3B2] w-full mb-4 outline-none"
           />
-           <select className="p-2 rounded-full border border-[#B3B3B2] w-full mb-4">
+          <select className="p-2 rounded-full border border-[#B3B3B2] w-full mb-4">
             <option selected value="" disabled>
               Select Gender
             </option>
@@ -45,7 +42,7 @@ const Influencer:React.FC<Props> = () =>{
             placeholder="Email Address"
             className="p-2 rounded-full border border-[#B3B3B2] w-full mb-4 outline-none"
           />
-            <input
+          <input
             type="date"
             // placeholder="Last Name"
             className="p-2 rounded-full border border-[#B3B3B2] w-full mb-4 outline-none"
@@ -55,17 +52,21 @@ const Influencer:React.FC<Props> = () =>{
               <Dropdown
                 side="left"
                 label={<span className="rounded-l-full">+92</span>}
-                children={
-                  <ul>
-                    <li>+92</li>
-                    <li>+93</li>
-                    <li>+94</li>
-                    <li>+95</li>
-                    <li>+96</li>
-                  </ul>
-                }
+              >
+                <ul>
+                  <li>+92</li>
+                  <li>+93</li>
+                  <li>+94</li>
+                  <li>+95</li>
+                  <li>+96</li>
+                </ul>
+              </Dropdown>
+              <DropIcon
+                className={'text-gray-500 size-4'}
+                onClick={() => {
+                  console.log('hello');
+                }}
               />
-              <DropIcon className={'text-gray-500 size-4'} onClick={() => {}} />
             </div>
             <input
               type="text"
@@ -92,12 +93,12 @@ const Influencer:React.FC<Props> = () =>{
             className="w-full h-[50px] md:h-full rounded-3xl border border-gray-400 outline-none resize-none p-3 mb-4"
             cols={500}
           />
-           <input
+          <input
             type="text"
             placeholder="Postal Code"
             className="p-2 rounded-full border border-[#B3B3B2] w-full mb-4 outline-none"
           />
-           <input
+          <input
             type="text"
             placeholder="Enter City"
             className="p-2 rounded-full border border-[#B3B3B2] w-full mb-4 outline-none"
@@ -141,6 +142,7 @@ const Influencer:React.FC<Props> = () =>{
         </button>
       </div>
     </div>
-}
+  );
+};
 
 export default Influencer;

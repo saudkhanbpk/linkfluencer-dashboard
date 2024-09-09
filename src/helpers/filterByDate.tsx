@@ -1,5 +1,3 @@
-const filterByDate:React.FC = () =>{
-    return<></>
-}
-
-
+const filterByDate: React.FC = () => {
+  return <></>;
+};

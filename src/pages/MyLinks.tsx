@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
-import LinkSquare from '../components/common/cards/LinkSquare';
-import { LinksData } from '../sampleData';
-import Table from '../components/common/table';
+import { useContext, useEffect, useState } from "react";
+// import LinkSquare from '../components/common/cards/LinkSquare';
+import { LinksData } from "../sampleData";
+import Table from "../components/common/table";
 import {
   CrossIcon,
   DeleteIcon,
@@ -12,79 +12,92 @@ import {
   MaximizeArrows,
   MenimizeArrows,
   SearchIcon,
-} from '../svg';
-import Indicate from '../components/common/cards/Indicate';
-import Dropdown from '../components/common/Dropdown';
-import Model from '../components/common/models/Model';
-import LinkDetailsCard from '../components/common/cards/LinkDetails';
-import LinkEditCard from '../components/common/cards/LinkEdit';
+} from "../svg";
+import Indicate from "../components/common/cards/Indicate";
+import Dropdown from "../components/common/Dropdown";
+import Model from "../components/common/models/Model";
+import LinkDetailsCard from "../components/common/cards/LinkDetails";
+import LinkEditCard from "../components/common/cards/LinkEdit";
+import { getUserLinks } from "../services/linkService";
+import User from "./profile/User";
+import { UserContext } from "../context/UserContext";
+import LinkSquare from "../components/common/cards/LinkSquare";
+import { ILink } from "../interfaces/Link";
 
 const MyLinks: React.FC = () => {
   const [minimize, setMinimize] = useState(false);
   const [isTable, setIsTable] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
   const [edit, setEdit] = useState<any>({
-    logo: '',
-    channel: '',
-    link: '',
+    logo: "",
+    channel: "",
+    link: "",
     tags: [],
   });
   const [details, setDetails] = useState<any>({
-    logo: '',
-    channel: '',
-    link: '',
+    logo: "",
+    channel: "",
+    link: "",
     tags: [],
   });
+
+  const userContext = useContext(UserContext);
+  if (!userContext) {
+    throw new Error("useContext must be used within a UserProvider");
+  }
+  const { user } = userContext;
   // const {isMobile} = useDeviceDetect()
   const columns = [
     {
-      title: 'Channel',
-      key: 'label',
-      width: '140px',
-      headerAlign: 'left',
-      cellAlign: 'left',
+      title: "Channel",
+      key: "targetSite",
+      width: "140px",
+      headerAlign: "left",
+      dataIndex: "targetSite",
+      cellAlign: "left",
       render: (row: any) => (
         <div className="flex items-center">
           <img src={row.logo} alt="logo" className="w-6 h-6 mr-2" />
-          <span>{row.label}</span>
+          <span>{row.targetSite}</span>
         </div>
       ),
     },
     {
-      title: 'Link',
-      dataIndex: 'link',
-      key: 'link',
-      width: '400px',
-      headerAlign: 'left',
-      cellAlign: 'left',
+      title: "Link",
+      dataIndex: "shortUrl",
+      key: "shortUrl",
+      width: "400px",
+      headerAlign: "left",
+      cellAlign: "left",
     },
     {
-      title: 'Total Clicked',
-      dataIndex: 'totalClicks',
+      title: "Total Clicked",
+      dataIndex: "clickCount",
       render: (row: any) => (
         <div className="flex items-center">
-          <label className="mr-2">{row.totalClicks}</label>
+          <label className="mr-2">{row.clickCount}</label>
           <Indicate
-            direction={row.indicateUp ? 'up' : 'down'}
+            direction={row.indicateUp ? "up" : "down"}
             percent={row.percent}
           />
         </div>
       ),
-      key: 'totalClicks',
-      width: '150px',
-      headerAlign: 'left',
-      cellAlign: 'left',
+      key: "clickCount",
+      width: "150px",
+      headerAlign: "left",
+      cellAlign: "left",
     },
     {
-      title: 'Category',
-      dataIndex: 'tags',
-      render: (row: any) => (
-        <span className="text-blue-500 font-content">{row.tags}</span>
-      ),
-      key: 'tags',
-      width: '',
-      headerAlign: 'left',
-      cellAlign: 'left',
+      title: "Category",
+      dataIndex: "tags",
+      render: (row: any) =>
+        row.tags.map((val: any) => {
+          return <span className="text-blue-500 font-content mr-2">{val}</span>;
+        }),
+      key: "tags",
+      width: "",
+      headerAlign: "left",
+      cellAlign: "left",
     },
   ];
 
@@ -92,20 +105,20 @@ const MyLinks: React.FC = () => {
     select: isDelete,
   };
 
-  const [filteredData, setFilteredData] = useState(LinksData);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredData, setFilteredData] = useState<any>([]);
+  const [data, setData] = useState<any>([])
+  const [searchTerm, setSearchTerm] = useState("");
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
-
   const editModalOpen = (value: any) => {
     setIsEditModalOpen(true);
     const data = LinksData.find((val, index) => {
       return val.id === value;
     });
     setEdit({
-      logo: data?.logo ?? '',
-      channel: data?.channel ?? '',
-      link: data?.link ?? '',
+      logo: data?.logo ?? "",
+      channel: data?.channel ?? "",
+      link: data?.link ?? "",
       tags: data?.tags ?? [],
     });
   };
@@ -114,9 +127,9 @@ const MyLinks: React.FC = () => {
       return val.id === value;
     });
     setDetails({
-      logo: data?.logo ?? '',
-      channel: data?.channel ?? '',
-      link: data?.link ?? '',
+      logo: data?.logo ?? "",
+      channel: data?.channel ?? "",
+      link: data?.link ?? "",
       tags: data?.tags ?? [],
     });
     setIsDetailsModalOpen(true);
@@ -145,14 +158,46 @@ const MyLinks: React.FC = () => {
       };
     });
   };
+
+  const sortByClicks = (order: "asc" | "desc" = "asc") => {
+  const sortedData =  data?.sort((a:any, b:any) => {
+      if (order === "asc") {
+        return a.clickCount - b.clickCount;
+      } else {
+        return b.clickCount - a.clickCount;
+      }
+    });
+    console.log(sortedData);
+    
+    setFilteredData(sortedData)
+  };
+  
+
   useEffect(() => {
-    const results = LinksData.filter((item) =>
-      Object.values(item).some((val) =>
-        String(val).toLowerCase().includes(searchTerm.toLowerCase()),
-      ),
-    );
-    setFilteredData(results);
-  }, [searchTerm]);
+
+      const results = data.filter((item:any) =>
+        Object.values(item).some((val) =>
+          String(val).toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      );
+      setFilteredData(results);
+  }, [searchTerm]); // Add originalData to the dependency array
+  
+  useEffect(() => {
+    const fetchUserLinks = async () => {
+      if (user && user._id) {
+        const links = await getUserLinks(user._id, {
+          // sortBy: tabs[selectedTab].value,
+          // page: 1,
+          // limit: 3,
+        });
+        console.log("this is it ===>>>>", { links });
+        setData(links);
+        setFilteredData(links)
+      }
+    };
+    fetchUserLinks();
+  }, []);
 
   return (
     <div className="w-full border pb-2 relative">
@@ -191,7 +236,7 @@ const MyLinks: React.FC = () => {
         {!isDelete ? (
           <div className="flex flex-col md:flex-row md:items-center justify-between">
             <div className="border-b-2 flex items-center w-full md:w-[300px]">
-              <SearchIcon className={'size-5 text-gray-400'} />
+              <SearchIcon className={"size-5 text-gray-400"} />
               <input
                 type="text"
                 placeholder="Search"
@@ -243,27 +288,26 @@ const MyLinks: React.FC = () => {
                   label={
                     <FilterIcon className="size-8 cursor-pointer hover:bg-gray-100 p-1 rounded-full duration-200" />
                   }
-                  children={
-                    <ul className="w-[200px] flex justify-center flex-col items-center border bg-white rounded-2xl py-1 shadow-md">
-                      <li className=" w-full px-4  font-content py-2 border-b">
-                        Hight to Low Clicks
-                      </li>
-                      <li className=" w-full px-4  font-content py-2 border-b">
-                        Low to High Clicks
-                      </li>
-                      <li className=" w-full px-4  font-content py-2 border-b">
-                        <span>By Dates</span>
-                      </li>
-                      <li className=" w-full px-4  font-content py-2">
-                        Menue Item x
-                      </li>
-                    </ul>
-                  }
-                />
+                >
+                  <ul className="w-[200px] flex justify-center flex-col items-center border bg-white rounded-2xl py-1 shadow-md">
+                    <li className=" w-full px-4  font-content py-2 border-b" onClick={()=>{sortByClicks('asc')}}>
+                      Hight to Low Clicks
+                    </li>
+                    <li className=" w-full px-4  font-content py-2 border-b" onClick={()=>{sortByClicks('desc')}}>
+                      Low to High Clicks
+                    </li>
+                    <li className=" w-full px-4  font-content py-2 border-b">
+                      <span>By Dates</span>
+                    </li>
+                    <li className=" w-full px-4  font-content py-2">
+                      Menue Item x
+                    </li>
+                  </ul>
+                </Dropdown>
               </div>
               <div className="p-2 rounded-full hover:bg-gray-100 duration-200">
                 <DeleteIcon
-                  className={'size-5 cursor-pointer'}
+                  className={"size-5 cursor-pointer"}
                   onClick={() => {
                     setIsDelete(true);
                   }}
@@ -298,22 +342,15 @@ const MyLinks: React.FC = () => {
         )}
         {!isTable ? (
           <div className="my-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ">
-            {filteredData.map((val, index) => {
+            {filteredData.map((val: any, index: any) => {
               return (
                 <div key={index} className=" ">
                   <LinkSquare
-                    link={val?.link}
-                    totalClicks={val?.totalClicks}
-                    tags={val.tags}
-                    logo={val?.logo}
-                    percent={val.percent}
-                    indicateUp={val.indicateUp}
-                    channel={val.channel}
-                    minimize={minimize}
                     isDelete={isDelete}
-                    id={val.id}
+                    minimize={minimize}
                     editModalOpen={editModalOpen}
                     detailsModelOpen={detailsModelOpen}
+                    link={val}
                   />
                 </div>
               );

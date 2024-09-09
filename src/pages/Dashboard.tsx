@@ -1,88 +1,105 @@
-import { empty_dashboard } from '../sampleData';
-import { Link45Icon } from '../svg';
+import React, { useContext, useEffect, useState } from 'react';
+import Header from '../components/common/MainContentHeader';
+import InputWithIcon from '../components/link/CreateLinkInput';
+import Button from '../components/link/CreateLinkButton';
+import { UserContext } from '../context/UserContext';
+import { getUserLinks, createLink } from '../services/linkService';
+import BlankDashboard from '../components/dashboard/BlankDashboard';
+import DefaultDashboard from '../components/dashboard/DefaultDashboard';
+import { SortLinksByOptions } from '../types/enums';
+import Loading from '../components/common/Loading';
 
 const Dashboard: React.FC = () => {
+  const userContext = useContext(UserContext);
+  const [userLinks, setUserLinks] = useState([]);
+  const [selectedTab, setSelectedTab] = useState(0);
+  const [newLink, setNewLink] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  if (!userContext) {
+    throw new Error('useContext must be used within a UserProvider');
+  }
+  const { user } = userContext;
+
+  const tabs = [
+    { label: 'Top Links', value: SortLinksByOptions.TopLinks },
+    { label: 'Newly Added', value: SortLinksByOptions.NewlyAdded },
+    { label: 'Old Links', value: SortLinksByOptions.OldLinks },
+  ];
+
+  useEffect(() => {
+    const fetchUserLinks = async () => {
+      if (user && user._id) {
+        try {
+          setIsLoading(true);
+          const links = await getUserLinks(user._id, {
+            sortBy: tabs[selectedTab].value,
+            page: 1,
+            limit: 3,
+          });
+          setUserLinks(links);
+          setIsLoading(false);
+        } catch (error) {
+          setIsLoading(true);
+          console.error('Failed to fetch user links:', error);
+        }
+      }
+    };
+
+    fetchUserLinks();
+  }, [user, selectedTab]);
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNewLink(event.target.value);
+  };
+
+  const handleCreateLink = async () => {
+    if (user && user._id && newLink) {
+      try {
+        await createLink(user._id, newLink);
+        setNewLink('');
+        const links = await getUserLinks(user._id, {
+          sortBy: tabs[selectedTab].value,
+          page: 1,
+          limit: 3,
+        });
+        setUserLinks(links);
+      } catch (error) {
+        console.error('Failed to create link:', error);
+      }
+    }
+  };
+
+  const getSubtitle = () => {
+    if (user && user._id) {
+      return user._id;
+    }
+    return '';
+  };
+
   return (
     <div className="p-[12px] sm:p-[24px]">
-      <div>
-        <h4 className="text-gray-500 font-content">Rahul&rsquo;s</h4>
-        <h1 className="text-2xl font-header">Dashboard</h1>
-      </div>
+      <Header title="Dashboard" subtitle={getSubtitle()} />
       <div className="mt-[24px] flex md:flex-row flex-col items-center">
-        <div className="flex items-center justify-between md:w-[340px] w-full h-[48px] rounded-full px-[16px] bg-white py-1">
-          <input
-            type="text"
-            placeholder="Paste your link here"
-            className="h-full rounded-none w-full outline-none"
-          />
-          <Link45Icon className={'size-5 text-gray-400'}/>
-        </div>
-        <button className="w-full mt-[16px] md:mt-0 md:ml-2 ml-0 md:w-[189px] border-[1px] border-[#113E53] font-bold bg-[#113E53] rounded-full px-[20px] py-[12px] text-white font-header">
-          Create Smart Link
-        </button>
+        <InputWithIcon value={newLink} onChange={handleInputChange} />
+        <Button text="Create Smart Link" onClick={handleCreateLink} />
       </div>
-      <div className="relative bg-primary my-[20px] rounded-lg flex flex-col-reverse lg:flex-row gap-[13px]">
-        <img
-          src="/assets/dashboard/socialLabels.svg"
-          className="absolute bottom-0 hidden lg:block right-0 h-[120px] md:w-[400px] md:h-[150px] lg:w-[490px] lg:h-[190px]"
-          alt="social-labels"
-        />
-        <div className="w-5/5 lg:w-1/5 p-[20px] ">
-          <img
-            src="/assets/dashboard/first.svg"
-            alt="dashboard-girl"
-            className="w-full object-cover h-[170px] rounded-lg"
-          />
-          <div className="bg-white rounded-full flex items-center py-[8px] px-[10px] my-[14px]">
-            <img
-              src="/assets/instagram.svg"
-              alt="instagram-logo"
-              className="mr-[6px]"
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <>
+          {userLinks.length > 0 ? (
+            <DefaultDashboard
+              links={userLinks}
+              tabs={tabs}
+              selectedTab={selectedTab}
+              setSelectedTab={setSelectedTab}
             />
-            <span className=" font-header font-bold text-[9px] overflow-hidden">
-              instagram.linkfluencer.io/thenomadalice
-            </span>
-          </div>
-          <div className="bg-[#FFE9F7] rounded-lg h-[170px] flex flex-col justify-center items-center">
-            <img
-              src="/assets/profileImg.svg"
-              alt="profile-image"
-              className="rounded-full"
-            />
-            <label>@thenomadalice</label>
-            <button className="w-[60px] font-content bg-[#74265A] rounded-full h-[20px] text-[8px] text-white">
-              follow
-            </button>
-          </div>
-        </div>
-        <div className="w-5/5 lg:w-4/5">
-          <div className="px-[20px] py-[10px]">
-            <h1 className=" font-header font-bold text-[25px] lg:text-[32px]">
-              {empty_dashboard?.title}
-            </h1>
-            <p className="font-content text-[12] lg:text-[16px] font-[400] my-[10px]">
-              {empty_dashboard?.description}
-            </p>
-          </div>
-          <div className="flex justify-end">
-            <img
-              src="/assets/dashboard/socialLabels.svg"
-              className="right-0 w-[280px] h-[120px] lg:hidden md:w-[400px] md:h-[150px] lg:w-[490px] lg:h-[190px] mb-[10px]"
-              alt="social-icons"
-            />
-          </div>
-          <div className="w-full flex flex-wrap">
-            {empty_dashboard?.blocks.map((val, index) => (
-              <div key={index} className="w-full md:w-1/3 p-4">
-                <h3 className="font-content font-bold">{val.title}</h3>
-                <p className="text-[12] lg:text-[16px] font-content">
-                  {val.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+          ) : (
+            <BlankDashboard />
+          )}
+        </>
+      )}
     </div>
   );
 };

@@ -120,9 +120,11 @@ const Pagination = ({
 
   return (
     <div className="flex justify-between items-center mt-1">
-      {!isMobile ? 
-        <span className="text-sm font-content text-gray-700">{`Showing ${limit.start} to ${limit.end} of ${totalItems} entries`}</span> : <span></span>
-      }
+      {!isMobile ? (
+        <span className="text-sm font-content text-gray-700">{`Showing ${limit.start} to ${limit.end} of ${totalItems} entries`}</span>
+      ) : (
+        <span></span>
+      )}
       <div className="pagination flex items-center font-content">
         <LeftArrow
           className={'size-5 cursor-pointer'}

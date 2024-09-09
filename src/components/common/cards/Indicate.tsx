@@ -8,8 +8,10 @@ interface IndicateProps {
 }
 
 const Indicate: React.FC<IndicateProps> = ({ percent, direction }) => {
-return (
-  direction === 'up'? <IndicateUp percent={percent}/> : <IndicateDown percent={percent}/>
-)
+  return direction === 'up' ? (
+    <IndicateUp percent={percent} />
+  ) : (
+    <IndicateDown percent={percent} />
+  );
 };
 export default Indicate;

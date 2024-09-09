@@ -1,25 +1,25 @@
-import React, { useState } from "react";
-import ReactApexChart from "react-apexcharts";
+import React, { useState } from 'react';
+import ReactApexChart from 'react-apexcharts';
 
 const ApexColumnChart = () => {
   const [series] = useState([
     {
-      name: "Series 1",
-      data: [80, 40, 28, 51, 42, 109, 100],
+      name: 'Series 1',
+      data: [31, 40, 28, 51, 42, 109, 100],
     },
   ]);
 
   const [options] = useState({
     chart: {
-      type: "bar",
+      type: 'bar',
       toolbar: {
         show: false, // Hide the toolbar
       },
     },
     plotOptions: {
       bar: {
-        columnWidth: "30%", // Width of the columns
-        endingShape: "rounded", // Rounded ends for bars
+        columnWidth: '30%', // Width of the columns
+        endingShape: 'rounded', // Rounded ends for bars
         borderRadius: 10, // Rounded corners for bars
         distributed: false, // Distribute columns equally
         colors: {
@@ -37,10 +37,10 @@ const ApexColumnChart = () => {
     stroke: {
       show: true,
       width: 0, // No border stroke
-      colors: ["transparent"], // Transparent border stroke
+      colors: ['transparent'], // Transparent border stroke
     },
     xaxis: {
-      categories: ["M", "T", "W", "T", "F", "S", "S"],
+      categories: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
       labels: {
         show: true, // Show x-axis labels
       },
@@ -64,7 +64,7 @@ const ApexColumnChart = () => {
     },
     grid: {
       show: true, // Show grid lines
-      borderColor: "#E3CCF4", // Light gray grid lines
+      borderColor: '#E3CCF4', // Light gray grid lines
       strokeDashArray: 4, // Dotted grid lines
       row: {
         colors: [], // Alternate row colors
@@ -76,7 +76,7 @@ const ApexColumnChart = () => {
       },
     },
     fill: {
-      colors: ["#E3CCF4"], // Solid color for the columns
+      colors: ['#E3CCF4'], // Solid color for the columns
       opacity: 1, // Full opacity
     },
     tooltip: {
@@ -85,26 +85,29 @@ const ApexColumnChart = () => {
     states: {
       hover: {
         filter: {
-          type: "none", // Disable hover effect filter
+          type: 'none', // Disable hover effect filter
         },
       },
       active: {
         filter: {
-          type: "none", // Disable active effect filter
+          type: 'none', // Disable active effect filter
         },
       },
     },
   });
 
   return (
-    <div className="w-full h-[100%] max-h-[550px] md:max-h-[350px] pb-2">
-      <ReactApexChart
-        options={options}
-        series={series}
-        type="bar"
-        width="100%"
-        height="100%"
-      />
+    <div
+      style={{
+        height: '100%', // Fixed height
+        width: '100%', // Full width of the container
+        overflow: 'hidden', // Hide overflow
+        // border:"Solid green 2px",
+        padding: 0,
+        margin: 0,
+      }}
+    >
+      <ReactApexChart options={options} series={series} type="bar" />
     </div>
   );
 };
