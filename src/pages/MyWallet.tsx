@@ -51,7 +51,7 @@ const MyWallet: React.FC = () => {
       headerAlign: 'left',
       cellAlign: 'left',
     },
-    type == 'purchase' && {
+    type == 'Purchasing' && {
       title: 'Plan',
       dataIndex: 'plan',
       render: (row: any) => <span className="text-blue-500">{row.plan}</span>,
