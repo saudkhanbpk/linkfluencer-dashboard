@@ -1,41 +1,65 @@
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { CrossIcon } from '../../../svg';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { FreeMode, Pagination } from 'swiper/modules';
 import ApexColumnChart from '../charts/columnChart/calumnChart';
-interface linkData {
-  targetSite: string;
-  originalUrl: string;
-  tags: string;
-  logo: string;
-}
+import { ILink } from '../../../interfaces/Link';
+import FaviconLoader from '../FaviconFetcher';
+import { getLinkLabel } from '../../../utils/linkUtils';
+import { getBestAverageTimeToEngageByLink, getTotalClicksForLink, getClicksTrendForLink, getTopCityByLink, getTopCountryByLink } from '../../../services/linkService';
+import { UserContext } from '../../../context/UserContext';
 interface Prop {
-  data: linkData;
+  data: ILink;
   handleDetailsModalClose: () => void;
 }
 
 const LinkDetailsCard: React.FC<Prop> = ({ data, handleDetailsModalClose }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [linkLogo, setLinkLogo] = useState("");
+  const [clicks, setClicks] = useState<number | null>(null);
+  const [clicksTrend, setClicksTrend] = useState(null);
+  const [topCountry, setTopCountry] = useState(null);
+  const [topCity, setTopCity] = useState(null);
+  const [bestAverageTimeToEngage, setBestAverageTimeToEngage] = useState(null);
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setClicks(data.clickCount);
+      setClicksTrend(await getClicksTrendForLink(data.createdBy ,data._id));
+      setTopCountry(await getTopCountryByLink(data.createdBy ,data._id));
+      setTopCity(await getTopCityByLink(data.createdBy ,data._id));
+      setBestAverageTimeToEngage(await getBestAverageTimeToEngageByLink(data.createdBy ,data._id));
+    };
+
+    fetchData();
+  }, [data._id]);
 
   return (
     <div className="md:w-[600px]">
+      <FaviconLoader originalUrl={data.originalUrl} setFavicon={setLinkLogo} />
       <div className="flex justify-between items-center my-[18px]">
         <div className="flex items-center gap-2">
           <img
-            src={data.logo}
+            src={linkLogo}
             className="w-[46px] h-[33px]"
             alt="social Media Logo"
           />
-          <label className="font-header text-[20px]">{data.targetSite}</label>
+          <label className="font-header text-[20px]">{getLinkLabel(data.targetSite)}</label>
         </div>
         <CrossIcon
           className={'size-5 text-black cursor-pointer'}
           onClick={handleDetailsModalClose}
         />
       </div>
-      <p>{data.originalUrl}</p>
+      <p>{`linkfluencer.io/${data.shortUrl}`}</p>
 
-      <p className="my-4 text-blue-500">{data.tags}</p>
+      <div className="my-4 text-[#5890FF]">
+              {data.tags?.map((tag, index) => (
+                <span key={index} className="mr-2">
+                  {`#${tag}`}
+                </span>
+              ))}
+            </div>
 
       <div>
         <Swiper
@@ -59,7 +83,7 @@ const LinkDetailsCard: React.FC<Prop> = ({ data, handleDetailsModalClose }) => {
             </span>
             <div className="flex items-center gap-2">
               <span className="text-[#292828] text-[24px] font-[500]">
-                2032
+                {clicks}
               </span>
             </div>
           </SwiperSlide>
@@ -69,7 +93,7 @@ const LinkDetailsCard: React.FC<Prop> = ({ data, handleDetailsModalClose }) => {
             </span>
             <div className="flex items-center gap-2">
               <span className="text-[#292828] text-[24px] font-[500]">
-                2032
+                {topCountry}
               </span>{' '}
               <img
                 src="/assets/usaflag.svg"
@@ -84,7 +108,7 @@ const LinkDetailsCard: React.FC<Prop> = ({ data, handleDetailsModalClose }) => {
             </span>
             <div className="flex items-center gap-2">
               <span className="text-[#292828] text-[24px] font-[500]">
-                New York
+                {topCity}
               </span>
             </div>
           </SwiperSlide>
@@ -94,7 +118,7 @@ const LinkDetailsCard: React.FC<Prop> = ({ data, handleDetailsModalClose }) => {
             </span>
             <div className=" gap-2">
               <span className="text-[#292828] text-[24px] font-[500]">
-                3-6pm
+                {bestAverageTimeToEngage}
               </span>{' '}
               <span className="text-xs font-content text-[#9B919D]">GM</span>
             </div>

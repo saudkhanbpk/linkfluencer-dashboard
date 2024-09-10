@@ -5,7 +5,6 @@ import { DropIcon, FilterIcon } from '../svg';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { FreeMode, Pagination } from 'swiper/modules';
 
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/pagination';
@@ -439,66 +438,6 @@ const Analytics: React.FC = () => {
                 </div>
               </div>
               <div className="w-4/4 md:w-2/4 rounded-3xl h-[420px] border bg-white flex flex-col justify-between">
-                {/* <div className="flex justify-between items-center px-[30px] py-2 absolute w-full">
-                  <div>
-                    <Dropdown
-                      label={
-                        <div className="flex flex-row items-center">
-                          <span className="text-[#9B919D] text-xs">
-                            Revenue
-                          </span>
-                          <DropIcon
-                            className={'size-3 ml-2'}
-                            onClick={() => {}}
-                          />
-                        </div>
-                      }
-                      children={<></>}
-                    />
-                    <div className="flex items-center">
-                      <h2 className="text-2xl text-[#292828] mr-2 font-semibold">
-                        1.1m
-                      </h2>
-                      <Indicate direction="up" percent={19} />
-                    </div>
-                  </div>
-                  <div className="">
-                    <ul className="flex md:gap-3 items-center text-xs overflow-hidden">
-                      <li
-                        onClick={() => {
-                          setLimit('Day');
-                        }}
-                        className={`${limit === 'Day' ? 'text-blue-500' : 'text-[#9B919D]'} cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100 text-sm`}
-                      >
-                        Day
-                      </li>
-                      <li
-                        onClick={() => {
-                          setLimit('Week');
-                        }}
-                        className={`${limit === 'Week' ? 'text-blue-500' : 'text-[#9B919D]'} cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100 text-sm`}
-                      >
-                        Week
-                      </li>
-                      <li
-                        onClick={() => {
-                          setLimit('Month');
-                        }}
-                        className={`${limit === 'Month' ? 'text-blue-500' : 'text-[#9B919D]'} cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100 text-sm`}
-                      >
-                        Month
-                      </li>
-                      <li
-                        onClick={() => {
-                          setLimit('Year');
-                        }}
-                        className={`${limit === 'Year' ? 'text-blue-500' : 'text-[#9B919D]'} cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100 text-sm`}
-                      >
-                        Year
-                      </li>
-                    </ul>
-                  </div>
-                </div> */}
                 <div className="flex flex-col lg:flex-row items-start lg:justify-between lg:items-center p-[18px]">
                   <div className=" w-full">
                     <div>

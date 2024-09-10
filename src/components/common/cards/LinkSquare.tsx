@@ -3,9 +3,10 @@ import { useState } from "react";
 import { ILink } from "../../../interfaces/Link";
 import { EditIcon, RightArrow, SaveIcon, ShareIcon } from "../../../svg";
 import Tooltip from "../ToolTip";
-import IndicateDown from "./indicateDown";
+import IndicateDown from "./IndicateDown";
 import IndicateUp from "./IndicateUp";
 import FaviconLoader from "../FaviconFetcher";
+import { getLinkLabel } from "../../../utils/linkUtils";
 
 interface Props {
   link: ILink;
@@ -28,7 +29,7 @@ const LinkSquare: React.FC<Props> = ({
 }) => {
   const [linkLogo, setLinkLogo] = useState("");
   const indicateUp = true;
-  const maxLength = 30;
+  const maxLength = 10;
   const truncateText = (text: string, maxLength: number) => {
     if (text.length > maxLength) {
       return text.substring(0, maxLength) + "...";
@@ -44,23 +45,6 @@ const LinkSquare: React.FC<Props> = ({
     detailsModelOpen?.(id);
   };
 
-  const getLinkLabel = (targetSite: string) => {
-    switch (targetSite) {
-      case "youtube":
-        return "Youtube";
-      case "facebook":
-        return "Facebook";
-      case "instagram":
-        return "Instagram";
-      case "twitter":
-        return "Twitter";
-      case "amazon":
-        return "Amazon";
-      default:
-        return "Smart Link";
-    }
-  };
-
   const handleSelect = (id:string) =>{
     handleSelectLink?.(id)
     console.log("this is selected Link", selectedData);
@@ -68,7 +52,6 @@ const LinkSquare: React.FC<Props> = ({
   }
   return (
     <div className="rounded-2xl bg-gray-100 border hover:border-black duration-150">
-      {/* Composant FaviconLoader pour charger l'icône de lien */}
       <FaviconLoader originalUrl={link.originalUrl} setFavicon={setLinkLogo} />
       <div className="flex justify-between items-center h-[64px] px-[24px]">
         <div className="flex flex-row items-center">
@@ -86,8 +69,8 @@ const LinkSquare: React.FC<Props> = ({
             <Tooltip text={"Share"}>
               <ShareIcon className="size-4 text-[#4D494F] cursor-pointer select-none" />
             </Tooltip>
-            <Tooltip text="Save">
-              <SaveIcon className="size-4 text-[#4D494F] bg-white h-8 w-8 p-2 rounded-full cursor-pointer select-none" />
+            <Tooltip text="Copy">
+              <SaveIcon className="size-4 text-[#4D494F]  h-8 w-8 p-2 cursor-pointer select-none" />
             </Tooltip>
           </div>
         ) : (
@@ -97,11 +80,19 @@ const LinkSquare: React.FC<Props> = ({
       <div className="border-x border-b p-[24px] h-auto flex flex-col justify-between bg-gray-50 rounded-b-2xl">
         <span
           className="text-[14px] font-content break-words"
-          title={link.originalUrl} // Afficher le texte complet au survol
+          title={link.shortUrl}
         >
-          {truncateText(link.originalUrl, maxLength)}
+          {`linkfluencer.io/${truncateText(link.shortUrl, maxLength)}`}
         </span>
-        {!minimize && <span className="my-4 text-[#5890FF]">{link.tags}</span>}
+        {!minimize && (
+            <div className="my-4 text-[#5890FF]">
+              {link.tags?.map((tag, index) => (
+                <span key={index} className="mr-2">
+                  {`#${tag}`}
+                </span>
+              ))}
+            </div>
+          )}
         <div>
           <span className="text-[12px] text-[#9B919D]">Total Clicked</span>
           <div className="flex items-center justify-between">

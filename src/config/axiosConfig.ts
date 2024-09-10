@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const API_URL = 'http://localhost:5005';
 
@@ -18,24 +19,34 @@ api.interceptors.response.use(
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 
-      const refreshed = await refreshAccessToken();
-      if (refreshed) {
-        return api(originalRequest);
-      } else {
+      try {
+        const refreshed = await refreshAccessToken();
+        if (refreshed) {
+          return api(originalRequest);
+        } else {
+          handleLogout();
+          toast.error('Session expired, please log in again.');
+        }
+      } catch (refreshError) {
         handleLogout();
+        toast.error('Session expired, please log in again.');
+        window.location.href = 'http://localhost:3000/signin';
+        return Promise.reject(refreshError);
       }
     }
 
     return Promise.reject(error);
-  },
+  }
 );
 
 export const refreshAccessToken = async () => {
   try {
-    const response = await api.post('/auth/refresh-token');
+    const response = await api.get('/auth/refreshAccessToccken');
+
     if (response.status !== 200) {
       throw new Error('Failed to refresh token');
     }
+
     return true;
   } catch (error) {
     console.error('Error refreshing token:', error);
@@ -46,14 +57,18 @@ export const refreshAccessToken = async () => {
 export const handleLogout = async () => {
   try {
     await api.post('/auth/logout');
-    updateUserState();
+    updateUserState(null);
+    window.location.href = 'http://localhost:3000/signin';
+    toast.info('You have been logged out.');
   } catch (error) {
+    window.location.href = 'http://localhost:3000/signin';
     console.error('Logout failed:', error);
   }
 };
 
-const updateUserState = () => {
-  // todo
+const updateUserState = (user = null) => {
+  // Implement state management here, e.g., Redux dispatch or Context API update
+  // Example: dispatch({ type: 'SET_USER', payload: user });
 };
 
 export default api;

@@ -14,9 +14,7 @@ const LinksList: React.FC<LinksListProps> = ({
   minimize,
   editModalOpen,
   detailsModalOpen,
-}) => {
-  console.log({links});
-  
+}) => {  
   return (
     <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {links.map((link) => (

@@ -1,5 +1,6 @@
 import { DeleteIcon } from '../../../svg';
 import Avatar from '../Avatar';
+
 interface User {
   id: string;
   name: string;
@@ -20,6 +21,7 @@ const UserSquare: React.FC<Props> = ({ isDelete, values, handleModalOpen }) => {
   const handleClick = (id: string) => {
     handleModalOpen?.(id);
   };
+
   return (
     <div className="rounded-2xl bg-gray-200 border hover:border-black duration-150">
       <div className="flex justify-between items-center h-[64px] px-[24px]">
@@ -42,44 +44,32 @@ const UserSquare: React.FC<Props> = ({ isDelete, values, handleModalOpen }) => {
       </div>
       <div className="border-x border-b px-[24px] py-[12px] h-auto flex flex-col justify-between bg-gray-50 rounded-b-2xl">
         <table className="">
-          <tr className=" font-content">
-            <td className="font-semibold py-2 text-sm sm:text-[16px]">
-              User ID
-            </td>
-            <td className=" text-[#020D3A] text-sm sm:text-[16px]">
-              {values?.id}
-            </td>
-          </tr>
-          <tr className=" font-content">
-            <td className="font-semibold py-2 text-sm sm:text-[16px]">
-              Email ID
-            </td>
-            <td className="text-[#020D3A] text-sm sm:text-[16px]">
-              {values?.email}
-            </td>
-          </tr>
-          <tr className=" font-content">
-            <td className=" font-semibold py-2 text-sm sm:text-[16px]">Role</td>
-            <td className=" text-[#020D3A] text-sm sm:text-[16px]">
-              {values?.role}
-            </td>
-          </tr>
-          <tr className=" font-content">
-            <td className="  font-semibold py-2 pr-4 text-sm sm:text-[16px]">
-              Payment Mode
-            </td>
-            <td className=" text-[#020D3A] text-sm sm:text-[16px]">
-              {values?.date}
-            </td>
-          </tr>
-          <tr className=" font-content">
-            <td className="  font-semibold py-2 text-sm sm:text-[16px]">
-              Invited By
-            </td>
-            <td className=" text-[#020D3A] text-sm sm:text-[16px]">
-              {values?.invitedBy}
-            </td>
-          </tr>
+          <tbody>
+            <tr className="font-content">
+              <td className="font-semibold py-2 text-sm sm:text-[16px]">
+                User ID
+              </td>
+              <td className="text-[#020D3A] text-sm sm:text-[16px]">
+                {values?.id}
+              </td>
+            </tr>
+            <tr className="font-content">
+              <td className="font-semibold py-2 text-sm sm:text-[16px]">
+                Email ID
+              </td>
+              <td className="text-[#020D3A] text-sm sm:text-[16px]">
+                {values?.email}
+              </td>
+            </tr>
+            <tr className="font-content">
+              <td className="font-semibold py-2 text-sm sm:text-[16px]">
+                Role
+              </td>
+              <td className="text-[#020D3A] text-sm sm:text-[16px]">
+                {values?.role}
+              </td>
+            </tr>
+          </tbody>
         </table>
       </div>
     </div>

@@ -111,18 +111,11 @@ const MyLinks: React.FC = () => {
   const tableData = {
     select: isDelete,
   };
-  const editModalOpen = (value: any) => {
+  const editModalOpen = (value: ILink) => {
     setIsEditModalOpen(true);
-    const data = filteredData.find((val:any, index:any) => {
-      return val._id === value;
-    });
-    console.log("=====>>>>",data);
     
     setEdit({
-      logo: data?.logo ?? "",
-      targetSite: data?.targetSite ?? "",
-      originalUrl: data?.originalUrl ?? "",
-      tags: data?.tags ?? [],
+      ...value,
     });
   };
   
@@ -250,7 +243,7 @@ console.log(selectedData);
     <div className="w-full border pb-2 relative">
       <Model isOpen={isEditModalOpen} onClose={handleEditModalClose}>
         <LinkEditCard
-          data={edit}
+          link={edit}
           handleModalClose={handleEditModalClose}
           handleEdit={handleEdit}
         />
@@ -407,7 +400,7 @@ console.log(selectedData);
                   <LinkSquare
                     isDelete={isDelete}
                     minimize={minimize}
-                    editModalOpen={editModalOpen}
+                    editModalOpen={() => editModalOpen(val)}
                     detailsModelOpen={detailsModelOpen}
                     handleSelectLink={handleSelectLink}
                     selectedData={selectedData}

@@ -27,25 +27,25 @@ const Dashboard: React.FC = () => {
     { label: 'Old Links', value: SortLinksByOptions.OldLinks },
   ];
 
-  useEffect(() => {
-    const fetchUserLinks = async () => {
-      if (user && user._id) {
-        try {
-          setIsLoading(true);
-          const links = await getUserLinks(user._id, {
-            sortBy: tabs[selectedTab].value,
-            page: 1,
-            limit: 3,
-          });
-          setUserLinks(links);
-          setIsLoading(false);
-        } catch (error) {
-          setIsLoading(true);
-          console.error('Failed to fetch user links:', error);
-        }
+  const fetchUserLinks = async () => {
+    if (user && user._id) {
+      try {
+        setIsLoading(true);
+        const links = await getUserLinks(user._id, {
+          sortBy: tabs[selectedTab].value,
+          page: 1,
+          limit: 3,
+        });
+        setUserLinks(links);
+        setIsLoading(false);
+      } catch (error) {
+        setIsLoading(true);
+        console.error('Failed to fetch user links:', error);
       }
-    };
+    }
+  };
 
+  useEffect(() => {
     fetchUserLinks();
   }, [user, selectedTab]);
 
@@ -58,12 +58,7 @@ const Dashboard: React.FC = () => {
       try {
         await createLink(user._id, newLink);
         setNewLink('');
-        const links = await getUserLinks(user._id, {
-          sortBy: tabs[selectedTab].value,
-          page: 1,
-          limit: 3,
-        });
-        setUserLinks(links);
+        fetchUserLinks();
       } catch (error) {
         console.error('Failed to create link:', error);
       }
@@ -94,6 +89,7 @@ const Dashboard: React.FC = () => {
               tabs={tabs}
               selectedTab={selectedTab}
               setSelectedTab={setSelectedTab}
+              refetchLinks={fetchUserLinks}
             />
           ) : (
             <BlankDashboard />
