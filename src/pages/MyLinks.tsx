@@ -18,16 +18,24 @@ import Dropdown from "../components/common/Dropdown";
 import Model from "../components/common/models/Model";
 import LinkDetailsCard from "../components/common/cards/LinkDetails";
 import LinkEditCard from "../components/common/cards/LinkEdit";
-import { getUserLinks } from "../services/linkService";
+import { deleteLinks, getUserLinks } from "../services/linkService";
 import User from "./profile/User";
 import { UserContext } from "../context/UserContext";
 import LinkSquare from "../components/common/cards/LinkSquare";
 import { ILink } from "../interfaces/Link";
+import axios from "axios";
 
 const MyLinks: React.FC = () => {
   const [minimize, setMinimize] = useState(false);
   const [isTable, setIsTable] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
+  const [selectedLinks, setSelectedLinks] = useState<any>([]) 
+  const [filteredData, setFilteredData] = useState<any>([]);
+  const [data, setData] = useState<any>([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
+  const API_URL = 'http://localhost:5005';
   const [edit, setEdit] = useState<any>({
     logo: "",
     channel: "",
@@ -46,7 +54,6 @@ const MyLinks: React.FC = () => {
     throw new Error("useContext must be used within a UserProvider");
   }
   const { user } = userContext;
-  // const {isMobile} = useDeviceDetect()
   const columns = [
     {
       title: "Channel",
@@ -100,16 +107,9 @@ const MyLinks: React.FC = () => {
       cellAlign: "left",
     },
   ];
-
   const tableData = {
     select: isDelete,
   };
-
-  const [filteredData, setFilteredData] = useState<any>([]);
-  const [data, setData] = useState<any>([])
-  const [searchTerm, setSearchTerm] = useState("");
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const editModalOpen = (value: any) => {
     setIsEditModalOpen(true);
     const data = LinksData.find((val, index) => {
@@ -122,6 +122,25 @@ const MyLinks: React.FC = () => {
       tags: data?.tags ?? [],
     });
   };
+  
+  const handleSelectLink = (value:any) =>{
+    setSelectedLinks(()=>{
+      if(selectedLinks?.includes(value)){
+        const filteredLinks = selectedLinks.filter((val:any)=>{
+          return val !=value
+        })
+        setSelectedLinks(filteredLinks);
+      }else{
+        return [...selectedLinks, value]
+      }
+    })
+  }
+  const handleDeleteLinks = async () =>{
+    if(user && user._id){
+    deleteLinks(user._id, selectedLinks)
+    }
+  }
+
   const detailsModelOpen = (value: any) => {
     const data = LinksData.find((val, index) => {
       return val.id === value;
@@ -160,7 +179,7 @@ const MyLinks: React.FC = () => {
   };
 
   const sortByClicks = (order: "asc" | "desc" = "asc") => {
-  const sortedData =  data?.sort((a:any, b:any) => {
+    const sortedData = [...data].sort((a: any, b: any) => {
       if (order === "asc") {
         return a.clickCount - b.clickCount;
       } else {
@@ -168,21 +187,19 @@ const MyLinks: React.FC = () => {
       }
     });
     console.log(sortedData);
-    
-    setFilteredData(sortedData)
+
+    setFilteredData(sortedData);
   };
-  
 
   useEffect(() => {
-
-      const results = data.filter((item:any) =>
-        Object.values(item).some((val) =>
-          String(val).toLowerCase().includes(searchTerm.toLowerCase())
-        )
-      );
-      setFilteredData(results);
+    const results = data.filter((item: any) =>
+      Object.values(item).some((val) =>
+        String(val).toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    );
+    setFilteredData(results);
   }, [searchTerm]); // Add originalData to the dependency array
-  
+
   useEffect(() => {
     const fetchUserLinks = async () => {
       if (user && user._id) {
@@ -193,11 +210,16 @@ const MyLinks: React.FC = () => {
         });
         console.log("this is it ===>>>>", { links });
         setData(links);
-        setFilteredData(links)
+        setFilteredData(links);
       }
     };
     fetchUserLinks();
   }, []);
+
+  useEffect(()=>{
+console.log(selectedLinks);
+
+  },[selectedLinks])
 
   return (
     <div className="w-full border pb-2 relative">
@@ -290,10 +312,20 @@ const MyLinks: React.FC = () => {
                   }
                 >
                   <ul className="w-[200px] flex justify-center flex-col items-center border bg-white rounded-2xl py-1 shadow-md">
-                    <li className=" w-full px-4  font-content py-2 border-b" onClick={()=>{sortByClicks('asc')}}>
+                    <li
+                      className=" w-full px-4  font-content py-2 border-b"
+                      onClick={() => {
+                        sortByClicks("desc");
+                      }}
+                    >
                       Hight to Low Clicks
                     </li>
-                    <li className=" w-full px-4  font-content py-2 border-b" onClick={()=>{sortByClicks('desc')}}>
+                    <li
+                      className=" w-full px-4  font-content py-2 border-b"
+                      onClick={() => {
+                        sortByClicks("asc");
+                      }}
+                    >
                       Low to High Clicks
                     </li>
                     <li className=" w-full px-4  font-content py-2 border-b">
@@ -334,7 +366,9 @@ const MyLinks: React.FC = () => {
               >
                 Cancel
               </button>
-              <button className="w-[150px] ml-0 border-[1px] border-[#113E53] font-bold bg-[#113E53] rounded-full px-[10px] py-[8px] md:py-[12px] text-white font-header">
+              <button 
+              onClick={handleDeleteLinks}
+              className="w-[150px] ml-0 border-[1px] border-[#113E53] font-bold bg-[#113E53] rounded-full px-[10px] py-[8px] md:py-[12px] text-white font-header">
                 Delete
               </button>
             </div>
@@ -344,12 +378,14 @@ const MyLinks: React.FC = () => {
           <div className="my-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ">
             {filteredData.map((val: any, index: any) => {
               return (
-                <div key={index} className=" ">
+                <div key={index} className="">
                   <LinkSquare
                     isDelete={isDelete}
                     minimize={minimize}
                     editModalOpen={editModalOpen}
                     detailsModelOpen={detailsModelOpen}
+                    handleSelectLink={handleSelectLink}
+                    selectedLinks={selectedLinks}
                     link={val}
                   />
                 </div>

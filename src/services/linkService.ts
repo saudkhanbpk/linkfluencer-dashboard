@@ -29,3 +29,17 @@ export const createLink = (userId: string, link: string) => {
     return null;
   }
 };
+
+export const deleteLinks = (userId: string, linksId: string) => {
+  const data = {
+    linkIds:linksId,
+  }
+  try {
+    return axiosInstance.delete(`/users/${userId}/links`, {
+      data
+    });
+  } catch (error) {
+    console.error('Error when creating link', error);
+    return null;
+  }
+};

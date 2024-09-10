@@ -13,6 +13,8 @@ interface Props {
   isDelete?: boolean;
   editModalOpen?: (val: string) => void;
   detailsModelOpen?: (val: string) => void;
+  handleSelectLink?:(val: string) => void;
+  selectedLinks?:any[]
 }
 
 const LinkSquare: React.FC<Props> = ({
@@ -21,12 +23,12 @@ const LinkSquare: React.FC<Props> = ({
   isDelete,
   editModalOpen,
   detailsModelOpen,
+  handleSelectLink,
+  selectedLinks
 }) => {
   const [linkLogo, setLinkLogo] = useState("");
-
   const indicateUp = true;
   const maxLength = 30;
-
   const truncateText = (text: string, maxLength: number) => {
     if (text.length > maxLength) {
       return text.substring(0, maxLength) + "...";
@@ -59,11 +61,15 @@ const LinkSquare: React.FC<Props> = ({
     }
   };
 
+  const handleSelect = (id:string) =>{
+    handleSelectLink?.(id)
+    console.log("this is selected Link", selectedLinks);
+    
+  }
   return (
     <div className="rounded-2xl bg-gray-100 border hover:border-black duration-150">
       {/* Composant FaviconLoader pour charger l'icône de lien */}
       <FaviconLoader originalUrl={link.originalUrl} setFavicon={setLinkLogo} />
-
       <div className="flex justify-between items-center h-[64px] px-[24px]">
         <div className="flex flex-row items-center">
           <img src={linkLogo} alt={"social Icon"} className="mr-3" />
@@ -85,7 +91,7 @@ const LinkSquare: React.FC<Props> = ({
             </Tooltip>
           </div>
         ) : (
-          <input type="checkbox" className="w-6 h-6 cursor-pointer" />
+          <input type="checkbox" className="w-6 h-6 cursor-pointer" checked={selectedLinks?.includes(link._id)} onClick={()=>{handleSelect(link._id)}}/>
         )}
       </div>
       <div className="border-x border-b p-[24px] h-auto flex flex-col justify-between bg-gray-50 rounded-b-2xl">
