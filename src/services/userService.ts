@@ -11,3 +11,14 @@ export const fetchUser = async (): Promise<any | null> => {
     return null;
   }
 };
+
+export const UserProfile = async (userId: string)=> {
+  try {
+    const response = await axiosInstance.get(`/users/${userId}`);
+
+    return response.data;
+  } catch (error) {
+    console.error('Error when fetching user', error);
+    return null;
+  }
+};

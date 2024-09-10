@@ -29,8 +29,9 @@ const MyLinks: React.FC = () => {
   const [minimize, setMinimize] = useState(false);
   const [isTable, setIsTable] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
-  const [selectedLinks, setSelectedLinks] = useState<any>([]) 
+  const [selectedData, setSelectedData] = useState<any>([]) 
   const [filteredData, setFilteredData] = useState<any>([]);
+  const [selectAll, setSelectAll] = useState(false)
   const [data, setData] = useState<any>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -38,14 +39,14 @@ const MyLinks: React.FC = () => {
   const API_URL = 'http://localhost:5005';
   const [edit, setEdit] = useState<any>({
     logo: "",
-    channel: "",
-    link: "",
+    targetSite: "",
+    originalUrl: "",
     tags: [],
   });
   const [details, setDetails] = useState<any>({
     logo: "",
-    channel: "",
-    link: "",
+    targetSite: "",
+    originalUrl: "",
     tags: [],
   });
 
@@ -56,7 +57,7 @@ const MyLinks: React.FC = () => {
   const { user } = userContext;
   const columns = [
     {
-      title: "Channel",
+      title: "targetSite",
       key: "targetSite",
       width: "140px",
       headerAlign: "left",
@@ -112,32 +113,55 @@ const MyLinks: React.FC = () => {
   };
   const editModalOpen = (value: any) => {
     setIsEditModalOpen(true);
-    const data = LinksData.find((val, index) => {
-      return val.id === value;
+    const data = filteredData.find((val:any, index:any) => {
+      return val._id === value;
     });
+    console.log("=====>>>>",data);
+    
     setEdit({
       logo: data?.logo ?? "",
-      channel: data?.channel ?? "",
-      link: data?.link ?? "",
+      targetSite: data?.targetSite ?? "",
+      originalUrl: data?.originalUrl ?? "",
       tags: data?.tags ?? [],
     });
   };
   
-  const handleSelectLink = (value:any) =>{
-    setSelectedLinks(()=>{
-      if(selectedLinks?.includes(value)){
-        const filteredLinks = selectedLinks.filter((val:any)=>{
+  const handleSelectLink = (value:any)=>{
+    setSelectedData(()=>{
+      if(selectedData?.includes(value)){
+        const filteredLinks = selectedData.filter((val:any)=>{
           return val !=value
         })
-        setSelectedLinks(filteredLinks);
+        setSelectedData(filteredLinks);
       }else{
-        return [...selectedLinks, value]
+        return [...selectedData, value]
       }
     })
   }
+
+  const handleSelectAll = () =>{
+    if(selectAll){
+      setSelectAll(false)
+      setSelectedData([])
+    }else{
+      const data = filteredData.map((item: { _id: any; }) => item._id);
+      setSelectedData(data)
+      setSelectAll(true)
+    }
+  }
   const handleDeleteLinks = async () =>{
     if(user && user._id){
-    deleteLinks(user._id, selectedLinks)
+    await deleteLinks(user._id, selectedData)?.then((resp)=>{
+      console.log("this is response ===>>",resp);
+      const newData = filteredData.filter((val:any)=>{
+        return !selectedData.includes(val._id)
+      });
+      console.log(newData);
+      
+      setFilteredData(newData)
+    }).catch((err)=>{
+      console.log("this is error ===>",err);
+    })
     }
   }
 
@@ -147,7 +171,7 @@ const MyLinks: React.FC = () => {
     });
     setDetails({
       logo: data?.logo ?? "",
-      channel: data?.channel ?? "",
+      targetSite: data?.targetSite ?? "",
       link: data?.link ?? "",
       tags: data?.tags ?? [],
     });
@@ -191,6 +215,7 @@ const MyLinks: React.FC = () => {
     setFilteredData(sortedData);
   };
 
+
   useEffect(() => {
     const results = data.filter((item: any) =>
       Object.values(item).some((val) =>
@@ -217,9 +242,9 @@ const MyLinks: React.FC = () => {
   }, []);
 
   useEffect(()=>{
-console.log(selectedLinks);
+console.log(selectedData);
 
-  },[selectedLinks])
+  },[selectedData])
 
   return (
     <div className="w-full border pb-2 relative">
@@ -351,7 +376,7 @@ console.log(selectedLinks);
           <div className="flex justify-between items-center">
             {isDelete && !isTable ? (
               <div className="flex items-center gap-3">
-                <input type="checkbox" className="w-5 h-5 " />
+                <input type="checkbox" className="w-5 h-5"  checked={selectAll} onClick={handleSelectAll}/>
                 <span className="font-bold font-header">Select All</span>
               </div>
             ) : (
@@ -385,7 +410,7 @@ console.log(selectedLinks);
                     editModalOpen={editModalOpen}
                     detailsModelOpen={detailsModelOpen}
                     handleSelectLink={handleSelectLink}
-                    selectedLinks={selectedLinks}
+                    selectedData={selectedData}
                     link={val}
                   />
                 </div>
@@ -397,6 +422,9 @@ console.log(selectedLinks);
             columns={columns}
             dataSource={filteredData}
             tableData={tableData}
+            handleSelectLink={handleSelectLink}
+            selectedData={selectedData}
+            setSelectedData={setSelectedData}
           />
         )}
       </div>

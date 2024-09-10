@@ -1,7 +1,40 @@
 import Dropdown from '../../components/common/Dropdown';
 import { DropIcon } from '../../svg';
-
+import { UserContext } from "../../context/UserContext";
+import { UserProfile } from "../../services/userService";
+import { useContext, useEffect, useState } from 'react';
 const Influencer: React.FC = () => {
+  
+  const [values, setValues] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    status: "",
+    gender: "",
+    country: "",
+    city: "",
+    mobileNumber: "",
+    address: "",
+    postalCode:""
+  })
+  const userContext = useContext(UserContext);
+  if (!userContext) {
+    throw new Error("useContext must be used within a UserProvider");
+  }
+  const { user } = userContext;
+
+  useEffect(() => {
+    const getUserProfile = async () => {
+      if (user && user._id) {
+        const userData = await UserProfile(user._id);
+        console.log(userData);
+        
+        setValues(userData)
+      }
+    };
+    getUserProfile();
+  }, []);
   return (
     <div>
       <div className="gap-4 flex flex-col md:flex-row relative mt-8">
@@ -25,14 +58,16 @@ const Influencer: React.FC = () => {
           <input
             type="text"
             placeholder="First Name"
+            value={values?.firstName}
             className="p-2 rounded-full border border-[#B3B3B2] w-full mb-4 outline-none"
           />
           <input
             type="text"
             placeholder="Last Name"
+            value={values?.lastName}
             className="p-2 rounded-full border border-[#B3B3B2] w-full mb-4 outline-none"
           />
-          <select className="p-2 rounded-full border border-[#B3B3B2] w-full mb-4">
+          <select className="p-2 rounded-full border border-[#B3B3B2] w-full mb-4" value={values.gender}>
             <option selected value="" disabled>
               Select Gender
             </option>
@@ -40,6 +75,7 @@ const Influencer: React.FC = () => {
           <input
             type="text"
             placeholder="Email Address"
+            value={values.address}
             className="p-2 rounded-full border border-[#B3B3B2] w-full mb-4 outline-none"
           />
           <input
@@ -71,6 +107,7 @@ const Influencer: React.FC = () => {
             <input
               type="text"
               placeholder="Mobile Number"
+              value={values.mobileNumber}
               className="border w-full rounded-r-full px-2"
             />
           </div>
@@ -84,23 +121,27 @@ const Influencer: React.FC = () => {
         <div className="md:w-5/12 flex flex-col justify-between">
           <input
             type="text"
-            placeholder="Select Country"
+            placeholder="Enter Country"
+            value={values.country}
             className="p-2 rounded-full border border-[#B3B3B2] w-full mb-4 outline-none"
           />
           {/* <input type='text' placeholder='Enter Address' className='p-3 h-[100px] rounded-3xl border border-[#B3B3B2] w-full mb-4 outline-none'/> */}
           <textarea
             placeholder="Enter Address"
+            value={values.address}
             className="w-full h-[50px] md:h-full rounded-3xl border border-gray-400 outline-none resize-none p-3 mb-4"
             cols={500}
           />
           <input
             type="text"
             placeholder="Postal Code"
+            value={values.postalCode}
             className="p-2 rounded-full border border-[#B3B3B2] w-full mb-4 outline-none"
           />
           <input
             type="text"
             placeholder="Enter City"
+            value={values.city}
             className="p-2 rounded-full border border-[#B3B3B2] w-full mb-4 outline-none"
           />
         </div>
@@ -119,6 +160,7 @@ const Influencer: React.FC = () => {
           <input
             type="password"
             placeholder="Old Password"
+            value={values.password}
             className="p-2 rounded-full border border-[#B3B3B2] w-6/6 md:w-2/6"
           />
           <input

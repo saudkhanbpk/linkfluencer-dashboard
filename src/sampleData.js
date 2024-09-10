@@ -28,7 +28,7 @@ export const LinksData = [
   {
     logo: '/assets/youtubeLogo.svg',
     link: 'https://linkfluencerstg.addwebprojects.com/nextdor',
-    channel: 'Youtube',
+    targetSite: 'Youtube',
     tags: '#Educational #Sciences',
     totalClicks: 200,
     percent: 18,
@@ -38,7 +38,7 @@ export const LinksData = [
   {
     logo: '/assets/amazonLogo.svg',
     link: 'https://linkfluencerstg.addwebprojects.com/nextdor',
-    channel: 'Amazon',
+    targetSite: 'Amazon',
     tags: '#Educational #Physic',
     totalClicks: 140,
     percent: 22,
@@ -48,7 +48,7 @@ export const LinksData = [
   {
     logo: '/assets/spotifyLogo.svg',
     link: 'https://linkfluencerstg.addwebprojects.com/nextdor',
-    channel: 'Spotify',
+    targetSite: 'Spotify',
     tags: '#Educational #Music',
     totalClicks: 140,
     percent: 75,
@@ -58,7 +58,7 @@ export const LinksData = [
   {
     logo: '/assets/youtubeLogo.svg',
     link: 'https://linkfluencerstg.addwebprojects.com/nextdor',
-    channel: 'Youtube',
+    targetSite: 'Youtube',
     tags: '#Educational #Sciences',
     totalClicks: 200,
     percent: 18,
@@ -68,7 +68,7 @@ export const LinksData = [
   {
     logo: '/assets/amazonLogo.svg',
     link: 'https://linkfluencerstg.addwebprojects.com/nextdor',
-    channel: 'Amazon',
+    targetSite: 'Amazon',
     tags: '#Educational #Physic',
     totalClicks: 140,
     percent: 22,
@@ -78,7 +78,7 @@ export const LinksData = [
   {
     logo: '/assets/spotifyLogo.svg',
     link: 'https://linkfluencerstg.addwebprojects.com/nextdor',
-    channel: 'Spotify',
+    targetSite: 'Spotify',
     tags: '#Educational #Music',
     totalClicks: 140,
     percent: 75,
@@ -88,7 +88,7 @@ export const LinksData = [
   {
     logo: '/assets/youtubeLogo.svg',
     link: 'https://linkfluencerstg.addwebprojects.com/nextdor',
-    channel: 'Youtube',
+    targetSite: 'Youtube',
     tags: '#Educational #Sciences',
     totalClicks: 200,
     percent: 18,
@@ -98,7 +98,7 @@ export const LinksData = [
   {
     logo: '/assets/amazonLogo.svg',
     link: 'https://linkfluencerstg.addwebprojects.com/nextdor',
-    channel: 'Amazon',
+    targetSite: 'Amazon',
     tags: '#Educational #Physic',
     totalClicks: 140,
     percent: 22,
@@ -108,7 +108,7 @@ export const LinksData = [
   {
     logo: '/assets/spotifyLogo.svg',
     link: 'https://linkfluencerstg.addwebprojects.com/nextdor',
-    channel: 'Spotify',
+    targetSite: 'Spotify',
     tags: '#Educational #Music',
     totalClicks: 140,
     percent: 7,
@@ -118,7 +118,7 @@ export const LinksData = [
   {
     logo: '/assets/youtubeLogo.svg',
     link: 'https://linkfluencerstg.addwebprojects.com/nextdor',
-    channel: 'Youtube',
+    targetSite: 'Youtube',
     tags: '#Educational #Sciences',
     totalClicks: 200,
     percent: 18,
@@ -128,7 +128,7 @@ export const LinksData = [
   {
     logo: '/assets/amazonLogo.svg',
     link: 'https://linkfluencerstg.addwebprojects.com/nextdor',
-    channel: 'Amazon',
+    targetSite: 'Amazon',
     tags: '#Educational #Medicne',
     totalClicks: 170,
     percent: 290,
@@ -138,7 +138,7 @@ export const LinksData = [
   {
     logo: '/assets/spotifyLogo.svg',
     link: 'https://linkfluencerstg.addwebprojects.com/nextdor',
-    channel: 'Spotify',
+    targetSite: 'Spotify',
     tags: '#Educational #Music',
     totalClicks: 10,
     percent: 2,
@@ -148,7 +148,7 @@ export const LinksData = [
   {
     logo: '/assets/amazonLogo.svg',
     link: 'https://linkfluencerstg.addwebprojects.com/nextdor',
-    channel: 'Amazon',
+    targetSite: 'Amazon',
     tags: '#Educational #Physic',
     totalClicks: 140,
     percent: 22,
@@ -158,7 +158,7 @@ export const LinksData = [
   {
     logo: '/assets/spotifyLogo.svg',
     link: 'https://linkfluencerstg.addwebprojects.com/nextdor',
-    channel: 'Spotify',
+    targetSite: 'Spotify',
     tags: '#Educational #Music',
     totalClicks: 140,
     percent: 75,
@@ -168,7 +168,7 @@ export const LinksData = [
   {
     logo: '/assets/youtubeLogo.svg',
     link: 'https://linkfluencerstg.addwebprojects.com/nextdor',
-    channel: 'Youtube',
+    targetSite: 'Youtube',
     tags: '#Educational #Sciences',
     totalClicks: 200,
     percent: 18,
@@ -178,7 +178,7 @@ export const LinksData = [
   {
     logo: '/assets/amazonLogo.svg',
     link: 'https://linkfluencerstg.addwebprojects.com/nextdor',
-    channel: 'Amazon',
+    targetSite: 'Amazon',
     tags: '#Educational #Physic',
     totalClicks: 140,
     percent: 22,
@@ -188,7 +188,7 @@ export const LinksData = [
   {
     logo: '/assets/spotifyLogo.svg',
     link: 'https://linkfluencerstg.addwebprojects.com/nextdor',
-    channel: 'Spotify',
+    targetSite: 'Spotify',
     tags: '#Educational #Music',
     totalClicks: 140,
     percent: 7,
@@ -198,7 +198,7 @@ export const LinksData = [
   {
     logo: '/assets/youtubeLogo.svg',
     link: 'https://linkfluencerstg.addwebprojects.com/nextdor',
-    channel: 'Youtube',
+    targetSite: 'Youtube',
     tags: '#Educational #Sciences',
     totalClicks: 200,
     percent: 18,
@@ -208,7 +208,7 @@ export const LinksData = [
   {
     logo: '/assets/amazonLogo.svg',
     link: 'https://linkfluencerstg.addwebprojects.com/nextdor',
-    channel: 'Amazon',
+    targetSite: 'Amazon',
     tags: '#Educational #Medicne',
     totalClicks: 170,
     percent: 290,
@@ -218,7 +218,7 @@ export const LinksData = [
   {
     logo: '/assets/spotifyLogo.svg',
     link: 'https://linkfluencerstg.addwebprojects.com/nextdor',
-    channel: 'Spotify',
+    targetSite: 'Spotify',
     tags: '#Educational #Music',
     totalClicks: 10,
     percent: 2,

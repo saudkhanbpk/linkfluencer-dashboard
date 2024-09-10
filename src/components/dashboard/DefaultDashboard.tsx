@@ -25,13 +25,13 @@ const DefaultDashboard: React.FC<DefaultDashboardProps> = ({
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [edit, setEdit] = useState<any>({
     logo: '',
-    channel: '',
+    targetSite: '',
     link: '',
     tags: [],
   });
   const [details, setDetails] = useState<any>({
     logo: '',
-    channel: '',
+    targetSite: '',
     link: '',
     tags: [],
   });
@@ -46,7 +46,7 @@ const DefaultDashboard: React.FC<DefaultDashboardProps> = ({
     // if (data) {
     //   setEdit({
     //     logo: data.logo,
-    //     channel: data.label,
+    //     targetSite: data.label,
     //     link: data.link,
     //     tags: data.tags,
     //   });
@@ -59,7 +59,7 @@ const DefaultDashboard: React.FC<DefaultDashboardProps> = ({
     // if (data) {
     //   setDetails({
     //     logo: data.logo,
-    //     channel: data.label,
+    //     targetSite: data.label,
     //     link: data.link,
     //     tags: data.tags,
     //   });

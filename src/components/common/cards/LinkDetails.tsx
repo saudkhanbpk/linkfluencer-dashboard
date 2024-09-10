@@ -4,8 +4,8 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { FreeMode, Pagination } from 'swiper/modules';
 import ApexColumnChart from '../charts/columnChart/calumnChart';
 interface linkData {
-  channel: string;
-  link: string;
+  targetSite: string;
+  originalUrl: string;
   tags: string;
   logo: string;
 }
@@ -26,14 +26,14 @@ const LinkDetailsCard: React.FC<Prop> = ({ data, handleDetailsModalClose }) => {
             className="w-[46px] h-[33px]"
             alt="social Media Logo"
           />
-          <label className="font-header text-[20px]">{data.channel}</label>
+          <label className="font-header text-[20px]">{data.targetSite}</label>
         </div>
         <CrossIcon
           className={'size-5 text-black cursor-pointer'}
           onClick={handleDetailsModalClose}
         />
       </div>
-      <p>{data.link}</p>
+      <p>{data.originalUrl}</p>
 
       <p className="my-4 text-blue-500">{data.tags}</p>
 
