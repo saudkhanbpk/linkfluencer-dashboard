@@ -1,10 +1,9 @@
-import Dropdown from '../../components/common/Dropdown';
-import { DropIcon } from '../../svg';
+import Dropdown from "../../components/common/Dropdown";
+import { DropIcon } from "../../svg";
 import { UserContext } from "../../context/UserContext";
-import { UserProfile } from "../../services/userService";
-import { useContext, useEffect, useState } from 'react';
+import { UserProfile, UserUpdate } from "../../services/userService";
+import { useContext, useEffect, useState } from "react";
 const Influencer: React.FC = () => {
-  
   const [values, setValues] = useState({
     firstName: "",
     lastName: "",
@@ -16,25 +15,47 @@ const Influencer: React.FC = () => {
     city: "",
     mobileNumber: "",
     address: "",
-    postalCode:""
-  })
+    postalCode: "",
+  });
   const userContext = useContext(UserContext);
   if (!userContext) {
     throw new Error("useContext must be used within a UserProvider");
   }
   const { user } = userContext;
 
+
+  const handleChange = (e: { target: { value: any; name: any; }; }) => {
+    const { value, name } = e.target;
+    setValues((preValues) => {
+      return {
+        ...preValues,
+        [name]: value,
+      };
+    });
+  };
+
+  const handleEdit = async() =>{
+    console.log("this is edit funciton");
+    
+    if (user && user._id) {
+      const updatedUser= await UserUpdate(user._id, values);
+      console.log(updatedUser);
+
+      setValues(updatedUser);
+    }
+  }
   useEffect(() => {
     const getUserProfile = async () => {
       if (user && user._id) {
         const userData = await UserProfile(user._id);
         console.log(userData);
-        
-        setValues(userData)
+
+        setValues(userData);
       }
     };
     getUserProfile();
   }, []);
+
   return (
     <div>
       <div className="gap-4 flex flex-col md:flex-row relative mt-8">
@@ -58,16 +79,25 @@ const Influencer: React.FC = () => {
           <input
             type="text"
             placeholder="First Name"
+            onChange={handleChange}
+            name="firstName"
             value={values?.firstName}
             className="p-2 rounded-full border border-[#B3B3B2] w-full mb-4 outline-none"
           />
           <input
             type="text"
             placeholder="Last Name"
+            onChange={handleChange}
             value={values?.lastName}
+            name="lastName"
             className="p-2 rounded-full border border-[#B3B3B2] w-full mb-4 outline-none"
           />
-          <select className="p-2 rounded-full border border-[#B3B3B2] w-full mb-4" value={values.gender}>
+          <select
+            className="p-2 rounded-full border border-[#B3B3B2] w-full mb-4"
+            value={values?.gender}
+            name="gender"
+            onChange={handleChange}
+          >
             <option selected value="" disabled>
               Select Gender
             </option>
@@ -75,7 +105,9 @@ const Influencer: React.FC = () => {
           <input
             type="text"
             placeholder="Email Address"
-            value={values.address}
+            value={values.email}
+            onChange={handleChange}
+            name="email"
             className="p-2 rounded-full border border-[#B3B3B2] w-full mb-4 outline-none"
           />
           <input
@@ -98,9 +130,9 @@ const Influencer: React.FC = () => {
                 </ul>
               </Dropdown>
               <DropIcon
-                className={'text-gray-500 size-4'}
+                className={"text-gray-500 size-4"}
                 onClick={() => {
-                  console.log('hello');
+                  console.log("hello");
                 }}
               />
             </div>
@@ -108,6 +140,8 @@ const Influencer: React.FC = () => {
               type="text"
               placeholder="Mobile Number"
               value={values.mobileNumber}
+            onChange={handleChange}
+            name="mobileNumber"
               className="border w-full rounded-r-full px-2"
             />
           </div>
@@ -123,25 +157,33 @@ const Influencer: React.FC = () => {
             type="text"
             placeholder="Enter Country"
             value={values.country}
+            onChange={handleChange}
+            name="country"
             className="p-2 rounded-full border border-[#B3B3B2] w-full mb-4 outline-none"
           />
           {/* <input type='text' placeholder='Enter Address' className='p-3 h-[100px] rounded-3xl border border-[#B3B3B2] w-full mb-4 outline-none'/> */}
           <textarea
             placeholder="Enter Address"
             value={values.address}
+            onChange={handleChange}
+            name="address"
             className="w-full h-[50px] md:h-full rounded-3xl border border-gray-400 outline-none resize-none p-3 mb-4"
             cols={500}
           />
           <input
             type="text"
             placeholder="Postal Code"
-            value={values.postalCode}
+            // value={values.postalCode}
+            // onChange={handleChange}
+            name="postalCode"
             className="p-2 rounded-full border border-[#B3B3B2] w-full mb-4 outline-none"
           />
           <input
             type="text"
             placeholder="Enter City"
             value={values.city}
+            name="city"
+            onChange={handleChange}
             className="p-2 rounded-full border border-[#B3B3B2] w-full mb-4 outline-none"
           />
         </div>
@@ -150,7 +192,7 @@ const Influencer: React.FC = () => {
         <button className="md:mt-0 md:ml-2 ml-0 border-[1px] w-[120px] font-bold bg-[#F1F5F9] rounded-full px-[20px] py-[8px] text-[#113E53] font-header">
           Cancel
         </button>
-        <button className="md:mt-0 md:ml-2 ml-0 border-[1px] w-[120px] border-[#113E53] font-bold bg-[#113E53] rounded-full px-[20px] py-[8px] text-white font-header">
+        <button onClick={handleEdit} className="md:mt-0 md:ml-2 ml-0 border-[1px] w-[120px] border-[#113E53] font-bold bg-[#113E53] rounded-full px-[20px] py-[8px] text-white font-header">
           Save
         </button>
       </div>

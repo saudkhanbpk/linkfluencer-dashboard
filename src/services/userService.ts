@@ -22,3 +22,14 @@ export const UserProfile = async (userId: string)=> {
     return null;
   }
 };
+
+export const UserUpdate = async (userId: string, values:any)=> {
+  try {
+    const response = await axiosInstance.put(`/users/${userId}`, values);
+
+    return response.data;
+  } catch (error) {
+    console.error('Error when fetching user', error);
+    return null;
+  }
+};
