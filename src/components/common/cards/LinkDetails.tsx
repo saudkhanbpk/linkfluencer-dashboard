@@ -58,7 +58,7 @@ const LinkDetailsCard: React.FC<Prop> = ({ data, handleDetailsModalClose }) => {
         setBestAverageTimeToEngage(bestTime || 'No data');
         setLoadingBestTime(false);
 
-        const visitInterval = await UserVisit(data.createdBy, data._id, 'day');
+        const visitInterval = await UserVisit(data.createdBy, data._id, 'year');
         setUserVisitInterval(visitInterval);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -70,7 +70,7 @@ const LinkDetailsCard: React.FC<Prop> = ({ data, handleDetailsModalClose }) => {
 
   return (
     <div className="md:w-[600px]">
-      <FaviconLoader originalUrl={data.originalUrl} setFavicon={setLinkLogo} />
+      <FaviconLoader originalUrl={data.originalUrl} setFavicon={setLinkLogo} target={data.targetSite} />
       <div className="flex justify-between items-center my-[18px]">
         <div className="flex items-center gap-2">
           <img

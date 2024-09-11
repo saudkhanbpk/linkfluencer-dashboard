@@ -61,7 +61,7 @@ const LinkSquare: React.FC<Props> = ({
 
   return (
     <div className="rounded-2xl bg-gray-100 border hover:border-black duration-150">
-      <FaviconLoader originalUrl={link.originalUrl} setFavicon={setLinkLogo} />
+      <FaviconLoader originalUrl={link.originalUrl} setFavicon={setLinkLogo} target={link.targetSite} />
       <div className="flex justify-between items-center h-[64px] px-[24px]">
         <div className="flex flex-row items-center">
           <img src={linkLogo} alt={"social Icon"} className="mr-3 h-[30px] w-[30px]" />
