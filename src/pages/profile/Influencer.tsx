@@ -1,14 +1,14 @@
 import Dropdown from "../../components/common/Dropdown";
 import { DropIcon } from "../../svg";
 import { UserContext } from "../../context/UserContext";
-import { UserProfile, UserUpdate } from "../../services/userService";
+import { UserPassword, UserProfile, UserUpdate } from "../../services/userService";
 import { useContext, useEffect, useState } from "react";
+import { formatISODateToDMY } from "../../utils/DateIosToDMY";
 const Influencer: React.FC = () => {
   const [values, setValues] = useState({
     firstName: "",
     lastName: "",
     email: "",
-    password: "",
     status: "",
     gender: "",
     country: "",
@@ -16,15 +16,20 @@ const Influencer: React.FC = () => {
     mobileNumber: "",
     address: "",
     postalCode: "",
+    birthDate: "",
   });
+  const [passValues, setPassValues] = useState({
+    oldPassword:"",
+    newPassword:"",
+    conformNewPassword:""
+  })
   const userContext = useContext(UserContext);
   if (!userContext) {
     throw new Error("useContext must be used within a UserProvider");
   }
   const { user } = userContext;
 
-
-  const handleChange = (e: { target: { value: any; name: any; }; }) => {
+  const handleChange = (e: { target: { value: any; name: any } }) => {
     const { value, name } = e.target;
     setValues((preValues) => {
       return {
@@ -33,15 +38,33 @@ const Influencer: React.FC = () => {
       };
     });
   };
+  const handlePassChange = (e:any) =>{
+    const { value, name } = e.target;
+    setPassValues((preValues) => {
+      return {
+        ...preValues,
+        [name]: value,
+      };
+    });
+  }
 
-  const handleEdit = async() =>{
-    console.log("this is edit funciton");
-    
+  const handleEdit = async () => {
     if (user && user._id) {
-      const updatedUser= await UserUpdate(user._id, values);
+      const updatedUser = await UserUpdate(user._id, values);
       console.log(updatedUser);
 
       setValues(updatedUser);
+    }
+  };
+
+  const handleUpdatePassword = async () =>{
+    if(passValues.oldPassword === passValues.conformNewPassword){
+      if (user && user._id) {
+        const response = await UserPassword(user._id, {oldPassword:passValues.oldPassword, newPassword:passValues.newPassword});
+        console.log(response);
+      }
+    }else{
+      alert("Old Password does not match")
     }
   }
   useEffect(() => {
@@ -50,7 +73,7 @@ const Influencer: React.FC = () => {
         const userData = await UserProfile(user._id);
         console.log(userData);
 
-        setValues(userData);
+        setValues({...userData, birthDate:formatISODateToDMY(userData?.birthDate)});
       }
     };
     getUserProfile();
@@ -112,7 +135,10 @@ const Influencer: React.FC = () => {
           />
           <input
             type="date"
-            // placeholder="Last Name"
+            placeholder="Birth Date"
+            value={values.birthDate}
+            onChange={handleChange}
+            name="birthDate"
             className="p-2 rounded-full border border-[#B3B3B2] w-full mb-4 outline-none"
           />
           <div className="rounded-full border border-[#B3B3B2] w-full mb-4 outline-none flex">
@@ -140,8 +166,8 @@ const Influencer: React.FC = () => {
               type="text"
               placeholder="Mobile Number"
               value={values.mobileNumber}
-            onChange={handleChange}
-            name="mobileNumber"
+              onChange={handleChange}
+              name="mobileNumber"
               className="border w-full rounded-r-full px-2"
             />
           </div>
@@ -173,8 +199,8 @@ const Influencer: React.FC = () => {
           <input
             type="text"
             placeholder="Postal Code"
-            // value={values.postalCode}
-            // onChange={handleChange}
+            value={values.postalCode}
+            onChange={handleChange}
             name="postalCode"
             className="p-2 rounded-full border border-[#B3B3B2] w-full mb-4 outline-none"
           />
@@ -192,7 +218,10 @@ const Influencer: React.FC = () => {
         <button className="md:mt-0 md:ml-2 ml-0 border-[1px] w-[120px] font-bold bg-[#F1F5F9] rounded-full px-[20px] py-[8px] text-[#113E53] font-header">
           Cancel
         </button>
-        <button onClick={handleEdit} className="md:mt-0 md:ml-2 ml-0 border-[1px] w-[120px] border-[#113E53] font-bold bg-[#113E53] rounded-full px-[20px] py-[8px] text-white font-header">
+        <button
+          onClick={handleEdit}
+          className="md:mt-0 md:ml-2 ml-0 border-[1px] w-[120px] border-[#113E53] font-bold bg-[#113E53] rounded-full px-[20px] py-[8px] text-white font-header"
+        >
           Save
         </button>
       </div>
@@ -202,17 +231,25 @@ const Influencer: React.FC = () => {
           <input
             type="password"
             placeholder="Old Password"
-            value={values.password}
+            value={passValues.oldPassword}
+            name="oldPassword"
+            onChange={handlePassChange}
             className="p-2 rounded-full border border-[#B3B3B2] w-6/6 md:w-2/6"
           />
           <input
             type="password"
             placeholder="Old Password"
+            value={passValues.conformNewPassword}
+            name="conformNewPassword"
+            onChange={handlePassChange}
             className="p-2 rounded-full border border-[#B3B3B2] w-6/6 md:w-2/6"
           />
           <input
             type="password"
             placeholder="New Password"
+            value={passValues.newPassword}
+            name="newPassword"
+            onChange={handlePassChange}
             className="p-2 rounded-full border border-[#B3B3B2] w-6/6 md:w-2/6"
           />
         </div>
@@ -221,7 +258,9 @@ const Influencer: React.FC = () => {
         <button className="md:mt-0 md:ml-2 ml-0 border-[1px] w-[120px] font-bold bg-[#F1F5F9] rounded-full px-[20px] py-[8px] text-[#113E53] font-header">
           Cancel
         </button>
-        <button className="md:mt-0 md:ml-2 ml-0 border-[1px] w-[120px] border-[#113E53] font-bold bg-[#113E53] rounded-full px-[20px] py-[8px] text-white font-header">
+        <button 
+        onClick={handleUpdatePassword}
+        className="md:mt-0 md:ml-2 ml-0 border-[1px] w-[120px] border-[#113E53] font-bold bg-[#113E53] rounded-full px-[20px] py-[8px] text-white font-header">
           Save
         </button>
       </div>

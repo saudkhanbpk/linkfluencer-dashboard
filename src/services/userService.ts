@@ -44,3 +44,13 @@ export const UserUpdate = async (userId: string, values:any)=> {
     return null;
   }
 };
+
+export const UserPassword = async (userId: string, values:any)=> {
+  try {
+    const response = await axiosInstance.put(`/users/${userId}/password`, values);
+    return response.data;
+  } catch (error) {
+    console.error('Error when fetching user', error);
+    return null;
+  }
+};
