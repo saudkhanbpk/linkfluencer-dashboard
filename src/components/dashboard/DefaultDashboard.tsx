@@ -41,7 +41,7 @@ const DefaultDashboard: React.FC<DefaultDashboardProps> = ({
 
   const openModal = useCallback((type: ModalType, id: string) => {
     const link = links.find((link) => link._id === id);
-    
+
     if (link) {
       setSelectedLink(link);
       setModalType(type);
@@ -102,7 +102,7 @@ const DefaultDashboard: React.FC<DefaultDashboardProps> = ({
           detailsModalOpen={(id) => openModal('details', id)}
           shareModalOpen={(id) => openModal('share', id)}
         />
-        <AnalyticsSection topSources={topSources} />
+        <AnalyticsSection />
       </div>
     </div>
   );

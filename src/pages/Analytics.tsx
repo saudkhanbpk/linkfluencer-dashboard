@@ -11,7 +11,7 @@ import 'swiper/css/pagination';
 import Indicate from '../components/common/cards/Indicate';
 import ApexColumnChart from '../components/common/charts/columnChart/calumnChart';
 import LineChart from '../components/common/charts/LineChart/AnalyticsChart';
-import CircleChart from '../components/common/charts/CircleChart';
+import CircleChart from '../components/common/charts/CircleChart/CircleChart';
 
 const Analytics: React.FC = () => {
   const [limit, setLimit] = useState('Day');
