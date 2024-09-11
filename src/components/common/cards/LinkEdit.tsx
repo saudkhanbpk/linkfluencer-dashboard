@@ -73,7 +73,6 @@ const LinkEditCard: React.FC<Prop> = ({ link, handleModalClose, handleEdit }) =>
   return (
     <div className="md:w-[500px]">
       <h1 className="text-[24px] font-header">Edit Link</h1>
-
       <input
         type="text"
         value={link.originalUrl}

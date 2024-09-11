@@ -3,7 +3,7 @@ import { useState } from "react";
 import { ILink } from "../../../interfaces/Link";
 import { EditIcon, RightArrow, SaveIcon, ShareIcon } from "../../../svg";
 import Tooltip from "../ToolTip";
-import IndicateDown from "./IndicateDown";
+import IndicateDown from "./indicateDown";
 import IndicateUp from "./IndicateUp";
 import FaviconLoader from "../FaviconFetcher";
 import { getLinkLabel } from "../../../utils/linkUtils";
@@ -15,6 +15,7 @@ interface Props {
   editModalOpen?: (val: string) => void;
   detailsModelOpen?: (val: string) => void;
   handleSelectLink?:(val: string) => void;
+  shareModelOpen?: (val: string) => void;
   selectedData?:any[]
 }
 
@@ -25,6 +26,7 @@ const LinkSquare: React.FC<Props> = ({
   editModalOpen,
   detailsModelOpen,
   handleSelectLink,
+  shareModelOpen,
   selectedData
 }) => {
   const [linkLogo, setLinkLogo] = useState("");
@@ -44,7 +46,10 @@ const LinkSquare: React.FC<Props> = ({
   const handleDetailsClick = (id: string) => {
     detailsModelOpen?.(id);
   };
-
+  
+  const handleShareClick = (id: string) => {
+    shareModelOpen?.(id);
+  };
   const handleSelect = (id:string) =>{
     handleSelectLink?.(id)
     console.log("this is selected Link", selectedData);
@@ -67,10 +72,10 @@ const LinkSquare: React.FC<Props> = ({
               />
             </Tooltip>
             <Tooltip text={"Share"}>
-              <ShareIcon className="size-4 text-[#4D494F] cursor-pointer select-none" />
+              <ShareIcon onClick={()=> handleShareClick(link._id ?? "0")} className="size-4 text-[#4D494F] cursor-pointer select-none" />
             </Tooltip>
             <Tooltip text="Copy">
-              <SaveIcon className="size-4 text-[#4D494F]  h-8 w-8 p-2 cursor-pointer select-none" />
+              <SaveIcon className="size-4 text-[#4D494F]  h-8 w-8 p-2 cursor-pointer select-none" onClick={undefined}/>
             </Tooltip>
           </div>
         ) : (

@@ -18,25 +18,29 @@ import Dropdown from "../components/common/Dropdown";
 import Model from "../components/common/models/Model";
 import LinkDetailsCard from "../components/common/cards/LinkDetails";
 import LinkEditCard from "../components/common/cards/LinkEdit";
-import { deleteLinks, getUserLinks } from "../services/linkService";
+import { deleteLinks, getUserLinks, updateLink } from "../services/linkService";
 import User from "./profile/User";
 import { UserContext } from "../context/UserContext";
 import LinkSquare from "../components/common/cards/LinkSquare";
 import { ILink } from "../interfaces/Link";
 import axios from "axios";
+import LinkShareCard from "../components/common/cards/LinkShare";
 
 const MyLinks: React.FC = () => {
   const [minimize, setMinimize] = useState(false);
   const [isTable, setIsTable] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
-  const [selectedData, setSelectedData] = useState<any>([]) 
+  const [selectedData, setSelectedData] = useState<any>([]);
   const [filteredData, setFilteredData] = useState<any>([]);
-  const [selectAll, setSelectAll] = useState(false)
+  const [selectAll, setSelectAll] = useState(false);
   const [data, setData] = useState<any>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
-  const API_URL = 'http://localhost:5005';
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+
+  const [isLoading, setIsLoading] = useState(false);
+  const API_URL = "http://localhost:5005";
   const [edit, setEdit] = useState<any>({
     logo: "",
     targetSite: "",
@@ -49,7 +53,6 @@ const MyLinks: React.FC = () => {
     originalUrl: "",
     tags: [],
   });
-
   const userContext = useContext(UserContext);
   if (!userContext) {
     throw new Error("useContext must be used within a UserProvider");
@@ -113,86 +116,84 @@ const MyLinks: React.FC = () => {
   };
   const editModalOpen = (value: ILink) => {
     setIsEditModalOpen(true);
-    
     setEdit({
       ...value,
     });
   };
-  
-  const handleSelectLink = (value:any)=>{
-    setSelectedData(()=>{
-      if(selectedData?.includes(value)){
-        const filteredLinks = selectedData.filter((val:any)=>{
-          return val !=value
-        })
+  const handleSelectLink = (value: any) => {
+    setSelectedData(() => {
+      if (selectedData?.includes(value)) {
+        const filteredLinks = selectedData.filter((val: any) => {
+          return val != value;
+        });
         setSelectedData(filteredLinks);
-      }else{
-        return [...selectedData, value]
+      } else {
+        return [...selectedData, value];
       }
-    })
-  }
-
-  const handleSelectAll = () =>{
-    if(selectAll){
-      setSelectAll(false)
-      setSelectedData([])
-    }else{
-      const data = filteredData.map((item: { _id: any; }) => item._id);
-      setSelectedData(data)
-      setSelectAll(true)
+    });
+  };
+  const handleSelectAll = () => {
+    if (selectAll) {
+      setSelectAll(false);
+      setSelectedData([]);
+    } else {
+      const data = filteredData.map((item: { _id: any }) => item._id);
+      setSelectedData(data);
+      setSelectAll(true);
     }
-  }
-  const handleDeleteLinks = async () =>{
-    if(user && user._id){
-    await deleteLinks(user._id, selectedData)?.then((resp)=>{
-      console.log("this is response ===>>",resp);
-      const newData = filteredData.filter((val:any)=>{
-        return !selectedData.includes(val._id)
-      });
-      console.log(newData);
-      
-      setFilteredData(newData)
-    }).catch((err)=>{
-      console.log("this is error ===>",err);
-    })
-    }
-  }
+  };
+  const handleDeleteLinks = async () => {
+    if (user && user._id) {
+      await deleteLinks(user._id, selectedData)
+        ?.then((resp) => {
+          console.log("this is response ===>>", resp);
+          const newData = filteredData.filter((val: any) => {
+            return !selectedData.includes(val._id);
+          });
+          console.log(newData);
 
+          setFilteredData(newData);
+        })
+        .catch((err) => {
+          console.log("this is error ===>", err);
+        });
+    }
+  };
   const detailsModelOpen = (value: any) => {
-    const data = LinksData.find((val, index) => {
-      return val.id === value;
+    const data = filteredData.find((val:ILink, index:any) => {
+      return val._id === value;
     });
-    setDetails({
-      logo: data?.logo ?? "",
-      targetSite: data?.targetSite ?? "",
-      link: data?.link ?? "",
-      tags: data?.tags ?? [],
-    });
+    setDetails(data);
     setIsDetailsModalOpen(true);
   };
   const handleEditModalClose = () => {
     setIsEditModalOpen(false);
   };
-
   const handleDetailsModalClose = () => {
     setIsDetailsModalOpen(false);
+  };
+  const handleShareModalClose = () => {
+    setIsShareModalOpen(false);
+  };
+  const handleShareModalOpen = () => {
+    setIsShareModalOpen(true);
   };
 
   const handleSearch = (event: any) => {
     setSearchTerm(event.target.value);
   };
 
-  const handleEdit = (e: any) => {
-    const { value, name } = e.target;
-
-    console.log(e.target);
-
-    setEdit((previousValue: any) => {
-      return {
-        ...previousValue,
-        [name]: value,
-      };
-    });
+  const handleEdit = async (updatedLink: ILink) => {
+    if (user) {
+      const response = await updateLink(user._id, updatedLink);
+      if (response?.status == 200) {
+        const updatedArray = filteredData.map((obj: { _id: any }) =>
+          obj._id === response?.data._id ? response?.data : obj
+        );
+        setFilteredData(updatedArray);
+        setIsEditModalOpen(false);
+      }
+    }
   };
 
   const sortByClicks = (order: "asc" | "desc" = "asc") => {
@@ -207,7 +208,6 @@ const MyLinks: React.FC = () => {
 
     setFilteredData(sortedData);
   };
-
 
   useEffect(() => {
     const results = data.filter((item: any) =>
@@ -234,10 +234,9 @@ const MyLinks: React.FC = () => {
     fetchUserLinks();
   }, []);
 
-  useEffect(()=>{
-console.log(selectedData);
-
-  },[selectedData])
+  useEffect(() => {
+    console.log(selectedData);
+  }, [selectedData]);
 
   return (
     <div className="w-full border pb-2 relative">
@@ -253,6 +252,9 @@ console.log(selectedData);
           data={details}
           handleDetailsModalClose={handleDetailsModalClose}
         />
+      </Model>
+      <Model isOpen={isShareModalOpen} onClose={handleShareModalClose}>
+      <LinkShareCard  handleShareModalClose={handleShareModalClose}/>
       </Model>
       <div className="flex flex-col p-[24px]">
         <div>
@@ -369,7 +371,12 @@ console.log(selectedData);
           <div className="flex justify-between items-center">
             {isDelete && !isTable ? (
               <div className="flex items-center gap-3">
-                <input type="checkbox" className="w-5 h-5"  checked={selectAll} onClick={handleSelectAll}/>
+                <input
+                  type="checkbox"
+                  className="w-5 h-5"
+                  checked={selectAll}
+                  onClick={handleSelectAll}
+                />
                 <span className="font-bold font-header">Select All</span>
               </div>
             ) : (
@@ -384,9 +391,10 @@ console.log(selectedData);
               >
                 Cancel
               </button>
-              <button 
-              onClick={handleDeleteLinks}
-              className="w-[150px] ml-0 border-[1px] border-[#113E53] font-bold bg-[#113E53] rounded-full px-[10px] py-[8px] md:py-[12px] text-white font-header">
+              <button
+                onClick={handleDeleteLinks}
+                className="w-[150px] ml-0 border-[1px] border-[#113E53] font-bold bg-[#113E53] rounded-full px-[10px] py-[8px] md:py-[12px] text-white font-header"
+              >
                 Delete
               </button>
             </div>
@@ -394,7 +402,7 @@ console.log(selectedData);
         )}
         {!isTable ? (
           <div className="my-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ">
-            {filteredData.map((val: any, index: any) => {
+            {filteredData?.map((val: any, index: any) => {
               return (
                 <div key={index} className="">
                   <LinkSquare
@@ -403,6 +411,7 @@ console.log(selectedData);
                     editModalOpen={() => editModalOpen(val)}
                     detailsModelOpen={detailsModelOpen}
                     handleSelectLink={handleSelectLink}
+                    shareModelOpen={handleShareModalOpen}
                     selectedData={selectedData}
                     link={val}
                   />

@@ -10,7 +10,7 @@ const Layout = () => {
   const { isMobile } = useDeviceDetect();
 
   return (
-    <div className="w-full md:fixed">
+    <div className="w-full">
       <Navbar />
       <div className="md:flex w-full">
         {!isMobile && (
