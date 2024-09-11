@@ -1,7 +1,6 @@
-// components/common/cards/LinkSquare.tsx
 import { useState } from "react";
 import { ILink } from "../../../interfaces/Link";
-import { EditIcon, RightArrow, SaveIcon, ShareIcon } from "../../../svg";
+import { CopyIcon, EditIcon, RightArrow, ShareIcon } from "../../../svg";
 import Tooltip from "../ToolTip";
 import IndicateDown from "./IndicateDown";
 import IndicateUp from "./IndicateUp";
@@ -14,8 +13,8 @@ interface Props {
   isDelete?: boolean;
   editModalOpen?: (val: string) => void;
   detailsModelOpen?: (val: string) => void;
-  handleSelectLink?:(val: string) => void;
-  selectedData?:any[]
+  handleSelectLink?: (val: string) => void;
+  selectedData?: any[];
 }
 
 const LinkSquare: React.FC<Props> = ({
@@ -30,6 +29,7 @@ const LinkSquare: React.FC<Props> = ({
   const [linkLogo, setLinkLogo] = useState("");
   const indicateUp = true;
   const maxLength = 10;
+
   const truncateText = (text: string, maxLength: number) => {
     if (text.length > maxLength) {
       return text.substring(0, maxLength) + "...";
@@ -45,11 +45,20 @@ const LinkSquare: React.FC<Props> = ({
     detailsModelOpen?.(id);
   };
 
-  const handleSelect = (id:string) =>{
-    handleSelectLink?.(id)
+  const handleSelect = (id: string) => {
+    handleSelectLink?.(id);
     console.log("this is selected Link", selectedData);
-    
-  }
+  };
+
+  const handleCopy = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(`linkfluencer.io/${text}`);
+      alert("Smart link copied successfully");
+    } catch (err) {
+      console.error("Error : ", err);
+    }
+  };
+
   return (
     <div className="rounded-2xl bg-gray-100 border hover:border-black duration-150">
       <FaviconLoader originalUrl={link.originalUrl} setFavicon={setLinkLogo} />
@@ -60,21 +69,26 @@ const LinkSquare: React.FC<Props> = ({
         </div>
         {!isDelete ? (
           <div className="flex flex-row items-center gap-4">
-            <Tooltip text={"Edit"}>
+            <Tooltip text="Edit">
               <EditIcon
                 className="size-4 text-[#4D494F] cursor-pointer select-none"
                 onClick={() => handleClick(link._id ?? "0")}
               />
             </Tooltip>
-            <Tooltip text={"Share"}>
+            <Tooltip text="Share">
               <ShareIcon className="size-4 text-[#4D494F] cursor-pointer select-none" />
             </Tooltip>
             <Tooltip text="Copy">
-              <SaveIcon className="size-4 text-[#4D494F]  h-8 w-8 p-2 cursor-pointer select-none" />
+              <div onClick={async () => await handleCopy(link.shortUrl)} >
+                <CopyIcon
+                  className="size-4 text-[#4D494F] cursor-pointer select-none"
+                  
+                />
+              </div>
             </Tooltip>
           </div>
         ) : (
-          <input type="checkbox" className="w-6 h-6 cursor-pointer" checked={selectedData?.includes(link._id)} onClick={()=>{handleSelect(link._id)}}/>
+          <input type="checkbox" className="w-6 h-6 cursor-pointer" checked={selectedData?.includes(link._id)} onClick={() => { handleSelect(link._id) }} />
         )}
       </div>
       <div className="border-x border-b p-[24px] h-auto flex flex-col justify-between bg-gray-50 rounded-b-2xl">
@@ -85,14 +99,14 @@ const LinkSquare: React.FC<Props> = ({
           {`linkfluencer.io/${truncateText(link.shortUrl, maxLength)}`}
         </span>
         {!minimize && (
-            <div className="my-4 text-[#5890FF]">
-              {link.tags?.map((tag, index) => (
-                <span key={index} className="mr-2">
-                  {`#${tag}`}
-                </span>
-              ))}
-            </div>
-          )}
+          <div className="my-4 text-[#5890FF]">
+            {link.tags?.map((tag, index) => (
+              <span key={index} className="mr-2">
+                {`#${tag}`}
+              </span>
+            ))}
+          </div>
+        )}
         <div>
           <span className="text-[12px] text-[#9B919D]">Total Clicked</span>
           <div className="flex items-center justify-between">

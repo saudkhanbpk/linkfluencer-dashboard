@@ -77,7 +77,7 @@ export const ShareIcon = ({ className }) => {
   );
 };
 
-export const SaveIcon = ({ className }) => {
+export const CopyIcon = ({ className }) => {
   return (
     <svg
       fill="none"
