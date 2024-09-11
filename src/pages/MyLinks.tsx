@@ -24,7 +24,7 @@ import { UserContext } from "../context/UserContext";
 import LinkSquare from "../components/common/cards/LinkSquare";
 import { ILink } from "../interfaces/Link";
 import axios from "axios";
-import LinkShareCard from "../components/common/cards/LinkShare";
+import LinkShareCard from "../components/LinkShareCard/LinkShare";
 
 const MyLinks: React.FC = () => {
   const [minimize, setMinimize] = useState(false);
@@ -411,7 +411,7 @@ const MyLinks: React.FC = () => {
                     editModalOpen={() => editModalOpen(val)}
                     detailsModelOpen={detailsModelOpen}
                     handleSelectLink={handleSelectLink}
-                    shareModelOpen={handleShareModalOpen}
+                    shareModalOpen={handleShareModalOpen}
                     selectedData={selectedData}
                     link={val}
                   />

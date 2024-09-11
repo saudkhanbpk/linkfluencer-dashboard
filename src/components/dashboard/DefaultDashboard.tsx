@@ -8,6 +8,7 @@ import TabNavigation from '../dashboard/TabNavigation';
 import { ILink } from '../../interfaces/Link';
 import { updateLink } from '../../services/linkService';
 import { UserContext } from '../../context/UserContext';
+import LinkShareCard from '../LinkShareCard/LinkShare';
 
 interface DefaultDashboardProps {
   links: ILink[];
@@ -17,7 +18,7 @@ interface DefaultDashboardProps {
   refetchLinks: () => Promise<void>;
 }
 
-type ModalType = 'edit' | 'details' | null;
+type ModalType = 'edit' | 'details' | 'share' | null;
 
 const DefaultDashboard: React.FC<DefaultDashboardProps> = ({
   links,
@@ -27,7 +28,7 @@ const DefaultDashboard: React.FC<DefaultDashboardProps> = ({
   refetchLinks,
 }) => {
   const userContext = useContext(UserContext);
-  const [modalType, setModalType] = useState<ModalType>(null);
+  const [modalType, setModalType] = useState<ModalType | null>(null);
   const [selectedLink, setSelectedLink] = useState<ILink | null>(null);
 
   if (!userContext) {
@@ -40,6 +41,7 @@ const DefaultDashboard: React.FC<DefaultDashboardProps> = ({
 
   const openModal = useCallback((type: ModalType, id: string) => {
     const link = links.find((link) => link._id === id);
+    
     if (link) {
       setSelectedLink(link);
       setModalType(type);
@@ -78,6 +80,11 @@ const DefaultDashboard: React.FC<DefaultDashboardProps> = ({
           />
         </Model>
       )}
+      {modalType === 'share' && selectedLink && (
+        <Model isOpen onClose={closeModal}>
+          <LinkShareCard  handleShareModalClose={closeModal}/>
+        </Model>
+      )}
 
       <div className="bg-white p-[12px] sm:p-[24px]">
         <div className="flex flex-row justify-between items-center">
@@ -93,6 +100,7 @@ const DefaultDashboard: React.FC<DefaultDashboardProps> = ({
           minimize={false}
           editModalOpen={(id) => openModal('edit', id)}
           detailsModalOpen={(id) => openModal('details', id)}
+          shareModalOpen={(id) => openModal('share', id)}
         />
         <AnalyticsSection topSources={topSources} />
       </div>

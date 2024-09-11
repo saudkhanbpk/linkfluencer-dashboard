@@ -7,6 +7,7 @@ interface LinksListProps {
   minimize: boolean;
   editModalOpen: (id: string) => void;
   detailsModalOpen: (id: string) => void;
+  shareModalOpen: (id: string) => void;
 }
 
 const LinksList: React.FC<LinksListProps> = ({
@@ -14,6 +15,7 @@ const LinksList: React.FC<LinksListProps> = ({
   minimize,
   editModalOpen,
   detailsModalOpen,
+  shareModalOpen,
 }) => {  
   return (
     <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -24,6 +26,7 @@ const LinksList: React.FC<LinksListProps> = ({
             minimize={minimize}
             editModalOpen={editModalOpen}
             detailsModelOpen={detailsModalOpen}
+            shareModalOpen={shareModalOpen}
           />
         </div>
       ))}

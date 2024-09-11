@@ -6,6 +6,7 @@ import IndicateDown from "./IndicateDown";
 import IndicateUp from "./IndicateUp";
 import FaviconLoader from "../FaviconFetcher";
 import { getLinkLabel } from "../../../utils/linkUtils";
+import copyToClipboard from "../../../utils/clipboardUtils";
 
 interface Props {
   link: ILink;
@@ -14,7 +15,7 @@ interface Props {
   editModalOpen?: (val: string) => void;
   detailsModelOpen?: (val: string) => void;
   handleSelectLink?: (val: string) => void;
-  shareModelOpen?: (val: string) => void; // Add the shareModelOpen property
+  shareModalOpen?: (val: string) => void;
   selectedData?: any[];
 }
 
@@ -25,7 +26,7 @@ const LinkSquare: React.FC<Props> = ({
   editModalOpen,
   detailsModelOpen,
   handleSelectLink,
-  shareModelOpen,
+  shareModalOpen,
   selectedData
 }) => {
   const [linkLogo, setLinkLogo] = useState("");
@@ -48,20 +49,14 @@ const LinkSquare: React.FC<Props> = ({
   };
   
   const handleShareClick = (id: string) => {
-    shareModelOpen?.(id);
+    shareModalOpen?.(id);
   };
   const handleSelect = (id:string) =>{
     handleSelectLink?.(id)
-    console.log("this is selected Link", selectedData);
   };
 
-  const handleCopy = async (text: string) => {
-    try {
-      await navigator.clipboard.writeText(`linkfluencer.io/${text}`);
-      alert("Smart link copied successfully");
-    } catch (err) {
-      console.error("Error : ", err);
-    }
+  const handleCopy = (text: string) => {
+    copyToClipboard(text)
   };
 
   return (
