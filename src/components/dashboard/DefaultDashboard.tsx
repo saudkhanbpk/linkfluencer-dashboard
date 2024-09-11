@@ -37,8 +37,6 @@ const DefaultDashboard: React.FC<DefaultDashboardProps> = ({
 
   const { user } = userContext;
 
-  const topSources = [{ percent: 5, socialLogo: '/assets/amazonLogo.svg' }];
-
   const openModal = useCallback((type: ModalType, id: string) => {
     const link = links.find((link) => link._id === id);
 

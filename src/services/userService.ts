@@ -35,6 +35,19 @@ export const ClickLeft = async (userId: string)=> {
   }
 };
 
+export const TotalClicks = async (userId: string, interval: TimeInterval)=> {
+  try {
+    const response = await axiosInstance.get(`/users/${userId}/total-clicks`,{
+      params: {interval},
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('Error when fetching clicks left', error);
+    return null;
+  }
+};
+
 export const TopPerformingSources = async (userId: string, interval: TimeInterval)=> {
   try {
     const response = await axiosInstance.get(`/users/${userId}/top-5-best-performing-platforms`,{
@@ -61,13 +74,41 @@ export const TopPerformingPlatform = async (userId: string, interval: TimeInterv
   }
 };
 
-export const TopCountries = async (userId: string)=> {
+export const TopCountries = async (userId: string, interval: TimeInterval)=> {
   try {
-    const response = await axiosInstance.get(`/users/${userId}/top-countries`);
+    const response = await axiosInstance.get(`/users/${userId}/top-countries`,{
+      params: {interval},
+    });
 
     return response.data;
   } catch (error) {
     console.error('Error when fetching top country', error);
+    return null;
+  }
+};
+
+export const TopCities = async (userId: string, interval: TimeInterval)=> {
+  try {
+    const response = await axiosInstance.get(`/users/${userId}/top-city`,{
+      params: {interval},
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('Error when fetching top country', error);
+    return null;
+  }
+};
+
+export const AverageTimeToEngage = async (userId: string, interval: TimeInterval)=> {
+  try {
+    const response = await axiosInstance.get(`/users/${userId}/top-average-time-to-engage`,{
+      params: {interval},
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('Error when fetching average time to engage', error);
     return null;
   }
 };
@@ -89,6 +130,19 @@ export const UserPassword = async (userId: string, values:any)=> {
     return response.data;
   } catch (error) {
     console.error('Error when fetching user', error);
+    return null;
+  }
+};
+
+export const UserIntervalVisit = async (userId: string, interval: TimeInterval)=> {
+  try {
+    const response = await axiosInstance.get(`/users/${userId}/clicks-by-user-interval`, {
+      params: {interval},
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('Error when fetching user visits', error);
     return null;
   }
 };

@@ -121,9 +121,11 @@ export const UserVisit = async (userId: string, linkId: string, interval: TimeIn
   }
 };
 
-export const getTopSources = async (userId: string)=> {
+export const getTopSources = async (userId: string, interval?: TimeInterval)=> {
   try {
-    const response = await axiosInstance.get(`/users/${userId}/links/top-apps`);
+    const response = await axiosInstance.get(`/users/${userId}/links/top-apps`, {
+      params: {interval},
+    });
 
     return response.data;
   } catch (error) {

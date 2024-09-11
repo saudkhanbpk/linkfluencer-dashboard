@@ -7,15 +7,10 @@ import Chart from '../common/charts/CircleChart/CircleChart';
 import { UserContext } from '../../context/UserContext';
 import { getTopSources } from '../../services/linkService';
 import supportedApps from '../../data/supportedApps.json';
-import { defaultFavicon } from '../common/FaviconFetcher';
 import { TopCountries } from '../../services/userService';
-import { CountryClicks } from '../../types/interfaces';
+import { CountryClicks, Source } from '../../types/interfaces';
 import Loading from '../common/Loading';
-
-interface Source {
-  _id: string;
-  count: number;
-}
+import { fetchIcon } from '../../utils/iconUtils';
 
 const AnalyticsSection: React.FC = () => {
   const userContext = useContext(UserContext);
@@ -46,7 +41,7 @@ const AnalyticsSection: React.FC = () => {
     if (user) {
       try {
         setLoadingCountries(true);
-        const countries = await TopCountries(user._id);
+        const countries = await TopCountries(user._id, 'year');
         setTopCountries(countries);
       } catch (error) {
         setError('Erreur lors de la récupération des pays principaux');
@@ -65,14 +60,6 @@ const AnalyticsSection: React.FC = () => {
   if (error) {
     return <div>{error}</div>;
   }
-
-  const fetchIcon = (target: string) => {
-    const app = supportedApps.find(
-      (app) => app.label.toLowerCase() === target.toLowerCase()
-    );
-
-    return app ? app.value : defaultFavicon;
-  };
 
   const totalCount = topSources.reduce((total, source) => total + source.count, 0);
 
@@ -117,7 +104,7 @@ const AnalyticsSection: React.FC = () => {
           </span>
           <div className="flex justify-between w-full h-full gap-6">
             {loadingSources ? (
-              <Loading /> // Remplacez par le composant de chargement tant que les données ne sont pas disponibles
+              <Loading />
             ) : (
               topSources.map((source) => (
                 <div key={source._id} className="relative h-full">
