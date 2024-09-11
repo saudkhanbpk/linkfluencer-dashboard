@@ -14,6 +14,7 @@ interface Props {
   editModalOpen?: (val: string) => void;
   detailsModelOpen?: (val: string) => void;
   handleSelectLink?: (val: string) => void;
+  shareModelOpen?: (val: string) => void; // Add the shareModelOpen property
   selectedData?: any[];
 }
 
@@ -24,6 +25,7 @@ const LinkSquare: React.FC<Props> = ({
   editModalOpen,
   detailsModelOpen,
   handleSelectLink,
+  shareModelOpen,
   selectedData
 }) => {
   const [linkLogo, setLinkLogo] = useState("");
@@ -44,9 +46,12 @@ const LinkSquare: React.FC<Props> = ({
   const handleDetailsClick = (id: string) => {
     detailsModelOpen?.(id);
   };
-
-  const handleSelect = (id: string) => {
-    handleSelectLink?.(id);
+  
+  const handleShareClick = (id: string) => {
+    shareModelOpen?.(id);
+  };
+  const handleSelect = (id:string) =>{
+    handleSelectLink?.(id)
     console.log("this is selected Link", selectedData);
   };
 
@@ -76,7 +81,7 @@ const LinkSquare: React.FC<Props> = ({
               />
             </Tooltip>
             <Tooltip text="Share">
-              <ShareIcon className="size-4 text-[#4D494F] cursor-pointer select-none" />
+              <ShareIcon onClick={()=> handleShareClick(link._id ?? "0")} className="size-4 text-[#4D494F] cursor-pointer select-none" />
             </Tooltip>
             <Tooltip text="Copy">
               <div onClick={async () => await handleCopy(link.shortUrl)} >

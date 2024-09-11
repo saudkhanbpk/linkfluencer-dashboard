@@ -1,5 +1,5 @@
 import React from 'react';
-import IndicateDown from './IndicateDown';
+import IndicateDown from './indicateDown';
 import IndicateUp from './IndicateUp';
 
 interface IndicateProps {
