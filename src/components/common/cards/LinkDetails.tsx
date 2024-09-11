@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CrossIcon } from '../../../svg';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { FreeMode, Pagination } from 'swiper/modules';
@@ -6,8 +6,7 @@ import ApexColumnChart from '../charts/columnChart/calumnChart';
 import { ILink } from '../../../interfaces/Link';
 import FaviconLoader from '../FaviconFetcher';
 import { getLinkLabel } from '../../../utils/linkUtils';
-import { getBestAverageTimeToEngageByLink, getTotalClicksForLink, getClicksTrendForLink, getTopCityByLink, getTopCountryByLink } from '../../../services/linkService';
-import { UserContext } from '../../../context/UserContext';
+import { getBestAverageTimeToEngageByLink, getClicksTrendForLink, getTopCityByLink, getTopCountryByLink } from '../../../services/linkService';
 interface Prop {
   data: ILink;
   handleDetailsModalClose: () => void;
@@ -120,7 +119,7 @@ const LinkDetailsCard: React.FC<Prop> = ({ data, handleDetailsModalClose }) => {
               <span className="text-[#292828] text-[24px] font-[500]">
                 {bestAverageTimeToEngage}
               </span>{' '}
-              <span className="text-xs font-content text-[#9B919D]">GM</span>
+              <span className="text-xs font-content text-[#9B919D]">{bestAverageTimeToEngage !== 'No data' && "GMT"}</span>
             </div>
           </SwiperSlide>
         </Swiper>
