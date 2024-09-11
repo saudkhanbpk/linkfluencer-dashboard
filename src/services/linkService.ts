@@ -1,5 +1,6 @@
 import axiosInstance from '../config/axiosConfig';
 import { ILink } from '../interfaces/Link';
+import { TimeInterval } from '../types/types';
 
 export const getUserLinks = async (
   userId: string,
@@ -102,6 +103,21 @@ export const getBestAverageTimeToEngageByLink = async (userId: string, linkId: s
     return response.data;
   } catch (error) {
     console.error('Error when fetching best average time to engage for link', error);
+    return null;
+  }
+};
+
+
+export const UserVisit = async (userId: string, linkId: string, interval: TimeInterval)=> {
+  console.log("interval", interval);
+  try {
+    const response = await axiosInstance.get(`/users/${userId}/links/${linkId}/clicks-by-interval`, {
+      params: {interval},
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('Error when fetching user', error);
     return null;
   }
 };

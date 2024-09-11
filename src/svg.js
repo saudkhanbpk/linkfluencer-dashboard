@@ -78,7 +78,7 @@ export const ShareIcon = ({ className, onClick }) => {
   );
 };
 
-export const SaveIcon = ({ className, onClick }) => {
+export const CopyIcon = ({ className, onClick }) => {
   return (
     <svg
       fill="none"

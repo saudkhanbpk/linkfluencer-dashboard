@@ -259,7 +259,7 @@ const Analytics: React.FC = () => {
                   </div>
                 </div>
                 <div className="h-full mr-[18px]">
-                  <ApexColumnChart />
+                  <ApexColumnChart clickData={ {}} />
                 </div>
               </div>
               <div className="w-5/5 md:w-3/6 border rounded-3xl h-[420px] bg-white p-[24px]">

@@ -4,7 +4,7 @@ import {
   EmailIcon,
   FacebookIcon,
   InstagramIcon,
-  SaveIcon,
+  CopyIcon,
   ShareFilledIcon,
   TwitterIcon,
   WhatsappIcon,
@@ -91,7 +91,7 @@ const LinkShareCard: React.FC<Prop> = ({ handleShareModalClose }) => {
       <div className="flex items-center p-2 my-5 rounded-3xl bg-[#F4F4F4] justify-between">
         <span>https://www.figma.com/file/NlfVhYygR9mAQasassdsada/Share...</span>
         <Tooltip text={"copy"}>
-        <SaveIcon className={"size-12 border cursor-pointer p-3 rounded-full bg-white"} onClick={()=>{copyToClipboard("https://www.figma.com/file/NlfVhYygR9mAQasassdsada/Share...")}}/>
+        <CopyIcon className={"size-12 border cursor-pointer p-3 rounded-full bg-white"} onClick={()=>{copyToClipboard("https://www.figma.com/file/NlfVhYygR9mAQasassdsada/Share...")}}/>
         </Tooltip>
       </div>
     </div>

@@ -65,16 +65,16 @@ const Dashboard: React.FC = () => {
     }
   };
 
-  const getSubtitle = () => {
-    if (user && user._id) {
-      return user._id;
+  const getTitle = () => {
+    if (user && user.firstName) {
+      return `${user.firstName}'s`;
     }
     return '';
   };
 
   return (
     <div className="p-[12px] sm:p-[24px]">
-      <Header title="Dashboard" subtitle={getSubtitle()} />
+      <Header title={getTitle()} subtitle="Dashboard" />
       <div className="mt-[24px] flex md:flex-row flex-col items-center">
         <InputWithIcon value={newLink} onChange={handleInputChange} />
         <Button text="Create Smart Link" onClick={handleCreateLink} />
