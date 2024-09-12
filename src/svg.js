@@ -25,7 +25,7 @@ export const DotIcon = ({ className }) => {
   );
 };
 
-export const FilterIcon = ({ className }) => {
+export const FilterIcon = ({ className, onClick = () => {} }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -34,6 +34,7 @@ export const FilterIcon = ({ className }) => {
       strokeWidth={1.5}
       stroke="currentColor"
       className={className}
+      onClick={onClick}
     >
       <path
         strokeLinecap="round"

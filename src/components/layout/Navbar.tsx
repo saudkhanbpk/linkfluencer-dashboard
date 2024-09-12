@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState, useCallback } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import Avatar from '../common/Avatar';
 import Dropdown from '../common/Dropdown';
 import ProgressBar from '../common/ProgressBar';
@@ -10,6 +10,7 @@ import { UserContext } from '../../context/UserContext';
 import useDeviceDetect from '../../helpers/screens';
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const { isMobile } = useDeviceDetect();
   const [expand, setExpand] = useState<boolean>(false);
   const [clicksLeft, setClicksLeft] = useState<number | null>(null);
@@ -44,12 +45,23 @@ const Navbar = () => {
     setExpand((prevExpand) => !prevExpand);
   }, []);
 
+  const handleBoostClick = () => {
+    navigate('/pricing');
+  };
+
+  const handleCompleteProfileClick = () => {
+    navigate('/profile');
+  };
+
   const renderClicksLeft = () => (
     <div className="flex flex-col lg:flex-row items-center w-[375px] lg:h-[44px] lg:my-[26px]">
       <h1 className="font-header text-[18px] lg:text-[20px] font-bold mr-[16px] text-[#113E53]">
         {clicksLeft !== null ? `${clicksLeft} Clicks left` : 'Loading...'}
       </h1>
-      <div className="w-[138px] h-[44px] rounded-full bg-primary flex justify-center items-center">
+      <div
+        className="w-[138px] h-[44px] rounded-full bg-primary flex justify-center items-center cursor-pointer"
+        onClick={handleBoostClick}
+      >
         <span>Boost Now</span>
       </div>
     </div>
@@ -106,7 +118,7 @@ const Navbar = () => {
       {!isMobile && (
         <>
           <div className="w-1/5 px-[24px] py-[16px]">
-            <Link to="/test-dashboard">
+            <Link to="/">
               <img
                 src="/assets/Logo.svg"
                 className="min-w-[150px] w-[190px] min-h-[40px] h-[28px] object-contain"
@@ -223,7 +235,10 @@ const Navbar = () => {
                   <div className="my-[24px]">
                     <ProgressBar completed={completion} />
                   </div>
-                  <button className="w-full border-[1px] border-[#113E53] font-bold bg-white rounded-full px-[20px] py-[12px] text-[#113E53] font-header">
+                  <button
+                  className="w-full border-[1px] border-[#113E53] font-bold bg-white rounded-full px-[20px] py-[12px] text-[#113E53] font-header"
+                  onClick={handleCompleteProfileClick}
+                  >
                     Complete Profile
                   </button>
                 </div>

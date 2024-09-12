@@ -10,7 +10,6 @@ import {
   MenimizeArrows,
   SearchIcon,
 } from "../svg";
-import Indicate from "../components/common/cards/Indicate";
 import Dropdown from "../components/common/Dropdown";
 import Model from "../components/common/models/Model";
 import LinkDetailsCard from "../components/common/cards/LinkDetails";

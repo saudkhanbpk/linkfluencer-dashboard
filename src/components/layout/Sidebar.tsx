@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import ProgressBar from '../common/ProgressBar';
 import { useMinimizeContext } from '../../context/LayoutContext';
 import { sidebarData } from '../../config/sidebarData';
@@ -7,6 +7,7 @@ import { useContext, useEffect, useState } from 'react';
 import { ProfileCompletion } from '../../services/userService';
 
 const Sidebar = () => {
+  const navigate = useNavigate();
   const { minimize, setMinimize } = useMinimizeContext();
   const { user } = useContext(UserContext) || {};
   const [completion, setCompletion] = useState(0);
@@ -23,6 +24,10 @@ const Sidebar = () => {
   , [user]);
 
   const displayCompletion = () =>  completion !== 100 && !minimize
+
+   const handleCompleteProfileClick = () => {
+    navigate('/profile');
+  };
 
   return (
     <div className="relative flex flex-col justify-between w-full border p-[24px] bg-[#FCFCFC] min-h-[90vh]">
@@ -95,7 +100,10 @@ const Sidebar = () => {
               <div className="my-[24px]">
                 <ProgressBar completed={completion} />
               </div>
-              <button className="w-full whitespace-nowrap border-[1px] border-[#113E53] font-bold bg-white rounded-full px-[20px] py-[12px] text-[#113E53] font-header">
+              <button 
+              className="w-full whitespace-nowrap border-[1px] border-[#113E53] font-bold bg-white rounded-full px-[20px] py-[12px] text-[#113E53] font-header"
+              onClick={handleCompleteProfileClick}
+              >
                 Complete Profile
               </button>
             </div>
