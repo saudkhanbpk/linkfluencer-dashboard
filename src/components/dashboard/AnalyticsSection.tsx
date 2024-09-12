@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import IndicateUp from '../common/cards/IndicateUp';
-import IndicateDown from '../common/cards/IndicateDown';
+import IndicateDown from '../common/cards/indicateDown';
 import ApexChart from '../common/charts/LineChart/DashboardChart';
 import CalumnChart from '../common/charts/columnChart';
 import Chart from '../common/charts/CircleChart/CircleChart';
