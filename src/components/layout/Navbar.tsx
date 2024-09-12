@@ -5,7 +5,7 @@ import Dropdown from '../common/Dropdown';
 import ProgressBar from '../common/ProgressBar';
 import { sidebarData, COUNTRIES } from '../../config/sidebarData';
 import { LogoutIcon, SinglePersonIcon } from '../../svg';
-import { ClickLeft } from '../../services/userService';
+import { ClickLeft, ProfileCompletion } from '../../services/userService';
 import { UserContext } from '../../context/UserContext';
 import useDeviceDetect from '../../helpers/screens';
 
@@ -14,6 +14,7 @@ const Navbar = () => {
   const [expand, setExpand] = useState<boolean>(false);
   const [clicksLeft, setClicksLeft] = useState<number | null>(null);
   const userContext = useContext(UserContext);
+  const [completion, setCompletion] = useState(0);
 
   if (!userContext) {
     throw new Error('useContext must be used within a UserProvider');
@@ -29,6 +30,13 @@ const Navbar = () => {
         data && setClicksLeft(data.clicksLeft);
       }
     };
+    const fetchProfileCompletion = async () => {
+    if (!user) return
+    const data = await ProfileCompletion(user._id)
+    
+      setCompletion(data);
+    }
+    fetchProfileCompletion();
     fetchClicksLeft();
   }, [user]);
 
@@ -208,12 +216,12 @@ const Navbar = () => {
                   ))}
                 </ul>
                 <div className="bg-[#F0F5FF] p-[24px] rounded-lg mt-4">
-                  <h1 className="font-header text-[24px] font-[700]">Hey Rahul</h1>
+                  <h1 className="font-header text-[24px] font-[700]">Hey {user?.firstName}</h1>
                   <span className="text-[14px] mt-[10px] leading-none font-content">
                     Your Profile is left Incomplete
                   </span>
                   <div className="my-[24px]">
-                    <ProgressBar completed={74} />
+                    <ProgressBar completed={completion} />
                   </div>
                   <button className="w-full border-[1px] border-[#113E53] font-bold bg-white rounded-full px-[20px] py-[12px] text-[#113E53] font-header">
                     Complete Profile

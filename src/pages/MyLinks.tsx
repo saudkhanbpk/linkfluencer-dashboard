@@ -1,9 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-// import LinkSquare from '../components/common/cards/LinkSquare';
-import { LinksData } from "../sampleData";
 import Table from "../components/common/table";
 import {
-  CrossIcon,
   DeleteIcon,
   FilterIcon,
   FourSquarIcon,
@@ -19,12 +16,12 @@ import Model from "../components/common/models/Model";
 import LinkDetailsCard from "../components/common/cards/LinkDetails";
 import LinkEditCard from "../components/common/cards/LinkEdit";
 import { deleteLinks, getUserLinks, updateLink } from "../services/linkService";
-import User from "./profile/User";
 import { UserContext } from "../context/UserContext";
 import LinkSquare from "../components/common/cards/LinkSquare";
 import { ILink } from "../interfaces/Link";
-import axios from "axios";
 import LinkShareCard from "../components/LinkShareCard/LinkShare";
+import { fetchIcon } from "../utils/iconUtils";
+import { capitalizeFirstLetter } from "../utils/caseUtils";
 
 const MyLinks: React.FC = () => {
   const [minimize, setMinimize] = useState(false);
@@ -39,8 +36,6 @@ const MyLinks: React.FC = () => {
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
-  const [isLoading, setIsLoading] = useState(false);
-  const API_URL = "http://localhost:5005";
   const [edit, setEdit] = useState<any>({
     logo: "",
     targetSite: "",
@@ -60,16 +55,16 @@ const MyLinks: React.FC = () => {
   const { user } = userContext;
   const columns = [
     {
-      title: "targetSite",
+      title: "Channel",
       key: "targetSite",
-      width: "140px",
+      width: "20%",
       headerAlign: "left",
       dataIndex: "targetSite",
       cellAlign: "left",
       render: (row: any) => (
         <div className="flex items-center">
-          <img src={row.logo} alt="logo" className="w-6 h-6 mr-2" />
-          <span>{row.targetSite}</span>
+          <img src={fetchIcon(row.targetSite)} alt="logo" className="w-6 h-6 mr-2" />
+          <span>{capitalizeFirstLetter(row.targetSite)}</span>
         </div>
       ),
     },
@@ -77,9 +72,14 @@ const MyLinks: React.FC = () => {
       title: "Link",
       dataIndex: "shortUrl",
       key: "shortUrl",
-      width: "400px",
+      width: "40%",
       headerAlign: "left",
       cellAlign: "left",
+      render: (row: any) => (
+        <div className="flex items-center">
+          <span>{`linkfluencer.io/${row.shortUrl}`}</span>
+        </div>
+      ),
     },
     {
       title: "Total Clicked",
@@ -87,14 +87,14 @@ const MyLinks: React.FC = () => {
       render: (row: any) => (
         <div className="flex items-center">
           <label className="mr-2">{row.clickCount}</label>
-          <Indicate
+          {/* <Indicate
             direction={row.indicateUp ? "up" : "down"}
             percent={row.percent}
-          />
+          /> */}
         </div>
       ),
       key: "clickCount",
-      width: "150px",
+      width: "20%",
       headerAlign: "left",
       cellAlign: "left",
     },
@@ -106,7 +106,7 @@ const MyLinks: React.FC = () => {
           return <span className="text-blue-500 font-content mr-2">{val}</span>;
         }),
       key: "tags",
-      width: "",
+      width: "20%",
       headerAlign: "left",
       cellAlign: "left",
     },
@@ -221,11 +221,7 @@ const MyLinks: React.FC = () => {
   useEffect(() => {
     const fetchUserLinks = async () => {
       if (user && user._id) {
-        const links = await getUserLinks(user._id, {
-          // sortBy: tabs[selectedTab].value,
-          // page: 1,
-          // limit: 3,
-        });
+        const links = await getUserLinks(user._id);
         console.log("this is it ===>>>>", { links });
         setData(links);
         setFilteredData(links);

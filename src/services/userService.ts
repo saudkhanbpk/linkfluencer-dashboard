@@ -146,3 +146,14 @@ export const UserIntervalVisit = async (userId: string, interval: TimeInterval)=
     return null;
   }
 };
+
+export const ProfileCompletion = async (userId: string)=> {
+  try {
+    const response = await axiosInstance.get(`/users/${userId}/profile-completion`);
+
+    return response.data;
+  } catch (error) {
+    console.error('Error when fetching user profile completion', error);
+    return null;
+  }
+};
