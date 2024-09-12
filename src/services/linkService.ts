@@ -38,7 +38,7 @@ export const updateLink = (userId: string, link: ILink) => {
       tags: link.tags,
     });
   } catch (error) {
-    console.error('Error when creating link', error);
+    console.error('Error when updating link', error);
     return null;
   }
 }
@@ -109,7 +109,6 @@ export const getBestAverageTimeToEngageByLink = async (userId: string, linkId: s
 
 
 export const UserVisit = async (userId: string, linkId: string, interval: TimeInterval)=> {
-  console.log("interval", interval);
   try {
     const response = await axiosInstance.get(`/users/${userId}/links/${linkId}/clicks-by-interval`, {
       params: {interval},
@@ -117,7 +116,20 @@ export const UserVisit = async (userId: string, linkId: string, interval: TimeIn
 
     return response.data;
   } catch (error) {
-    console.error('Error when fetching user', error);
+    console.error('Error when fetching user visits', error);
+    return null;
+  }
+};
+
+export const getTopSources = async (userId: string, interval?: TimeInterval)=> {
+  try {
+    const response = await axiosInstance.get(`/users/${userId}/links/top-apps`, {
+      params: {interval},
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('Error when fetching top sources', error);
     return null;
   }
 };

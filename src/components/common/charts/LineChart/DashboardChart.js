@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
 import './LineChart.css';
 
@@ -21,7 +20,7 @@ const LineChart = ({ indicateUp = true }) => {
       width: 2,
     },
     xaxis: {
-      categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], // Days of the week on the x-axis
+      categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
       title: {},
       labels: {
         show: false,
@@ -33,10 +32,10 @@ const LineChart = ({ indicateUp = true }) => {
         },
       },
       axisBorder: {
-        show: false, // Hide the x-axis border line
+        show: false,
       },
       axisTicks: {
-        show: false, // Hide the x-axis ticks
+        show: false,
       },
     },
     yaxis: {

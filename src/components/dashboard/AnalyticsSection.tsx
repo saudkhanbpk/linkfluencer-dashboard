@@ -1,20 +1,68 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import IndicateUp from '../common/cards/IndicateUp';
 import IndicateDown from '../common/cards/indicateDown';
 import ApexChart from '../common/charts/LineChart/DashboardChart';
 import CalumnChart from '../common/charts/columnChart';
-import Chart from '../common/charts/CircleChart';
+import Chart from '../common/charts/CircleChart/CircleChart';
+import { UserContext } from '../../context/UserContext';
+import { getTopSources } from '../../services/linkService';
+import supportedApps from '../../data/supportedApps.json';
+import { TopCountries } from '../../services/userService';
+import { CountryClicks, Source } from '../../types/interfaces';
+import Loading from '../common/Loading';
+import { fetchIcon } from '../../utils/iconUtils';
 
-interface Source {
-  percent: number;
-  socialLogo: string;
-}
+const AnalyticsSection: React.FC = () => {
+  const userContext = useContext(UserContext);
+  const user = userContext?.user;
 
-interface AnalyticsSectionProps {
-  topSources: Source[];
-}
+  const [topSources, setTopSources] = useState<Source[]>([]);
+  const [topCountries, setTopCountries] = useState<CountryClicks[]>([]);
+  const [loadingSources, setLoadingSources] = useState<boolean>(true);
+  const [loadingCountries, setLoadingCountries] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
-const AnalyticsSection: React.FC<AnalyticsSectionProps> = ({ topSources }) => {
+  const fetchTopSources = async () => {
+    if (user) {
+      try {
+        setLoadingSources(true);
+        const sources = await getTopSources(user._id);
+        setTopSources(sources);
+      } catch (error) {
+        setError('Erreur lors de la récupération des sources principales');
+        console.error(error);
+      } finally {
+        setLoadingSources(false);
+      }
+    }
+  };
+
+  const fetchTopCountries = async () => {
+    if (user) {
+      try {
+        setLoadingCountries(true);
+        const countries = await TopCountries(user._id, 'year');
+        setTopCountries(countries);
+      } catch (error) {
+        setError('Erreur lors de la récupération des pays principaux');
+        console.error(error);
+      } finally {
+        setLoadingCountries(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    fetchTopCountries();
+    fetchTopSources();
+  }, [user]);
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+  const totalCount = topSources.reduce((total, source) => total + source.count, 0);
+
   return (
     <div className="mt-12">
       <h1 className="font-[600] font-content">Analytics</h1>
@@ -55,14 +103,18 @@ const AnalyticsSection: React.FC<AnalyticsSectionProps> = ({ topSources }) => {
             Top Sources
           </span>
           <div className="flex justify-between w-full h-full gap-6">
-            {topSources.map((source, index) => (
-              <div key={index} className="relative h-full">
-                <CalumnChart
-                  percent={source.percent}
-                  logo={source.socialLogo}
-                />
-              </div>
-            ))}
+            {loadingSources ? (
+              <Loading />
+            ) : (
+              topSources.map((source) => (
+                <div key={source._id} className="relative h-full">
+                  <CalumnChart
+                    percent={(source.count / totalCount) * 100}
+                    logo={fetchIcon(source._id)}
+                  />
+                </div>
+              ))
+            )}
           </div>
         </div>
         <div className="border h-[300px] p-[24px] rounded-2xl relative">
@@ -70,7 +122,11 @@ const AnalyticsSection: React.FC<AnalyticsSectionProps> = ({ topSources }) => {
             Users traffic by region
           </span>
           <div className="h-full mt-4">
-            <Chart />
+            {loadingCountries ? (
+              <Loading /> // Affiche un composant de chargement en attendant les données
+            ) : (
+              <Chart countries={topCountries} />
+            )}
           </div>
         </div>
       </div>

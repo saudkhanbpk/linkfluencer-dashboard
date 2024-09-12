@@ -6,6 +6,7 @@ import IndicateDown from "./indicateDown";
 import IndicateUp from "./IndicateUp";
 import FaviconLoader from "../FaviconFetcher";
 import { getLinkLabel } from "../../../utils/linkUtils";
+import copyToClipboard from "../../../utils/clipboardUtils";
 
 interface Props {
   link: ILink;
@@ -13,9 +14,9 @@ interface Props {
   isDelete?: boolean;
   editModalOpen?: (val: string) => void;
   detailsModelOpen?: (val: string) => void;
-  handleSelectLink?:(val: string) => void;
-  shareModelOpen?: (val: string) => void;
-  selectedData?:any[]
+  handleSelectLink?: (val: string) => void;
+  shareModalOpen?: (val: string) => void;
+  selectedData?: any[];
 }
 
 const LinkSquare: React.FC<Props> = ({
@@ -25,7 +26,7 @@ const LinkSquare: React.FC<Props> = ({
   editModalOpen,
   detailsModelOpen,
   handleSelectLink,
-  shareModelOpen,
+  shareModalOpen,
   selectedData
 }) => {
   const [linkLogo, setLinkLogo] = useState("");
@@ -48,24 +49,19 @@ const LinkSquare: React.FC<Props> = ({
   };
   
   const handleShareClick = (id: string) => {
-    shareModelOpen?.(id);
+    shareModalOpen?.(id);
   };
   const handleSelect = (id:string) =>{
     handleSelectLink?.(id)
   }
 
-  const handleCopy = async (text: string) => {
-    try {
-      await navigator.clipboard.writeText(`linkfluencer.io/${text}`);
-      alert("Smart link copied successfully");
-    } catch (err) {
-      console.error("Error : ", err);
-    }
+  const handleCopy = (text: string) => {
+    copyToClipboard(text)
   };
 
   return (
     <div className="rounded-2xl bg-gray-100 border hover:border-black duration-150">
-      <FaviconLoader originalUrl={link.originalUrl} setFavicon={setLinkLogo} />
+      <FaviconLoader originalUrl={link.originalUrl} setFavicon={setLinkLogo} target={link.targetSite} />
       <div className="flex justify-between items-center h-[64px] px-[24px]">
         <div className="flex flex-row items-center">
           <img src={linkLogo} alt={"social Icon"} className="mr-3 h-[30px] w-[30px]" />
@@ -81,7 +77,7 @@ const LinkSquare: React.FC<Props> = ({
             </Tooltip>
 
             <Tooltip text="Share">
-              <ShareIcon className="size-4 text-[#4D494F] cursor-pointer select-none" onClick={undefined}/>
+              <ShareIcon onClick={()=> handleShareClick(link._id ?? "0")} className="size-4 text-[#4D494F] cursor-pointer select-none" />
             </Tooltip>
             <Tooltip text="Copy">
               <div onClick={async () => await handleCopy(link.shortUrl)} >

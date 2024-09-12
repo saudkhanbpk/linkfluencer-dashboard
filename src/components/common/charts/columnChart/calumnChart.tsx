@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
-import { ApexOptions } from 'apexcharts'; // Assurez-vous d'importer les types corrects pour les options
+import { ApexOptions } from 'apexcharts';
 
 interface ApexColumnChartProps {
-  clickData: Record<string, number> | null; // Assurez-vous que clickData peut être null
+  clickData: Record<string, number> | null;
 }
 
 const ApexColumnChart: React.FC<ApexColumnChartProps> = ({ clickData }) => {
@@ -11,14 +11,12 @@ const ApexColumnChart: React.FC<ApexColumnChartProps> = ({ clickData }) => {
   const [categories, setCategories] = useState<string[]>([]);
 
   useEffect(() => {
-    // Vérifiez si clickData est valide avant de le manipuler
     if (!clickData || Object.keys(clickData).length === 0) {
       setSeries([{ name: 'Clicks', data: [] }]);
       setCategories([]);
       return;
     }
 
-    // Transforme les données de clickData en format pour ApexCharts
     const sortedData = Object.entries(clickData).sort(
       ([a], [b]) => new Date(a).getTime() - new Date(b).getTime()
     );
