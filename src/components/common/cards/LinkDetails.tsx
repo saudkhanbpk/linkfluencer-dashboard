@@ -6,9 +6,14 @@ import ApexColumnChart from '../charts/columnChart/calumnChart';
 import { ILink } from '../../../interfaces/Link';
 import FaviconLoader from '../FaviconFetcher';
 import { getLinkLabel } from '../../../utils/linkUtils';
-import { getBestAverageTimeToEngageByLink, getClicksTrendForLink, getTopCityByLink, getTopCountryByLink, UserVisit } from '../../../services/linkService';
+import {
+  getBestAverageTimeToEngageByLink,
+  getClicksTrendForLink,
+  getTopCityByLink,
+  getTopCountryByLink,
+  UserVisit,
+} from '../../../services/linkService';
 import Loading from '../Loading';
-
 
 interface Prop {
   data: ILink;
@@ -21,7 +26,9 @@ const LinkDetailsCard: React.FC<Prop> = ({ data, handleDetailsModalClose }) => {
   const [clicksTrend, setClicksTrend] = useState<any | null>(null);
   const [topCountry, setTopCountry] = useState<string | null>(null);
   const [topCity, setTopCity] = useState<string | null>(null);
-  const [bestAverageTimeToEngage, setBestAverageTimeToEngage] = useState<string | null>(null);
+  const [bestAverageTimeToEngage, setBestAverageTimeToEngage] = useState<
+    string | null
+  >(null);
   const [userVisitInterval, setUserVisitInterval] = useState<any | null>(null);
 
   const [loadingClicks, setLoadingClicks] = useState(true);
@@ -54,7 +61,10 @@ const LinkDetailsCard: React.FC<Prop> = ({ data, handleDetailsModalClose }) => {
         setTopCity(city || 'No data');
         setLoadingTopCity(false);
 
-        const bestTime = await getBestAverageTimeToEngageByLink(data.createdBy, data._id);
+        const bestTime = await getBestAverageTimeToEngageByLink(
+          data.createdBy,
+          data._id,
+        );
         setBestAverageTimeToEngage(bestTime || 'No data');
         setLoadingBestTime(false);
 
@@ -70,7 +80,11 @@ const LinkDetailsCard: React.FC<Prop> = ({ data, handleDetailsModalClose }) => {
 
   return (
     <div className="md:w-[600px]">
-      <FaviconLoader originalUrl={data.originalUrl} setFavicon={setLinkLogo} target={data.targetSite} />
+      <FaviconLoader
+        originalUrl={data.originalUrl}
+        setFavicon={setLinkLogo}
+        target={data.targetSite}
+      />
       <div className="flex justify-between items-center my-[18px]">
         <div className="flex items-center gap-2">
           <img

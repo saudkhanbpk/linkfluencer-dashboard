@@ -1,6 +1,6 @@
-import { useState, useCallback, useEffect } from "react";
-import { CrossIcon } from "../../../svg";
-import { ILink } from "../../../interfaces/Link";
+import { useState, useCallback, useEffect } from 'react';
+import { CrossIcon } from '../../../svg';
+import { ILink } from '../../../interfaces/Link';
 
 interface Prop {
   link: ILink;
@@ -8,35 +8,37 @@ interface Prop {
   handleEdit?: (updatedLink: ILink) => void;
 }
 
-const LinkEditCard: React.FC<Prop> = ({ link, handleModalClose, handleEdit }) => {
+const LinkEditCard: React.FC<Prop> = ({
+  link,
+  handleModalClose,
+  handleEdit,
+}) => {
   const [tags, setTags] = useState<string[]>(link.tags || []);
-  const [inputValue, setInputValue] = useState<string>("");
-  const [shortUrl, setShortUrl] = useState<string>(link.shortUrl || "");
+  const [inputValue, setInputValue] = useState<string>('');
+  const [shortUrl, setShortUrl] = useState<string>(link.shortUrl || '');
 
   useEffect(() => {
-    setShortUrl(link.shortUrl || "");
+    setShortUrl(link.shortUrl || '');
   }, [link.shortUrl]);
-
-  
 
   const addTag = useCallback(
     (tag: string) => {
       if (!tags.includes(tag)) {
         setTags((prevTags) => [...prevTags, tag]);
       }
-      setInputValue("");
+      setInputValue('');
     },
-    [tags]
+    [tags],
   );
 
   const handleTagInputKeyPress = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
-      if (e.key === "Enter" && inputValue.trim()) {
+      if (e.key === 'Enter' && inputValue.trim()) {
         e.preventDefault();
         addTag(inputValue.trim());
       }
     },
-    [inputValue, addTag]
+    [inputValue, addTag],
   );
 
   const handleTagInputBlur = useCallback(() => {
@@ -45,25 +47,22 @@ const LinkEditCard: React.FC<Prop> = ({ link, handleModalClose, handleEdit }) =>
     }
   }, [inputValue, addTag]);
 
-  const removeTag = useCallback(
-    (index: number) => {
-      setTags((prevTags) => prevTags.filter((_, i) => i !== index));
-    },
-    []
-  );
+  const removeTag = useCallback((index: number) => {
+    setTags((prevTags) => prevTags.filter((_, i) => i !== index));
+  }, []);
 
   const handleShortUrlChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setShortUrl(e.target.value);
     },
-    []
+    [],
   );
 
   const handleTagInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setInputValue(e.target.value);
     },
-    []
+    [],
   );
 
   const handleSave = useCallback(() => {
@@ -117,7 +116,7 @@ const LinkEditCard: React.FC<Prop> = ({ link, handleModalClose, handleEdit }) =>
           type="text"
           name="tags"
           placeholder="tags ..."
-          className="outline-none flex-1 p-2"  // Ensure full width
+          className="outline-none flex-1 p-2" // Ensure full width
           value={inputValue}
           onChange={handleTagInputChange}
           onKeyDown={handleTagInputKeyPress}

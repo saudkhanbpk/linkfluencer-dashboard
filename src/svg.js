@@ -25,7 +25,12 @@ export const DotIcon = ({ className }) => {
   );
 };
 
-export const FilterIcon = ({ className, onClick = () => {} }) => {
+export const FilterIcon = ({
+  className,
+  onClick = () => {
+    console.log('Filter Icon Clicked');
+  },
+}) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -79,7 +84,12 @@ export const ShareIcon = ({ className, onClick }) => {
   );
 };
 
-export const CopyIcon = ({ className, onClick= () =>{}}) => {
+export const CopyIcon = ({
+  className,
+  onClick = () => {
+    console.log('Copy Icon Clicked');
+  },
+}) => {
   return (
     <svg
       fill="none"
