@@ -17,9 +17,11 @@ const FaviconLoader: React.FC<FaviconLoaderProps> = ({
     const loadFavicon = async () => {
       try {
         if (target) {
-          const app = target && supportedApps.find(
-            (app) => app.label.toLowerCase() === target.toLowerCase()
-          );
+          const app =
+            target &&
+            supportedApps.find(
+              (app) => app.label.toLowerCase() === target.toLowerCase(),
+            );
 
           if (app) {
             setFavicon(app.value);

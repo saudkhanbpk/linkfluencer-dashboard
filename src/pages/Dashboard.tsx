@@ -76,12 +76,12 @@ const Dashboard: React.FC = () => {
     <div className="p-[12px] sm:p-[1px]">
       <div className="p-[24px]">
         <Header title={getTitle()} subtitle="Dashboard" />
-      <div className="mt-[24px] flex md:flex-row flex-col items-center">
-        <InputWithIcon value={newLink} onChange={handleInputChange} />
-        <Button text="Create Smart Link" onClick={handleCreateLink} />
-      </div>
+        <div className="mt-[24px] flex md:flex-row flex-col items-center">
+          <InputWithIcon value={newLink} onChange={handleInputChange} />
+          <Button text="Create Smart Link" onClick={handleCreateLink} />
         </div>
-      
+      </div>
+
       {isLoading ? (
         <Loading />
       ) : (

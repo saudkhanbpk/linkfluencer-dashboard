@@ -13,7 +13,7 @@ import { getTopSources } from '../services/linkService';
 const Analytics: React.FC = () => {
   const userContext = useContext(UserContext);
   const user = userContext?.user;
-  const [limit, setLimit] = useState<TimeInterval>('year');
+  const [limit, setLimit] = useState<TimeInterval>('day');
   const { isMobile } = useDeviceDetect();
 
   const [totalClicks, setTotalClicks] = useState<string>();

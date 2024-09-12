@@ -14,18 +14,17 @@ const Sidebar = () => {
 
   useEffect(() => {
     const fetchProfileCompletion = async () => {
-    if (!user) return
-    const data = await ProfileCompletion(user._id)
-    
+      if (!user) return;
+      const data = await ProfileCompletion(user._id);
+
       setCompletion(data);
-    }
+    };
     fetchProfileCompletion();
-  }
-  , [user]);
+  }, [user]);
 
-  const displayCompletion = () =>  completion !== 100 && !minimize
+  const displayCompletion = () => completion !== 100 && !minimize;
 
-   const handleCompleteProfileClick = () => {
+  const handleCompleteProfileClick = () => {
     navigate('/profile');
   };
 
@@ -91,7 +90,7 @@ const Sidebar = () => {
           <div className="mt-[24px]">
             <div className="bg-[#F0F5FF] p-[15px] rounded-lg overflow-hidden">
               <h1 className="font-header text-[24px] font-[700] whitespace-nowrap">
-                Hi { user?.firstName }
+                Hi {user?.firstName}
               </h1>
               <span className="text-[14px] mt-[10px] leading-none font-content whitespace-nowrap">
                 {' '}
@@ -100,9 +99,9 @@ const Sidebar = () => {
               <div className="my-[24px]">
                 <ProgressBar completed={completion} />
               </div>
-              <button 
-              className="w-full whitespace-nowrap border-[1px] border-[#113E53] font-bold bg-white rounded-full px-[20px] py-[12px] text-[#113E53] font-header"
-              onClick={handleCompleteProfileClick}
+              <button
+                className="w-full whitespace-nowrap border-[1px] border-[#113E53] font-bold bg-white rounded-full px-[20px] py-[12px] text-[#113E53] font-header"
+                onClick={handleCompleteProfileClick}
               >
                 Complete Profile
               </button>

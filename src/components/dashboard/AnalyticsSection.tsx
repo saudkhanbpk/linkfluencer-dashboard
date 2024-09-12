@@ -6,7 +6,6 @@ import CalumnChart from '../common/charts/columnChart';
 import Chart from '../common/charts/CircleChart/CircleChart';
 import { UserContext } from '../../context/UserContext';
 import { getTopSources } from '../../services/linkService';
-import supportedApps from '../../data/supportedApps.json';
 import { TopCountries } from '../../services/userService';
 import { CountryClicks, Source } from '../../types/interfaces';
 import Loading from '../common/Loading';
@@ -61,7 +60,10 @@ const AnalyticsSection: React.FC = () => {
     return <div>{error}</div>;
   }
 
-  const totalCount = topSources.reduce((total, source) => total + source.count, 0);
+  const totalCount = topSources.reduce(
+    (total, source) => total + source.count,
+    0,
+  );
 
   return (
     <div className="mt-12">

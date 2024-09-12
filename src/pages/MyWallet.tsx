@@ -120,9 +120,7 @@ const MyWallet: React.FC = () => {
             <Dropdown
               label={
                 <div className="flex items-center gap-4 border">
-                  <h1 className="text-[20px] font-header">
-                   {type} History
-                  </h1>
+                  <h1 className="text-[20px] font-header">{type} History</h1>
                   <DropIcon
                     className={'size-4 text-gray-500'}
                     onClick={() => {
@@ -132,28 +130,26 @@ const MyWallet: React.FC = () => {
                 </div>
               }
             >
-              <>
-                <div className="bg-white border shadow-md w-[200px] rounded-3xl">
-                  <ul className="text-base">
-                    <li
-                      className="p-3 cursor-pointer hover:bg-gray-100 my-4"
-                      onClick={() => {
-                        setType('Transaction');
-                      }}
-                    >
-                      Transaction History
-                    </li>
-                    <li
-                      className="p-3 cursor-pointer hover:bg-gray-100 my-4"
-                      onClick={() => {
-                        setType('Purchasing');
-                      }}
-                    >
-                      Purchasing History
-                    </li>
-                  </ul>
-                </div>
-              </>
+              <div className="bg-white border shadow-md w-[200px] rounded-3xl">
+                <ul className="text-base">
+                  <li
+                    className="p-3 cursor-pointer hover:bg-gray-100 my-4"
+                    onClick={() => {
+                      setType('Transaction');
+                    }}
+                  >
+                    Transaction History
+                  </li>
+                  <li
+                    className="p-3 cursor-pointer hover:bg-gray-100 my-4"
+                    onClick={() => {
+                      setType('Purchasing');
+                    }}
+                  >
+                    Purchasing History
+                  </li>
+                </ul>
+              </div>
             </Dropdown>
             <ul className="flex gap-4 items-center">
               <li

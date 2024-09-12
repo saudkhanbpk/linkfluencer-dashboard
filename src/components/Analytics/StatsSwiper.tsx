@@ -24,23 +24,38 @@ interface SlidesSwiperProps {
   averageTime?: string;
 }
 
-const StatsSwiper: React.FC<SlidesSwiperProps> = ({totalClicks, topPlatform, topCountry, topCity, averageTime}) => {
+const StatsSwiper: React.FC<SlidesSwiperProps> = ({
+  totalClicks,
+  topPlatform,
+  topCountry,
+  topCity,
+  averageTime,
+}) => {
   const [flag, setFlag] = useState<string | null>('');
 
   useEffect(() => {
-    const fetchFlag = async () => {
+    const fetchFlag = () => {
       if (topCountry) {
-        const countryFlag = await getCountryFlag(topCountry);
+        const countryFlag = getCountryFlag(topCountry);
+
         setFlag(countryFlag ?? '');
       }
     };
-  
+
     fetchFlag();
   }, [topCountry]);
-  
+
   const slidesData: Slide[] = [
-    { label: 'Total Clicked', value: totalClicks, indicate: { direction: 'up', percent: 10 } },
-    { label: 'Best Performing Platform', logo: fetchIcon(topPlatform ?? ''), indicate: { direction: 'up', percent: 10 } },
+    {
+      label: 'Total Clicked',
+      value: totalClicks,
+      indicate: { direction: 'up', percent: 10 },
+    },
+    {
+      label: 'Best Performing Platform',
+      logo: fetchIcon(topPlatform ?? ''),
+      indicate: { direction: 'up', percent: 10 },
+    },
     { label: 'Top Country', value: topCountry, logo: flag ?? '' },
     { label: 'Top City', value: topCity },
     { label: 'Best Time To Engage', value: averageTime, unit: 'GMT' },
@@ -67,15 +82,34 @@ const StatsSwiper: React.FC<SlidesSwiperProps> = ({totalClicks, topPlatform, top
       {slidesData.map((slide, index) => (
         <SwiperSlide
           key={index}
-          className="border p-[24px] rounded-3xl bg-white max-h-[100px] h-[80px] max-w-full" 
+          className="border p-[24px] rounded-3xl bg-white max-h-[100px] h-[80px] max-w-full"
           style={{ width: 'auto' }}
         >
-          <span className="text-xs font-content text-[#9B919D]">{slide.label}</span>
+          <span className="text-xs font-content text-[#9B919D]">
+            {slide.label}
+          </span>
           <div className="flex items-center gap-2">
-            {slide.logo && <img src={slide.logo} alt={slide.label} className="h-[24px] w-[24px]" />}
-            <span className="text-[#292828] text-[24px] font-[500]">{slide.value}</span>
-            {slide.indicate && <Indicate direction={slide.indicate.direction} percent={slide.indicate.percent} />}
-            {slide.unit && <span className="text-xs font-content text-[#9B919D]">{slide.unit}</span>}
+            {slide.logo && (
+              <img
+                src={slide.logo}
+                alt={slide.label}
+                className="h-[24px] w-[24px]"
+              />
+            )}
+            <span className="text-[#292828] text-[24px] font-[500]">
+              {slide.value}
+            </span>
+            {slide.indicate && (
+              <Indicate
+                direction={slide.indicate.direction}
+                percent={slide.indicate.percent}
+              />
+            )}
+            {slide.unit && (
+              <span className="text-xs font-content text-[#9B919D]">
+                {slide.unit}
+              </span>
+            )}
           </div>
         </SwiperSlide>
       ))}

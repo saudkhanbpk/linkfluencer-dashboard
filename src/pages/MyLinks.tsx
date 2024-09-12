@@ -123,7 +123,7 @@ const MyLinks: React.FC = () => {
     setSelectedData(() => {
       if (selectedData?.includes(value)) {
         const filteredLinks = selectedData.filter((val: any) => {
-          return val != value;
+          return val !== value;
         });
         setSelectedData(filteredLinks);
       } else {
@@ -145,16 +145,13 @@ const MyLinks: React.FC = () => {
     if (user && user._id) {
       await deleteLinks(user._id, selectedData)
         ?.then((resp) => {
-          console.log("this is response ===>>", resp);
           const newData = filteredData.filter((val: any) => {
             return !selectedData.includes(val._id);
           });
-          console.log(newData);
 
           setFilteredData(newData);
         })
         .catch((err) => {
-          console.log("this is error ===>", err);
         });
     }
   };
@@ -203,7 +200,6 @@ const MyLinks: React.FC = () => {
         return b.clickCount - a.clickCount;
       }
     });
-    console.log(sortedData);
 
     setFilteredData(sortedData);
   };
@@ -221,7 +217,6 @@ const MyLinks: React.FC = () => {
     const fetchUserLinks = async () => {
       if (user && user._id) {
         const links = await getUserLinks(user._id);
-        console.log("this is it ===>>>>", { links });
         setData(links);
         setFilteredData(links);
       }
@@ -230,7 +225,6 @@ const MyLinks: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    console.log(selectedData);
   }, [selectedData]);
 
   return (

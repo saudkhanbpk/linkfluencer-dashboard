@@ -32,11 +32,11 @@ const Navbar = () => {
       }
     };
     const fetchProfileCompletion = async () => {
-    if (!user) return
-    const data = await ProfileCompletion(user._id)
-    
+      if (!user) return;
+      const data = await ProfileCompletion(user._id);
+
       setCompletion(data);
-    }
+    };
     fetchProfileCompletion();
     fetchClicksLeft();
   }, [user]);
@@ -72,7 +72,12 @@ const Navbar = () => {
       <ul className="w-[150px] flex flex-col items-center bg-white border shadow-lg rounded-lg py-2">
         <li className="hover:bg-gray-100 w-full">
           <Link to="/profile" className="flex items-center p-2">
-            <SinglePersonIcon className="size-5 mr-2" onClick={() => {}} />
+            <SinglePersonIcon
+              className="size-5 mr-2"
+              onClick={() => {
+                console.log('Profile clicked');
+              }}
+            />
             <span>Profile</span>
           </Link>
         </li>
@@ -98,7 +103,11 @@ const Navbar = () => {
             stroke="currentColor"
             className="size-4"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="m19.5 8.25-7.5 7.5-7.5-7.5"
+            />
           </svg>
         </div>
       }
@@ -135,7 +144,11 @@ const Navbar = () => {
                   className="h-[20px] w-[20px] mr-2"
                   alt="search-icon"
                 />
-                <input type="text" placeholder="Search" className="h-full rounded-none outline-none" />
+                <input
+                  type="text"
+                  placeholder="Search"
+                  className="h-full rounded-none outline-none"
+                />
               </div>
               <Link to="/wallet">
                 <img
@@ -172,7 +185,11 @@ const Navbar = () => {
                     stroke="currentColor"
                     className="size-6 rounded-md"
                   >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6 18 18 6M6 6l12 12"
+                    />
                   </svg>
                 ) : (
                   <svg
@@ -183,7 +200,11 @@ const Navbar = () => {
                     stroke="currentColor"
                     className="size-6"
                   >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                    />
                   </svg>
                 )}
               </button>
@@ -208,19 +229,31 @@ const Navbar = () => {
                           onClick={toggleExpand}
                           className={({ isActive }) =>
                             `flex items-center cursor-pointer py-[12px] rounded-full font-content ${
-                              isActive ? 'bg-gray-100 text-black' : 'bg-transparent text-[#4D494F]'
+                              isActive
+                                ? 'bg-gray-100 text-black'
+                                : 'bg-transparent text-[#4D494F]'
                             }`
                           }
                         >
-                          <img src={val?.icon} alt={val?.label} className="ml-[10px] mr-[12px]" />
+                          <img
+                            src={val?.icon}
+                            alt={val?.label}
+                            className="ml-[10px] mr-[12px]"
+                          />
                           <span>{val?.label}</span>
                         </NavLink>
                       ) : (
                         <div className="flex items-center cursor-pointer py-[12px] rounded-full font-content bg-transparent text-[#afafaf]">
-                          <img src={val?.icon} alt={val?.label} className="ml-[10px] mr-[12px]" />
+                          <img
+                            src={val?.icon}
+                            alt={val?.label}
+                            className="ml-[10px] mr-[12px]"
+                          />
                           <div className="lg:flex">
                             <span className="mr-2">{val?.label}</span>
-                            <span className="text-primary font-bold">SOON!</span>
+                            <span className="text-primary font-bold">
+                              SOON!
+                            </span>
                           </div>
                         </div>
                       )}
@@ -228,7 +261,9 @@ const Navbar = () => {
                   ))}
                 </ul>
                 <div className="bg-[#F0F5FF] p-[24px] rounded-lg mt-4">
-                  <h1 className="font-header text-[24px] font-[700]">Hey {user?.firstName}</h1>
+                  <h1 className="font-header text-[24px] font-[700]">
+                    Hey {user?.firstName}
+                  </h1>
                   <span className="text-[14px] mt-[10px] leading-none font-content">
                     Your Profile is left Incomplete
                   </span>
@@ -236,8 +271,8 @@ const Navbar = () => {
                     <ProgressBar completed={completion} />
                   </div>
                   <button
-                  className="w-full border-[1px] border-[#113E53] font-bold bg-white rounded-full px-[20px] py-[12px] text-[#113E53] font-header"
-                  onClick={handleCompleteProfileClick}
+                    className="w-full border-[1px] border-[#113E53] font-bold bg-white rounded-full px-[20px] py-[12px] text-[#113E53] font-header"
+                    onClick={handleCompleteProfileClick}
                   >
                     Complete Profile
                   </button>

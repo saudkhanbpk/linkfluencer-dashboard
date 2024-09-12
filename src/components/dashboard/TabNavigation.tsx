@@ -44,25 +44,21 @@ const TabNavigation: React.FC<TabNavigationProps> = ({
           {tabs[selectedTab].label}
         </span>
       </span>
-      <Dropdown
-        label={<FilterIcon className="size-6" />}
-        side="right"
-        children={
-          <ul className="bg-white w-auto shadow-md border-0.5 rounded-lg py-2 border">
-            {tabs.map((tab, index) => (
-              <li
-                key={index}
-                className={`text-[#252C32] text-[14px] px-3 py-2 border-b ${
-                  selectedTab === index ? 'font-[600]' : 'font-[400]'
-                } py-[8px] cursor-pointer duration-500 font-content whitespace-nowrap hover:bg-gray-200`}
-                onClick={() => setSelectedTab(index)}
-              >
-                {tab.label}
-              </li>
-            ))}
-          </ul>
-        }
-      />
+      <Dropdown label={<FilterIcon className="size-6" />} side="right">
+        <ul className="bg-white w-auto shadow-md border-0.5 rounded-lg py-2 border">
+          {tabs.map((tab, index) => (
+            <li
+              key={index}
+              className={`text-[#252C32] text-[14px] px-3 py-2 border-b ${
+                selectedTab === index ? 'font-[600]' : 'font-[400]'
+              } py-[8px] cursor-pointer duration-500 font-content whitespace-nowrap hover:bg-gray-200`}
+              onClick={() => setSelectedTab(index)}
+            >
+              {tab.label}
+            </li>
+          ))}
+        </ul>
+      </Dropdown>
     </div>
   );
 };

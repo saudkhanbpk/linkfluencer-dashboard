@@ -9,7 +9,11 @@ interface PeriodSelectorProps {
   isMobile: boolean;
 }
 
-const PeriodSelector: React.FC<PeriodSelectorProps> = ({ limit, setLimit, isMobile }) => {
+const PeriodSelector: React.FC<PeriodSelectorProps> = ({
+  limit,
+  setLimit,
+  isMobile,
+}) => {
   const periods: TimeInterval[] = ['day', 'week', 'year'];
 
   return isMobile ? (

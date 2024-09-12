@@ -21,11 +21,11 @@ export const sidebarData = [
     icon: '/assets/analyticsIcon.svg',
     route: ROUTES.ANALYTICS,
   },
-  {
-    label: 'User Management',
-    icon: '/assets/users.svg',
-    route: ROUTES.USER_MANAGEMENT,
-  },
+  // {
+  //   label: 'User Management',
+  //   icon: '/assets/users.svg',
+  //   route: ROUTES.USER_MANAGEMENT,
+  // },
   {
     label: 'Compaign',
     icon: '/assets/compaignIcon.svg',

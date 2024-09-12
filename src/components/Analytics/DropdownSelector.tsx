@@ -9,14 +9,19 @@ interface DropdownSelectorProps {
   setLimit: (value: TimeInterval) => void;
 }
 
-const DropdownSelector: React.FC<DropdownSelectorProps> = ({ limit, setLimit }) => {
+const DropdownSelector: React.FC<DropdownSelectorProps> = ({
+  limit,
+  setLimit,
+}) => {
   const periods: TimeInterval[] = ['day', 'week', 'year'];
 
   return (
     <Dropdown
       label={
         <div className="flex gap-2 items-center">
-          <span className="text-[#4D494F] font-header">{capitalizeFirstLetter(limit)}</span>
+          <span className="text-[#4D494F] font-header">
+            {capitalizeFirstLetter(limit)}
+          </span>
           <FilterIcon className="size-4" />
         </div>
       }

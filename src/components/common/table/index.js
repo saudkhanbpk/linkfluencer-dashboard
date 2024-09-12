@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Pagination from './pagination';
 import useDeviceDetect from '../../../helpers/screens';
 const Index = (Props) => {
-  const [selectAll, setSelectAll] = useState(false)
+  const [selectAll, setSelectAll] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(8);
   const [limit] = useState({
@@ -12,7 +12,6 @@ const Index = (Props) => {
 
   const { isMobile } = useDeviceDetect();
 
-  // Calculate the start and end index of items to be displayed
   const startIndex = (currentPage - 1) * itemsPerPage;
 
   const endIndex = startIndex + itemsPerPage;
@@ -22,24 +21,20 @@ const Index = (Props) => {
     setCurrentPage(page);
   };
 
-  const handleSelect = (id) =>{
-    console.log(Props.selectedLinks);
-    console.log("this is the ID", id);
-    
-    
-    Props.handleSelectLink(id)
-  }
+  const handleSelect = (id) => {
+    Props.handleSelectLink(id);
+  };
 
-  const handleSelectAll = () =>{
-    if(selectAll){
-      Props.setSelectedData([])
-      setSelectAll(false)
-    }else{
-      const data = currentItems.map(item => item._id);
-      Props.setSelectedData(data)
-      setSelectAll(true)
+  const handleSelectAll = () => {
+    if (selectAll) {
+      Props.setSelectedData([]);
+      setSelectAll(false);
+    } else {
+      const data = currentItems.map((item) => item._id);
+      Props.setSelectedData(data);
+      setSelectAll(true);
     }
-  }
+  };
   return (
     <div>
       <div className="flex flex-col mt-4 -z-50">
@@ -55,7 +50,12 @@ const Index = (Props) => {
                     {Props.tableData?.select && (
                       <th>
                         <div className="flex justify-center px-2 w-[60px]">
-                          <input type="checkbox" className="w-5 h-5" onClick={handleSelectAll} checked={selectAll}/>
+                          <input
+                            type="checkbox"
+                            className="w-5 h-5"
+                            onClick={handleSelectAll}
+                            checked={selectAll}
+                          />
                         </div>
                       </th>
                     )}
@@ -82,7 +82,14 @@ const Index = (Props) => {
                       {Props.tableData.select && (
                         <td>
                           <div className="flex items-center py-5 px-5 w-[60px]">
-                            <input type="checkbox" className="w-5 h-5" checked={Props.selectedData.includes(data._id)}  onClick={()=>{handleSelect(data._id)}}/>
+                            <input
+                              type="checkbox"
+                              className="w-5 h-5"
+                              checked={Props.selectedData.includes(data._id)}
+                              onClick={() => {
+                                handleSelect(data._id);
+                              }}
+                            />
                           </div>
                         </td>
                       )}

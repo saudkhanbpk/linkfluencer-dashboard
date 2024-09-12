@@ -41,15 +41,15 @@ export const updateLink = (userId: string, link: ILink) => {
     console.error('Error when updating link', error);
     return null;
   }
-}
+};
 
 export const deleteLinks = (userId: string, linksId: string[]) => {
   const data = {
-    linkIds:linksId,
-  }
+    linkIds: linksId,
+  };
   try {
     return axiosInstance.delete(`/users/${userId}/links`, {
-      data
+      data,
     });
   } catch (error) {
     console.error('Error when creating link', error);
@@ -57,9 +57,14 @@ export const deleteLinks = (userId: string, linksId: string[]) => {
   }
 };
 
-export const getTotalClicksForLink = async (userId: string, linkId: string): Promise<any | null> => {
+export const getTotalClicksForLink = async (
+  userId: string,
+  linkId: string,
+): Promise<any | null> => {
   try {
-    const response = await axiosInstance.get(`/users/${userId}/links/${linkId}/total-clicks`);
+    const response = await axiosInstance.get(
+      `/users/${userId}/links/${linkId}/total-clicks`,
+    );
     return response.data;
   } catch (error) {
     console.error('Error when fetching clicks for link', error);
@@ -67,9 +72,14 @@ export const getTotalClicksForLink = async (userId: string, linkId: string): Pro
   }
 };
 
-export const getClicksTrendForLink = async (userId: string, linkId: string): Promise<any | null> => {
+export const getClicksTrendForLink = async (
+  userId: string,
+  linkId: string,
+): Promise<any | null> => {
   try {
-    const response = await axiosInstance.get(`/users/${userId}/links/${linkId}/clicks-trend`);
+    const response = await axiosInstance.get(
+      `/users/${userId}/links/${linkId}/clicks-trend`,
+    );
     return response.data;
   } catch (error) {
     console.error('Error when fetching clicks trend for link', error);
@@ -77,9 +87,14 @@ export const getClicksTrendForLink = async (userId: string, linkId: string): Pro
   }
 };
 
-export const getTopCountryByLink = async (userId: string, linkId: string): Promise<any | null> => {
+export const getTopCountryByLink = async (
+  userId: string,
+  linkId: string,
+): Promise<any | null> => {
   try {
-    const response = await axiosInstance.get(`/users/${userId}/links/${linkId}/top-country`);
+    const response = await axiosInstance.get(
+      `/users/${userId}/links/${linkId}/top-country`,
+    );
     return response.data;
   } catch (error) {
     console.error('Error when fetching top country for link', error);
@@ -87,9 +102,14 @@ export const getTopCountryByLink = async (userId: string, linkId: string): Promi
   }
 };
 
-export const getTopCityByLink = async (userId: string, linkId: string): Promise<any | null> => {
+export const getTopCityByLink = async (
+  userId: string,
+  linkId: string,
+): Promise<any | null> => {
   try {
-    const response = await axiosInstance.get(`/users/${userId}/links/${linkId}/top-city`);
+    const response = await axiosInstance.get(
+      `/users/${userId}/links/${linkId}/top-city`,
+    );
     return response.data;
   } catch (error) {
     console.error('Error when fetching top city for link', error);
@@ -97,22 +117,36 @@ export const getTopCityByLink = async (userId: string, linkId: string): Promise<
   }
 };
 
-export const getBestAverageTimeToEngageByLink = async (userId: string, linkId: string): Promise<any | null> => {
+export const getBestAverageTimeToEngageByLink = async (
+  userId: string,
+  linkId: string,
+): Promise<any | null> => {
   try {
-    const response = await axiosInstance.get(`/users/${userId}/links/${linkId}/top-average-time-to-engage`);
+    const response = await axiosInstance.get(
+      `/users/${userId}/links/${linkId}/top-average-time-to-engage`,
+    );
     return response.data;
   } catch (error) {
-    console.error('Error when fetching best average time to engage for link', error);
+    console.error(
+      'Error when fetching best average time to engage for link',
+      error,
+    );
     return null;
   }
 };
 
-
-export const UserVisit = async (userId: string, linkId: string, interval: TimeInterval)=> {
+export const UserVisit = async (
+  userId: string,
+  linkId: string,
+  interval: TimeInterval,
+) => {
   try {
-    const response = await axiosInstance.get(`/users/${userId}/links/${linkId}/clicks-by-interval`, {
-      params: {interval},
-    });
+    const response = await axiosInstance.get(
+      `/users/${userId}/links/${linkId}/clicks-by-interval`,
+      {
+        params: { interval },
+      },
+    );
 
     return response.data;
   } catch (error) {
@@ -121,11 +155,17 @@ export const UserVisit = async (userId: string, linkId: string, interval: TimeIn
   }
 };
 
-export const getTopSources = async (userId: string, interval?: TimeInterval)=> {
+export const getTopSources = async (
+  userId: string,
+  interval?: TimeInterval,
+) => {
   try {
-    const response = await axiosInstance.get(`/users/${userId}/links/top-apps`, {
-      params: {interval},
-    });
+    const response = await axiosInstance.get(
+      `/users/${userId}/links/top-apps`,
+      {
+        params: { interval },
+      },
+    );
 
     return response.data;
   } catch (error) {
@@ -133,4 +173,3 @@ export const getTopSources = async (userId: string, interval?: TimeInterval)=> {
     return null;
   }
 };
-
