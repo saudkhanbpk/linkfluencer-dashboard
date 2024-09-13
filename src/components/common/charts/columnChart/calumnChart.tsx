@@ -7,7 +7,9 @@ interface ApexColumnChartProps {
 }
 
 const ApexColumnChart: React.FC<ApexColumnChartProps> = ({ clickData }) => {
-  const [series, setSeries] = useState([{ name: 'Clicks', data: [] as number[] }]);
+  const [series, setSeries] = useState([
+    { name: 'Clicks', data: [] as number[] },
+  ]);
   const [categories, setCategories] = useState<string[]>([]);
 
   useEffect(() => {
@@ -18,7 +20,7 @@ const ApexColumnChart: React.FC<ApexColumnChartProps> = ({ clickData }) => {
     }
 
     const sortedData = Object.entries(clickData).sort(
-      ([a], [b]) => new Date(a).getTime() - new Date(b).getTime()
+      ([a], [b]) => new Date(a).getTime() - new Date(b).getTime(),
     );
 
     const data = sortedData.map(([_, value]) => value);

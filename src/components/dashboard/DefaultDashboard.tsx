@@ -37,14 +37,16 @@ const DefaultDashboard: React.FC<DefaultDashboardProps> = ({
 
   const { user } = userContext;
 
-  const openModal = useCallback((type: ModalType, id: string) => {
-    const link = links.find((link) => link._id === id);
-
-    if (link) {
-      setSelectedLink(link);
-      setModalType(type);
-    }
-  }, [links]);
+  const openModal = useCallback(
+    (type: ModalType, id: string) => {
+      const link = links.find((link) => link._id === id);
+      if (link) {
+        setSelectedLink(link);
+        setModalType(type);
+      }
+    },
+    [links],
+  );
 
   const closeModal = useCallback(() => {
     setModalType(null);
@@ -80,7 +82,7 @@ const DefaultDashboard: React.FC<DefaultDashboardProps> = ({
       )}
       {modalType === 'share' && selectedLink && (
         <Model isOpen onClose={closeModal}>
-          <LinkShareCard  handleShareModalClose={closeModal}/>
+          <LinkShareCard handleShareModalClose={closeModal} />
         </Model>
       )}
 
@@ -93,6 +95,7 @@ const DefaultDashboard: React.FC<DefaultDashboardProps> = ({
             setSelectedTab={setSelectedTab}
           />
         </div>
+        {/* LinksList rendue avec React.memo pour éviter le re-render global */}
         <LinksList
           links={links}
           minimize={false}
@@ -105,5 +108,4 @@ const DefaultDashboard: React.FC<DefaultDashboardProps> = ({
     </div>
   );
 };
-
 export default DefaultDashboard;

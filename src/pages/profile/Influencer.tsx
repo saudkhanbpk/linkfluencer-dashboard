@@ -4,81 +4,111 @@ import { UserContext } from "../../context/UserContext";
 import { UserPassword, UserProfile, UserUpdate } from "../../services/userService";
 import { useContext, useEffect, useState } from "react";
 import { formatISODateToDMY } from "../../utils/DateIosToDMY";
+import { getCountriesData } from "../../utils/countryUtils";
+import CountriesDropdown from "../../components/common/CountriesDropdown";
 
 const Influencer: React.FC = () => {
   const [values, setValues] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    status: "",
-    gender: "",
-    country: "",
-    city: "",
-    mobileNumber: "",
-    address: "",
-    postalCode: "",
-    birthDate: "",
+    firstName: '',
+    lastName: '',
+    email: '',
+    status: '',
+    gender: '',
+    country: '',
+    city: '',
+    mobileNumber: '',
+    address: '',
+    postalCode: '',
+    birthDate: '',
   });
+
   const [passValues, setPassValues] = useState({
-    oldPassword:"",
-    newPassword:"",
-    conformNewPassword:""
-  })
+    oldPassword: '',
+    newPassword: '',
+    conformNewPassword: '',
+  });
+
+  const [countries, setCountries] = useState<
+    {
+      name: string;
+      iso2: string;
+      iso3: string;
+      dialCode: string;
+      flag: string;
+    }[]
+  >([]);
+  const [selectedDialCode, setSelectedDialCode] = useState<string>('');
+  const [selectedFlag, setSelectedFlag] = useState<string>('');
+
   const userContext = useContext(UserContext);
   if (!userContext) {
-    throw new Error("useContext must be used within a UserProvider");
+    throw new Error('useContext must be used within a UserProvider');
   }
   const { user } = userContext;
 
-  const handleChange = (e: { target: { value: any; name: any } }) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
+  ) => {
     const { value, name } = e.target;
-    setValues((preValues) => {
-      return {
-        ...preValues,
-        [name]: value,
-      };
-    });
+    setValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
   };
-  const handlePassChange = (e:any) =>{
+
+  const handlePassChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
-    setPassValues((preValues) => {
-      return {
-        ...preValues,
-        [name]: value,
-      };
-    });
-  }
+    setPassValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+  };
 
   const handleEdit = async () => {
     if (user && user._id) {
-      const updatedUser = await UserUpdate(user._id, values);
-      console.log(updatedUser);
-
-      setValues(updatedUser);
+      try {
+        const updatedUser = await UserUpdate(user._id, values);
+        setValues(updatedUser);
+        alert('Profile updated successfully');
+      } catch (error) {
+        alert('Failed to update profile');
+      }
     }
   };
 
-  const handleUpdatePassword = async () =>{
-    if(passValues.oldPassword === passValues.conformNewPassword){
+  const handleUpdatePassword = async () => {
+    if (passValues.newPassword === passValues.conformNewPassword) {
       if (user && user._id) {
-        const response = await UserPassword(user._id, {oldPassword:passValues.oldPassword, newPassword:passValues.newPassword});
-        console.log(response);
+        try {
+          await UserPassword(user._id, {
+            oldPassword: passValues.oldPassword,
+            newPassword: passValues.newPassword,
+          });
+          alert('Password updated successfully');
+        } catch (error) {
+          alert('Failed to update password');
+        }
       }
-    }else{
-      alert("Old Password does not match")
+    } else {
+      alert('New passwords do not match');
     }
-  }
+  };
+
   useEffect(() => {
     const getUserProfile = async () => {
       if (user && user._id) {
         const userData = await UserProfile(user._id);
-        console.log(userData);
-
-        setValues({...userData, birthDate:formatISODateToDMY(userData?.birthDate)});
+        setValues({
+          ...userData,
+          birthDate: formatISODateToDMY(userData?.birthDate),
+        });
       }
     };
+    setCountries(getCountriesData());
     getUserProfile();
-  }, []);
+  }, [user]);
 
   return (
     <div>
@@ -95,7 +125,7 @@ const Influencer: React.FC = () => {
           <span className="text-sm leading-none mt-4 mb-5 text-[#4F4949] font-content">
             Complete Your Profile for a Personalized Experience!
           </span>
-          <button className=" border-[1px] w-[150px] text-sm md:w-auto border-[#113E53] font-bold bg-[#113E53] rounded-full px-[20px] py-[8px] text-white font-header">
+          <button className="border-[1px] w-[150px] text-sm md:w-auto border-[#113E53] font-bold bg-[#113E53] rounded-full px-[20px] py-[8px] text-white font-header">
             Upload Photo
           </button>
         </div>
@@ -105,26 +135,29 @@ const Influencer: React.FC = () => {
             placeholder="First Name"
             onChange={handleChange}
             name="firstName"
-            value={values?.firstName}
+            value={values.firstName}
             className="p-2 rounded-full border border-[#B3B3B2] w-full mb-4 outline-none"
           />
           <input
             type="text"
             placeholder="Last Name"
             onChange={handleChange}
-            value={values?.lastName}
+            value={values.lastName}
             name="lastName"
             className="p-2 rounded-full border border-[#B3B3B2] w-full mb-4 outline-none"
           />
           <select
             className="p-2 rounded-full border border-[#B3B3B2] w-full mb-4"
-            value={values?.gender}
+            value={values.gender}
             name="gender"
             onChange={handleChange}
           >
-            <option selected value="" disabled>
+            <option value="" disabled>
               Select Gender
             </option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
           </select>
           <input
             type="text"
@@ -144,23 +177,16 @@ const Influencer: React.FC = () => {
           />
           <div className="rounded-full border border-[#B3B3B2] w-full mb-4 outline-none flex">
             <div className="border h-full rounded-l-full bg-gray-100 p-1 w-1/4 flex justify-center items-center gap-3 border-r border-gray-300">
-              <Dropdown
-                side="left"
-                label={<span className="rounded-l-full">+92</span>}
-              >
-                <ul>
-                  <li>+92</li>
-                  <li>+93</li>
-                  <li>+94</li>
-                  <li>+95</li>
-                  <li>+96</li>
-                </ul>
-              </Dropdown>
+              <CountriesDropdown
+                countries={countries}
+                setSelectedDialCode={setSelectedDialCode}
+                setSelectedFlag={setSelectedFlag}
+                selectedDialCode={selectedDialCode}
+                selectedFlag={selectedFlag}
+              />
               <DropIcon
-                className={"text-gray-500 size-4"}
-                onClick={() => {
-                  console.log("hello");
-                }}
+                className="text-gray-500 size-4"
+                onClick={console.log()}
               />
             </div>
             <input
@@ -172,12 +198,6 @@ const Influencer: React.FC = () => {
               className="border w-full rounded-r-full px-2"
             />
           </div>
-          {/* <input type='text' placeholder='Email Address' className='p-3 rounded-full border border-[#B3B3B2] w-full mb-4 outline-none'/> */}
-          {/* <select className="p-3 rounded-full border border-[#B3B3B2] w-full">
-            <option selected value="" disabled>
-              Select Gender
-            </option>
-          </select> */}
         </div>
         <div className="md:w-5/12 flex flex-col justify-between">
           <input
@@ -188,7 +208,6 @@ const Influencer: React.FC = () => {
             name="country"
             className="p-2 rounded-full border border-[#B3B3B2] w-full mb-4 outline-none"
           />
-          {/* <input type='text' placeholder='Enter Address' className='p-3 h-[100px] rounded-3xl border border-[#B3B3B2] w-full mb-4 outline-none'/> */}
           <textarea
             placeholder="Enter Address"
             value={values.address}
@@ -239,7 +258,7 @@ const Influencer: React.FC = () => {
           />
           <input
             type="password"
-            placeholder="Old Password"
+            placeholder="Confirm New Password"
             value={passValues.conformNewPassword}
             name="conformNewPassword"
             onChange={handlePassChange}
@@ -259,9 +278,10 @@ const Influencer: React.FC = () => {
         <button className="md:mt-0 md:ml-2 ml-0 border-[1px] w-[120px] font-bold bg-[#F1F5F9] rounded-full px-[20px] py-[8px] text-[#113E53] font-header">
           Cancel
         </button>
-        <button 
-        onClick={handleUpdatePassword}
-        className="md:mt-0 md:ml-2 ml-0 border-[1px] w-[120px] border-[#113E53] font-bold bg-[#113E53] rounded-full px-[20px] py-[8px] text-white font-header">
+        <button
+          onClick={handleUpdatePassword}
+          className="md:mt-0 md:ml-2 ml-0 border-[1px] w-[120px] border-[#113E53] font-bold bg-[#113E53] rounded-full px-[20px] py-[8px] text-white font-header"
+        >
           Save
         </button>
       </div>

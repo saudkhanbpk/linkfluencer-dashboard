@@ -39,7 +39,7 @@ const LineChart = ({ indicateUp = true }) => {
     },
     yaxis: {
       title: {
-       show:false
+        show: false,
       },
       labels: {
         formatter: function (value) {
@@ -76,11 +76,7 @@ const LineChart = ({ indicateUp = true }) => {
 
   return (
     <div className="areachar w-full max-h-3/5">
-      <ReactApexChart
-        options={options}
-        series={series}
-        type="area"
-      />
+      <ReactApexChart options={options} series={series} type="area" />
     </div>
   );
 };

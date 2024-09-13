@@ -1,10 +1,32 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import ProgressBar from '../common/ProgressBar';
 import { useMinimizeContext } from '../../context/LayoutContext';
 import { sidebarData } from '../../config/sidebarData';
+import { UserContext } from '../../context/UserContext';
+import { useContext, useEffect, useState } from 'react';
+import { ProfileCompletion } from '../../services/userService';
 
 const Sidebar = () => {
+  const navigate = useNavigate();
   const { minimize, setMinimize } = useMinimizeContext();
+  const { user } = useContext(UserContext) || {};
+  const [completion, setCompletion] = useState(0);
+
+  useEffect(() => {
+    const fetchProfileCompletion = async () => {
+      if (!user) return;
+      const data = await ProfileCompletion(user._id);
+
+      setCompletion(data);
+    };
+    fetchProfileCompletion();
+  }, [user]);
+
+  const displayCompletion = () => completion !== 100 && !minimize;
+
+  const handleCompleteProfileClick = () => {
+    navigate('/profile');
+  };
 
   return (
     <div className="relative flex flex-col justify-between w-full border p-[24px] bg-[#FCFCFC] min-h-[90vh]">
@@ -64,20 +86,23 @@ const Sidebar = () => {
         ))}
       </ul>
       <div className="">
-        {!minimize && (
+        {displayCompletion() && (
           <div className="mt-[24px]">
             <div className="bg-[#F0F5FF] p-[15px] rounded-lg overflow-hidden">
               <h1 className="font-header text-[24px] font-[700] whitespace-nowrap">
-                Hi Rahul
+                Hi {user?.firstName}
               </h1>
               <span className="text-[14px] mt-[10px] leading-none font-content whitespace-nowrap">
                 {' '}
                 Your Profile is left Incomplete
               </span>
               <div className="my-[24px]">
-                <ProgressBar completed={74} />
+                <ProgressBar completed={completion} />
               </div>
-              <button className="w-full whitespace-nowrap border-[1px] border-[#113E53] font-bold bg-white rounded-full px-[20px] py-[12px] text-[#113E53] font-header">
+              <button
+                className="w-full whitespace-nowrap border-[1px] border-[#113E53] font-bold bg-white rounded-full px-[20px] py-[12px] text-[#113E53] font-header"
+                onClick={handleCompleteProfileClick}
+              >
                 Complete Profile
               </button>
             </div>

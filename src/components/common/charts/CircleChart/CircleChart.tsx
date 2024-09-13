@@ -9,8 +9,11 @@ interface CircleChartProps {
 
 const CircleChart: React.FC<CircleChartProps> = ({ countries = [] }) => {
   const maxValue = useMemo(
-    () => (countries.length > 0 ? Math.max(...countries.map((country) => country.clicks)) : 1),
-    [countries]
+    () =>
+      countries.length > 0
+        ? Math.max(...countries.map((country) => country.clicks))
+        : 1,
+    [countries],
   );
 
   const generateLegendValues = (max: number) => {
@@ -25,8 +28,13 @@ const CircleChart: React.FC<CircleChartProps> = ({ countries = [] }) => {
     <div className="flex flex-col space-y-4 lg:space-y-6">
       <div className="grid grid-cols-2 gap-y-4 gap-x-4 lg:grid-cols-3 lg:gap-y-6 lg:gap-x-12">
         {countries.map((country) => (
-          <div key={country.country} className="flex items-center justify-between lg:gap-6">
-            <span className="text-gray-700 lg:text-base">{country.country}</span>
+          <div
+            key={country.country}
+            className="flex items-center justify-between lg:gap-6"
+          >
+            <span className="text-gray-700 lg:text-base">
+              {country.country}
+            </span>
             <Circle value={country.clicks} maxValue={maxValue} />
           </div>
         ))}
@@ -35,7 +43,9 @@ const CircleChart: React.FC<CircleChartProps> = ({ countries = [] }) => {
         {legendValues.map((val, index) => (
           <div key={index} className="flex flex-col items-center">
             <Rectangle value={val} maxValue={maxValue} />
-            <span className="text-sm text-gray-500">{val >= 1000 ? `${val / 1000}k` : val}</span>
+            <span className="text-sm text-gray-500">
+              {val >= 1000 ? `${val / 1000}k` : val}
+            </span>
           </div>
         ))}
       </div>

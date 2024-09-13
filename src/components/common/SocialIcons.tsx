@@ -10,11 +10,15 @@ import {
 
 const socialIconsList = [
   {
-    icon: <FacebookIcon className="size-8 text-[#113E53]" onClick={undefined} />,
+    icon: (
+      <FacebookIcon className="size-8 text-[#113E53]" onClick={undefined} />
+    ),
     label: 'Facebook',
   },
   {
-    icon: <InstagramIcon className="size-8 text-[#113E53]" onClick={undefined} />,
+    icon: (
+      <InstagramIcon className="size-8 text-[#113E53]" onClick={undefined} />
+    ),
     label: 'Instagram',
   },
   {
@@ -22,7 +26,9 @@ const socialIconsList = [
     label: 'Twitter',
   },
   {
-    icon: <WhatsappIcon className="size-8 text-[#113E53]" onClick={undefined} />,
+    icon: (
+      <WhatsappIcon className="size-8 text-[#113E53]" onClick={undefined} />
+    ),
     label: 'Whatsapp',
   },
   {
@@ -30,7 +36,9 @@ const socialIconsList = [
     label: 'E-mail',
   },
   {
-    icon: <ShareFilledIcon className="size-8 text-[#113E53]" onClick={undefined} />,
+    icon: (
+      <ShareFilledIcon className="size-8 text-[#113E53]" onClick={undefined} />
+    ),
     label: 'More',
   },
 ];

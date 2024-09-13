@@ -1,9 +1,6 @@
-import { useContext, useEffect, useState } from "react";
-// import LinkSquare from '../components/common/cards/LinkSquare';
-import { LinksData } from "../sampleData";
-import Table from "../components/common/table";
+import { useContext, useEffect, useState } from 'react';
+import Table from '../components/common/table';
 import {
-  CrossIcon,
   DeleteIcon,
   FilterIcon,
   FourSquarIcon,
@@ -12,19 +9,18 @@ import {
   MaximizeArrows,
   MenimizeArrows,
   SearchIcon,
-} from "../svg";
-import Indicate from "../components/common/cards/Indicate";
-import Dropdown from "../components/common/Dropdown";
-import Model from "../components/common/models/Model";
-import LinkDetailsCard from "../components/common/cards/LinkDetails";
-import LinkEditCard from "../components/common/cards/LinkEdit";
-import { deleteLinks, getUserLinks, updateLink } from "../services/linkService";
-import User from "./profile/User";
-import { UserContext } from "../context/UserContext";
-import LinkSquare from "../components/common/cards/LinkSquare";
-import { ILink } from "../interfaces/Link";
-import axios from "axios";
-import LinkShareCard from "../components/LinkShareCard/LinkShare";
+} from '../svg';
+import Dropdown from '../components/common/Dropdown';
+import Model from '../components/common/models/Model';
+import LinkDetailsCard from '../components/common/cards/LinkDetails';
+import LinkEditCard from '../components/common/cards/LinkEdit';
+import { deleteLinks, getUserLinks, updateLink } from '../services/linkService';
+import { UserContext } from '../context/UserContext';
+import LinkSquare from '../components/common/cards/LinkSquare';
+import { ILink } from '../interfaces/Link';
+import LinkShareCard from '../components/LinkShareCard/LinkShare';
+import { fetchIcon } from '../utils/iconUtils';
+import { capitalizeFirstLetter } from '../utils/caseUtils';
 
 const MyLinks: React.FC = () => {
   const [minimize, setMinimize] = useState(false);
@@ -34,81 +30,92 @@ const MyLinks: React.FC = () => {
   const [filteredData, setFilteredData] = useState<any>([]);
   const [selectAll, setSelectAll] = useState(false);
   const [data, setData] = useState<any>([]);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
-  const [isLoading, setIsLoading] = useState(false);
-  const API_URL = "http://localhost:5005";
   const [edit, setEdit] = useState<any>({
-    logo: "",
-    targetSite: "",
-    originalUrl: "",
+    logo: '',
+    targetSite: '',
+    originalUrl: '',
     tags: [],
   });
   const [details, setDetails] = useState<any>({
-    logo: "",
-    targetSite: "",
-    originalUrl: "",
+    logo: '',
+    targetSite: '',
+    originalUrl: '',
     tags: [],
   });
   const userContext = useContext(UserContext);
   if (!userContext) {
-    throw new Error("useContext must be used within a UserProvider");
+    throw new Error('useContext must be used within a UserProvider');
   }
   const { user } = userContext;
   const columns = [
     {
-      title: "targetSite",
-      key: "targetSite",
-      width: "140px",
-      headerAlign: "left",
-      dataIndex: "targetSite",
-      cellAlign: "left",
+      title: 'Channel',
+      key: 'targetSite',
+      width: '20%',
+      headerAlign: 'left',
+      dataIndex: 'targetSite',
+      cellAlign: 'left',
       render: (row: any) => (
         <div className="flex items-center">
-          <img src={row.logo} alt="logo" className="w-6 h-6 mr-2" />
-          <span>{row.targetSite}</span>
+          <img
+            src={fetchIcon(row.targetSite)}
+            alt="logo"
+            className="w-6 h-6 mr-2"
+          />
+          <span>{capitalizeFirstLetter(row.targetSite)}</span>
         </div>
       ),
     },
     {
-      title: "Link",
-      dataIndex: "shortUrl",
-      key: "shortUrl",
-      width: "400px",
-      headerAlign: "left",
-      cellAlign: "left",
+      title: 'Link',
+      dataIndex: 'shortUrl',
+      key: 'shortUrl',
+      width: '40%',
+      headerAlign: 'left',
+      cellAlign: 'left',
+      render: (row: any) => (
+        <div className="flex items-center">
+          <span>{`linkfluencer.io/${row.shortUrl}`}</span>
+        </div>
+      ),
     },
     {
-      title: "Total Clicked",
-      dataIndex: "clickCount",
+      title: 'Total Clicked',
+      dataIndex: 'clickCount',
       render: (row: any) => (
         <div className="flex items-center">
           <label className="mr-2">{row.clickCount}</label>
-          <Indicate
+          {/* <Indicate
             direction={row.indicateUp ? "up" : "down"}
             percent={row.percent}
-          />
+          /> */}
         </div>
       ),
-      key: "clickCount",
-      width: "150px",
-      headerAlign: "left",
-      cellAlign: "left",
+      key: 'clickCount',
+      width: '20%',
+      headerAlign: 'left',
+      cellAlign: 'left',
     },
     {
-      title: "Category",
-      dataIndex: "tags",
+      title: 'Category',
+      dataIndex: 'tags',
       render: (row: any) =>
-        row.tags.map((val: any) => {
-          return <span className="text-blue-500 font-content mr-2">{val}</span>;
+        row.tags.map((val: any, index: number) => {
+          return (
+            <span key={index} className="text-blue-500 font-content mr-2">
+              {val}
+            </span>
+          );
         }),
-      key: "tags",
-      width: "",
-      headerAlign: "left",
-      cellAlign: "left",
+      key: 'tags',
+      width: '20%',
+      headerAlign: 'left',
+      cellAlign: 'left',
     },
   ];
   const tableData = {
@@ -124,7 +131,7 @@ const MyLinks: React.FC = () => {
     setSelectedData(() => {
       if (selectedData?.includes(value)) {
         const filteredLinks = selectedData.filter((val: any) => {
-          return val != value;
+          return val !== value;
         });
         setSelectedData(filteredLinks);
       } else {
@@ -145,22 +152,20 @@ const MyLinks: React.FC = () => {
   const handleDeleteLinks = async () => {
     if (user && user._id) {
       await deleteLinks(user._id, selectedData)
-        ?.then((resp) => {
-          console.log("this is response ===>>", resp);
+        ?.then(() => {
           const newData = filteredData.filter((val: any) => {
             return !selectedData.includes(val._id);
           });
-          console.log(newData);
 
           setFilteredData(newData);
         })
         .catch((err) => {
-          console.log("this is error ===>", err);
+          console.log(err);
         });
     }
   };
   const detailsModelOpen = (value: any) => {
-    const data = filteredData.find((val:ILink, index:any) => {
+    const data = filteredData.find((val: ILink) => {
       return val._id === value;
     });
     setDetails(data);
@@ -188,7 +193,7 @@ const MyLinks: React.FC = () => {
       const response = await updateLink(user._id, updatedLink);
       if (response?.status == 200) {
         const updatedArray = filteredData.map((obj: { _id: any }) =>
-          obj._id === response?.data._id ? response?.data : obj
+          obj._id === response?.data._id ? response?.data : obj,
         );
         setFilteredData(updatedArray);
         setIsEditModalOpen(false);
@@ -196,15 +201,14 @@ const MyLinks: React.FC = () => {
     }
   };
 
-  const sortByClicks = (order: "asc" | "desc" = "asc") => {
+  const sortByClicks = (order: 'asc' | 'desc' = 'asc') => {
     const sortedData = [...data].sort((a: any, b: any) => {
-      if (order === "asc") {
+      if (order === 'asc') {
         return a.clickCount - b.clickCount;
       } else {
         return b.clickCount - a.clickCount;
       }
     });
-    console.log(sortedData);
 
     setFilteredData(sortedData);
   };
@@ -212,8 +216,8 @@ const MyLinks: React.FC = () => {
   useEffect(() => {
     const results = data.filter((item: any) =>
       Object.values(item).some((val) =>
-        String(val).toLowerCase().includes(searchTerm.toLowerCase())
-      )
+        String(val).toLowerCase().includes(searchTerm.toLowerCase()),
+      ),
     );
     setFilteredData(results);
   }, [searchTerm]); // Add originalData to the dependency array
@@ -221,22 +225,13 @@ const MyLinks: React.FC = () => {
   useEffect(() => {
     const fetchUserLinks = async () => {
       if (user && user._id) {
-        const links = await getUserLinks(user._id, {
-          // sortBy: tabs[selectedTab].value,
-          // page: 1,
-          // limit: 3,
-        });
-        console.log("this is it ===>>>>", { links });
+        const links = await getUserLinks(user._id);
         setData(links);
         setFilteredData(links);
       }
     };
     fetchUserLinks();
   }, []);
-
-  useEffect(() => {
-    console.log(selectedData);
-  }, [selectedData]);
 
   return (
     <div className="w-full border pb-2 relative">
@@ -254,7 +249,7 @@ const MyLinks: React.FC = () => {
         />
       </Model>
       <Model isOpen={isShareModalOpen} onClose={handleShareModalClose}>
-      <LinkShareCard  handleShareModalClose={handleShareModalClose}/>
+        <LinkShareCard handleShareModalClose={handleShareModalClose} />
       </Model>
       <div className="flex flex-col p-[24px]">
         <div>
@@ -278,7 +273,7 @@ const MyLinks: React.FC = () => {
         {!isDelete ? (
           <div className="flex flex-col md:flex-row md:items-center justify-between">
             <div className="border-b-2 flex items-center w-full md:w-[300px]">
-              <SearchIcon className={"size-5 text-gray-400"} />
+              <SearchIcon className={'size-5 text-gray-400'} />
               <input
                 type="text"
                 placeholder="Search"
@@ -335,7 +330,7 @@ const MyLinks: React.FC = () => {
                     <li
                       className=" w-full px-4  font-content py-2 border-b"
                       onClick={() => {
-                        sortByClicks("desc");
+                        sortByClicks('desc');
                       }}
                     >
                       Hight to Low Clicks
@@ -343,7 +338,7 @@ const MyLinks: React.FC = () => {
                     <li
                       className=" w-full px-4  font-content py-2 border-b"
                       onClick={() => {
-                        sortByClicks("asc");
+                        sortByClicks('asc');
                       }}
                     >
                       Low to High Clicks
@@ -359,7 +354,7 @@ const MyLinks: React.FC = () => {
               </div>
               <div className="p-2 rounded-full hover:bg-gray-100 duration-200">
                 <DeleteIcon
-                  className={"size-5 cursor-pointer"}
+                  className={'size-5 cursor-pointer'}
                   onClick={() => {
                     setIsDelete(true);
                   }}

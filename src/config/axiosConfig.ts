@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { toast } from 'react-toastify';
 
 const API_URL = 'http://localhost:5005';
 
@@ -25,18 +24,16 @@ api.interceptors.response.use(
           return api(originalRequest);
         } else {
           handleLogout();
-          toast.error('Session expired, please log in again.');
         }
       } catch (refreshError) {
         handleLogout();
-        toast.error('Session expired, please log in again.');
         window.location.href = 'http://localhost:3000/signin';
         return Promise.reject(refreshError);
       }
     }
 
     return Promise.reject(error);
-  }
+  },
 );
 
 export const refreshAccessToken = async () => {
@@ -59,7 +56,6 @@ export const handleLogout = async () => {
     await api.post('/auth/logout');
     updateUserState(null);
     window.location.href = 'http://localhost:3000/signin';
-    toast.info('You have been logged out.');
   } catch (error) {
     window.location.href = 'http://localhost:3000/signin';
     console.error('Logout failed:', error);

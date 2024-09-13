@@ -12,23 +12,23 @@ interface TopSourcesSwiperProps {
   topSources?: Source[];
 }
 
-const TopSourcesSwiper: React.FC<TopSourcesSwiperProps> = ({ topSources = [] }) => {
-  // Calculate the total count of all sources
+const TopSourcesSwiper: React.FC<TopSourcesSwiperProps> = ({
+  topSources = [],
+}) => {
   const totalCount = useMemo(() => {
     return topSources.reduce((acc, source) => acc + source.count, 0);
   }, [topSources]);
 
-  // Transform the sources into displayable data with calculated percent
   const topSourcesData = useMemo(() => {
     return topSources
       .map((source) => {
-        const percent = totalCount > 0 ? (source.count / totalCount) * 100 : 0; // Calculate the percentage
+        const percent = totalCount > 0 ? (source.count / totalCount) * 100 : 0;
         return {
           ...source,
-          direction: 'up', // Assuming 'up' as a default, modify as needed
-          percent: percent.toFixed(0) as unknown as number, // Convert to number
-          logo: fetchIcon(source._id), // Fetch the icon based on the source ID
-          label: source._id, // Assuming the label is the source ID, modify if needed
+          direction: 'up',
+          percent: percent.toFixed(0) as unknown as number,
+          logo: fetchIcon(source._id),
+          label: source._id,
         };
       })
       .filter(Boolean);
@@ -52,7 +52,10 @@ const TopSourcesSwiper: React.FC<TopSourcesSwiperProps> = ({ topSources = [] }) 
       className="mySwiper"
     >
       {topSourcesData.map((source, index) => (
-        <SwiperSlide key={index} className="border px-[16px] py-[24px] rounded-3xl bg-white">
+        <SwiperSlide
+          key={index}
+          className="border px-[16px] py-[24px] rounded-3xl bg-white"
+        >
           <div className="flex items-center gap-2">
             <img
               src={source.logo ?? ''}
@@ -61,7 +64,7 @@ const TopSourcesSwiper: React.FC<TopSourcesSwiperProps> = ({ topSources = [] }) 
             />
             <label>{source.label}</label>
             <Indicate
-              direction={source.direction as 'up' | 'down' ?? 'up'}
+              direction={(source.direction as 'up' | 'down') ?? 'up'}
               percent={source.percent ?? 0}
             />
           </div>

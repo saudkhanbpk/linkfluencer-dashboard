@@ -5,7 +5,13 @@ import StatsSwiper from '../components/Analytics/StatsSwiper';
 import ChartSection from '../components/Analytics/ChartSection';
 import { UserContext } from '../context/UserContext';
 import TopSourcesSwiper from '../components/Analytics/TopSourcesSwiper';
-import { UserIntervalVisit, TopCities, TopCountries, TotalClicks, AverageTimeToEngage } from '../services/userService';
+import {
+  UserIntervalVisit,
+  TopCities,
+  TopCountries,
+  TotalClicks,
+  AverageTimeToEngage,
+} from '../services/userService';
 import { TimeInterval } from '../types/types';
 import { CountryClicks, Source } from '../types/interfaces';
 import { getTopSources } from '../services/linkService';
@@ -13,13 +19,13 @@ import { getTopSources } from '../services/linkService';
 const Analytics: React.FC = () => {
   const userContext = useContext(UserContext);
   const user = userContext?.user;
-  const [limit, setLimit] = useState<TimeInterval>('year');
+  const [limit, setLimit] = useState<TimeInterval>('day');
   const { isMobile } = useDeviceDetect();
 
   const [totalClicks, setTotalClicks] = useState<string>();
   const [topCountries, setTopCountries] = useState<CountryClicks[]>();
   const [topCities, setTopCities] = useState<string>();
-  const [userVisit, setUserVisit] = useState< Record<string, number> | null>();
+  const [userVisit, setUserVisit] = useState<Record<string, number> | null>();
   const [topSources, setTopSources] = useState<Source[]>();
   const [averageTimeToEngage, setAverageTimeToEngage] = useState<string>();
 
@@ -62,20 +68,20 @@ const Analytics: React.FC = () => {
     if (!topCountries) return 'Unknown';
 
     const topCountry = topCountries.reduce((prev, current) =>
-      prev.clicks > current.clicks ? prev : current
+      prev.clicks > current.clicks ? prev : current,
     );
     return topCountry.country ?? 'Unknown';
-  }
+  };
 
   const getBestPerformingSource = () => {
     if (!topSources || topSources.length === 0) return 'Unknown';
 
     const bestSource = topSources?.reduce((prev, current) =>
-      prev.count > current.count ? prev : current
+      prev.count > current.count ? prev : current,
     );
 
     return bestSource._id ?? 'Unknown';
-  }
+  };
 
   return (
     <div className="min-h-full bg-gray-50">
@@ -85,13 +91,27 @@ const Analytics: React.FC = () => {
           <label className="font-content font-[500] text-[#121111]">
             Today&apos;s Activity
           </label>
-          <PeriodSelector limit={limit} setLimit={setLimit} isMobile={isMobile} />
+          <PeriodSelector
+            limit={limit}
+            setLimit={setLimit}
+            isMobile={isMobile}
+          />
         </div>
-        <StatsSwiper totalClicks={totalClicks} topCountry={getTopCountry()} topCity={topCities} topPlatform={getBestPerformingSource()} averageTime={averageTimeToEngage}  />
-        <ChartSection limit={limit} userVisit={userVisit!} topCountries={topCountries}/>
+        <StatsSwiper
+          totalClicks={totalClicks}
+          topCountry={getTopCountry()}
+          topCity={topCities}
+          topPlatform={getBestPerformingSource()}
+          averageTime={averageTimeToEngage}
+        />
+        <ChartSection
+          limit={limit}
+          userVisit={userVisit ?? {}}
+          topCountries={topCountries}
+        />
         <div className="mt-[16px]">
           <h2 className="font-[500] text-[#121111]">Top Sources</h2>
-          <TopSourcesSwiper topSources={topSources}/>
+          <TopSourcesSwiper topSources={topSources} />
         </div>
       </div>
     </div>

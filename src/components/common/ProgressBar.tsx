@@ -2,9 +2,6 @@ interface Props {
   completed: number;
 }
 const ProgressBar: React.FC<Props> = ({ completed }) => {
-  // let completed = 100 - completed;
-  // let rest = completed;
-
   return (
     <div className="h-[5px] flex flex-row w-full rounded-full gap-2">
       <div
