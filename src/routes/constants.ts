@@ -7,5 +7,6 @@ export const ROUTES = {
   USER_MANAGEMENT: '/user_management',
   PROFILE: '/profile',
   WALLET: '/wallet',
-  PRICING: '/pricing',
+  PLANS: '/plans',
+  CHECKOUT: '/checkout',
 };

@@ -6,9 +6,10 @@ import BulkUpload from '../pages/BulkUpload';
 import Analytics from '../pages/Analytics';
 import { ROUTES } from './constants';
 import UserManagement from '../pages/UserManagement';
-import Pricing from '../pages/Pricing';
+import Pricing from '../pages/Plans';
 import Profile from '../pages/profile/Profile';
 import MyWallet from '../pages/MyWallet';
+import { Checkout } from '../pages/stripe/checkout';
 
 const RoutesConfig = () => (
   <Routes>
@@ -20,7 +21,8 @@ const RoutesConfig = () => (
       <Route path={ROUTES.USER_MANAGEMENT} element={<UserManagement />} />
       <Route path={ROUTES.PROFILE} element={<Profile />} />
       <Route path={ROUTES.WALLET} element={<MyWallet />} />
-      <Route path={ROUTES.PRICING} element={<Pricing />} />
+      <Route path={ROUTES.PLANS} element={<Pricing />} />
+      <Route path={ROUTES.CHECKOUT} element={<Checkout />} />
     </Route>
   </Routes>
 );

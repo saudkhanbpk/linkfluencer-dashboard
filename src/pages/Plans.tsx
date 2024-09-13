@@ -1,6 +1,5 @@
-import PricingCard from '../components/common/cards/Pricing';
-
-const Pricing: React.FC = () => {
+import PricingCard from '../components/common/cards/Plan';
+const Plans: React.FC = ({}) => {
   const data = [
     {
       Label: 'Free',
@@ -80,4 +79,4 @@ const Pricing: React.FC = () => {
     </div>
   );
 };
-export default Pricing;
+export default Plans;

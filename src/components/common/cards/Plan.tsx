@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 interface Pricing {
   Label: string;
   description: string;
@@ -9,8 +11,9 @@ interface Pricing {
 }
 interface Props {
   data: Pricing;
+  onClick?:()=>void;
 }
-const PricingCard: React.FC<Props> = ({ data }) => {
+const PlanCard: React.FC<Props> = ({ data,onClick }) => {
   return (
     <div className="border hover:border-[#172B4D] rounded-3xl group">
       <div className="bg-white rounded-t-3xl text-[#121111] group-hover:bg-[#113E53] duration-200">
@@ -36,12 +39,14 @@ const PricingCard: React.FC<Props> = ({ data }) => {
             return <li key={index}>{val}</li>;
           })}
         </ul>
-        <button className="w-[200px] m-[24px] cursor-pointer border border-[#113E53] group-hover:text-[#113E53] group-hover:bg-white duration-200 font-bold bg-[#113E53] rounded-full px-[20px] py-[8px] text-white font-header">
+       <Link to={'/checkout'}>
+       <button onClick={onClick} className="w-[200px] m-[24px] cursor-pointer border border-[#113E53] group-hover:text-[#113E53] group-hover:bg-white duration-200 font-bold bg-[#113E53] rounded-full px-[20px] py-[8px] text-white font-header">
           {data.btnLabel}
         </button>
+       </Link>
       </div>
     </div>
   );
 };
 
-export default PricingCard;
+export default PlanCard;
