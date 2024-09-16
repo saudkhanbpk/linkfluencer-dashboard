@@ -13,9 +13,14 @@ import { Checkout } from "../pages/stripe/checkout";
 import { useEffect } from "react";
 
 const RoutesConfig = () => {
+  // console.log(ROUTES.CHECKOUT);
+  const { label } = useParams();
+  console.log("this is plan", label);
   useEffect(()=>{
-    console.log(ROUTES.CHECKOUT);
-
+    // console.log(ROUTES.CHECKOUT);
+    // const { plan } = useParams();
+    // console.log({plan});
+    
   })
   return (
     <Routes>

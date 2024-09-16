@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 interface Props {}
 export const Checkout: React.FC<Props> = () => {
   const { label } = useParams();
-  console.log({label});
+  console.log("this is label ====>>>>",label);
   
   const data = [
     {
