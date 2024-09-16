@@ -123,7 +123,7 @@ const AnalyticsSection: React.FC = () => {
           <span className="text-[#4C4C4C] font-content whitespace-nowrap">
             Users traffic by region
           </span>
-          <div className="h-full mt-4">
+          <div className="h-full flex flex-col justify-between mt-4">
             {loadingCountries ? (
               <Loading /> // Affiche un composant de chargement en attendant les données
             ) : (

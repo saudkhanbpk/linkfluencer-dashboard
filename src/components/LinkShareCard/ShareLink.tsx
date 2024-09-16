@@ -3,8 +3,8 @@ import copyToClipboard from '../../utils/clipboardUtils';
 import Tooltip from '../common/ToolTip';
 import { SaveIcon } from '../../svg';
 
-const ShareLink: React.FC = () => {
-  const link = 'https://www.figma.com/file/NlfVhYygR9mAQasassdsada/Share...';
+const ShareLink: React.FC<{link:string}> = ({link}) => {
+  // const link = 'https://www.figma.com/file/NlfVhYygR9mAQasassdsada/Share... 222';
 
   return (
     <>

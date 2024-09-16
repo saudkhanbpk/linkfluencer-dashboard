@@ -1,8 +1,12 @@
 import { useState } from "react";
 import PlanCard from "../../components/common/cards/Plan";
+import { useParams } from "react-router-dom";
 
 interface Props {}
 export const Checkout: React.FC<Props> = () => {
+  const { label } = useParams();
+  console.log({label});
+  
   const data = [
     {
       Label: "Free",
@@ -238,7 +242,7 @@ export const Checkout: React.FC<Props> = () => {
           </div>
         </div>
         <div className="w-6/6 md:w-2/6">
-          <PlanCard key={2} data={data[2]} onClick={handleSubmit}/>
+          <PlanCard key={2} data={data.find((val)=>val?.Label === label) || data[0] } onClick={handleSubmit}/>
         </div>
       </div>
     </div>

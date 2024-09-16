@@ -165,6 +165,7 @@ const MyLinks: React.FC = () => {
         });
     }
   };
+  const [copyLink, setCopyLink] = useState("")
   const detailsModelOpen = (value: any) => {
     const data = filteredData.find((val: ILink) => {
       return val._id === value;
@@ -181,8 +182,17 @@ const MyLinks: React.FC = () => {
   const handleShareModalClose = () => {
     setIsShareModalOpen(false);
   };
-  const handleShareModalOpen = () => {
-    setIsShareModalOpen(true);
+  const handleShareModalOpen = (id:any) => {
+    console.log({id});
+    const selectedLink = filteredData.find((val:any) =>
+     {
+      return val._id === id
+     }
+    );
+    console.log(selectedLink.originalUrl);
+    
+    setCopyLink(selectedLink.originalUrl);
+    setIsShareModalOpen(true)
   };
   const fetchUserLinks = async () => {
     if (user && user._id) {
@@ -264,7 +274,7 @@ const MyLinks: React.FC = () => {
         />
       </Model>
       <Model isOpen={isShareModalOpen} onClose={handleShareModalClose}>
-        <LinkShareCard handleShareModalClose={handleShareModalClose} />
+        <LinkShareCard handleShareModalClose={handleShareModalClose} link={copyLink}/>
       </Model>
       <div className="flex flex-col p-[24px]">
         <div>

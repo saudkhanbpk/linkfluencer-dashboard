@@ -1,3 +1,4 @@
+
 export const ROUTES = {
   HOME: '/',
   TEST_DASHBOARD: '/test-dashboard',
@@ -8,5 +9,5 @@ export const ROUTES = {
   PROFILE: '/profile',
   WALLET: '/wallet',
   PLANS: '/plans',
-  CHECKOUT: '/checkout',
+  CHECKOUT: '/checkout/:label',
 };

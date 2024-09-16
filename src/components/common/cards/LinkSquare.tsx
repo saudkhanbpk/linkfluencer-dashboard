@@ -49,6 +49,8 @@ const LinkSquare: React.FC<Props> = ({
   };
 
   const handleShareClick = (id: string) => {
+    console.log("from inside", id);
+    
     shareModalOpen?.(id);
   };
   const handleSelect = (id: string) => {

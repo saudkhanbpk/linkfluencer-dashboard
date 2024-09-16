@@ -12,6 +12,7 @@ import {
 import Tooltip from "../ToolTip";
 interface Prop {
   handleShareModalClose?: () => void;
+  link: string;
 }
 
 const socialIconsList = [
@@ -55,15 +56,16 @@ const socialIconsList = [
 ];
 
 const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text)
-      .then(() => {
-        console.log('Text copied successfully!');
-      })
-      .catch(err => {
-        console.log('Failed to copy text.');
-      });
-  };
-const LinkShareCard: React.FC<Prop> = ({ handleShareModalClose }) => {
+  navigator.clipboard
+    .writeText(text)
+    .then(() => {
+      console.log("Text copied successfully!");
+    })
+    .catch((err) => {
+      console.log("Failed to copy text.");
+    });
+};
+const LinkShareCard: React.FC<Prop> = ({ handleShareModalClose, link }) => {
   return (
     <div className="md:w-[600px]">
       <div className="flex justify-between mb-6">
@@ -89,9 +91,18 @@ const LinkShareCard: React.FC<Prop> = ({ handleShareModalClose }) => {
         <span className=" text-neutral-500">Or share with link</span>
       </div>
       <div className="flex items-center p-2 my-5 rounded-3xl bg-[#F4F4F4] justify-between">
-        <span>https://www.figma.com/file/NlfVhYygR9mAQasassdsada/Share...</span>
+        <span>{link ?? "-"}</span>
         <Tooltip text={"copy"}>
-        <CopyIcon className={"size-12 border cursor-pointer p-3 rounded-full bg-white"} onClick={()=>{copyToClipboard("https://www.figma.com/file/NlfVhYygR9mAQasassdsada/Share...")}}/>
+          <CopyIcon
+            className={
+              "size-12 border cursor-pointer p-3 rounded-full bg-white"
+            }
+            onClick={() => {
+              copyToClipboard(
+                "https://www.figma.com/file/NlfVhYygR9mAQasassdsada/Share..."
+              );
+            }}
+          />
         </Tooltip>
       </div>
     </div>

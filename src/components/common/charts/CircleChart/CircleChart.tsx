@@ -25,8 +25,8 @@ const CircleChart: React.FC<CircleChartProps> = ({ countries = [] }) => {
   const legendValues = generateLegendValues(maxValue);
 
   return (
-    <div className="flex flex-col space-y-4 lg:space-y-6">
-      <div className="grid grid-cols-2 gap-y-4 gap-x-4 lg:gap-y-6 lg:gap-x-12">
+    <div className="flex flex-col space-y-4 lg:space-y-6 h-full mb-10 justify-end">
+      <div className="grid grid-cols-1 xs:grid-cols-2 gap-y-4 gap-x-4 lg:gap-y-6 lg:gap-x-12">
         {countries.map((country) => (
           <div
             key={country.country}
@@ -39,7 +39,7 @@ const CircleChart: React.FC<CircleChartProps> = ({ countries = [] }) => {
           </div>
         ))}
       </div>
-      <div className="flex items-center space-x-4 mt-4 lg:mt-6">
+      <div className="grid grid-cols-4 mt-4 lg:mt-6">
         {legendValues.map((val, index) => (
           <div key={index} className="flex flex-col items-center">
             <Rectangle value={val} maxValue={maxValue} />
