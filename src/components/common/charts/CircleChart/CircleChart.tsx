@@ -26,7 +26,7 @@ const CircleChart: React.FC<CircleChartProps> = ({ countries = [] }) => {
 
   return (
     <div className="flex flex-col space-y-4 lg:space-y-6">
-      <div className="grid grid-cols-2 gap-y-4 gap-x-4 lg:grid-cols-3 lg:gap-y-6 lg:gap-x-12">
+      <div className="grid grid-cols-2 gap-y-4 gap-x-4 lg:gap-y-6 lg:gap-x-12">
         {countries.map((country) => (
           <div
             key={country.country}

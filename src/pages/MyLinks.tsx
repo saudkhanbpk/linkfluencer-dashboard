@@ -14,7 +14,7 @@ import Dropdown from '../components/common/Dropdown';
 import Model from '../components/common/models/Model';
 import LinkDetailsCard from '../components/common/cards/LinkDetails';
 import LinkEditCard from '../components/common/cards/LinkEdit';
-import { deleteLinks, getUserLinks, updateLink } from '../services/linkService';
+import { createLink, deleteLinks, getUserLinks, updateLink } from '../services/linkService';
 import { UserContext } from '../context/UserContext';
 import LinkSquare from '../components/common/cards/LinkSquare';
 import { ILink } from '../interfaces/Link';
@@ -47,6 +47,8 @@ const MyLinks: React.FC = () => {
     originalUrl: '',
     tags: [],
   });
+  const [newLink, setNewLink] = useState('');
+
   const userContext = useContext(UserContext);
   if (!userContext) {
     throw new Error('useContext must be used within a UserProvider');
@@ -156,7 +158,6 @@ const MyLinks: React.FC = () => {
           const newData = filteredData.filter((val: any) => {
             return !selectedData.includes(val._id);
           });
-
           setFilteredData(newData);
         })
         .catch((err) => {
@@ -182,6 +183,13 @@ const MyLinks: React.FC = () => {
   };
   const handleShareModalOpen = () => {
     setIsShareModalOpen(true);
+  };
+  const fetchUserLinks = async () => {
+    if (user && user._id) {
+      const links = await getUserLinks(user._id);
+      setData(links);
+      setFilteredData(links);
+    }
   };
 
   const handleSearch = (event: any) => {
@@ -213,6 +221,20 @@ const MyLinks: React.FC = () => {
     setFilteredData(sortedData);
   };
 
+  const handleCreateLink = async () => {
+    console.log(user);
+    
+    if (user && user._id) {
+      try {
+        await createLink(user._id, newLink);
+        setNewLink('');
+        fetchUserLinks();
+      } catch (error) {
+        console.error('Failed to create link:', error);
+      }
+    }
+  };
+
   useEffect(() => {
     const results = data.filter((item: any) =>
       Object.values(item).some((val) =>
@@ -223,13 +245,6 @@ const MyLinks: React.FC = () => {
   }, [searchTerm]); // Add originalData to the dependency array
 
   useEffect(() => {
-    const fetchUserLinks = async () => {
-      if (user && user._id) {
-        const links = await getUserLinks(user._id);
-        setData(links);
-        setFilteredData(links);
-      }
-    };
     fetchUserLinks();
   }, []);
 
@@ -259,12 +274,14 @@ const MyLinks: React.FC = () => {
           <div className="flex items-center justify-between md:w-[340px] w-full h-[48px] rounded-full px-[16px] bg-white py-1">
             <input
               type="text"
+              onChange={(e)=>{setNewLink(e.target.value)}}
+              value={newLink}
               placeholder="Paste your link here"
               className="h-full rounded-none w-full outline-none"
             />
             <Link45Icon className="size-5 text-gray-400" />
           </div>
-          <button className="w-full mt-[16px] md:mt-0 md:ml-2 ml-0 md:w-[189px] border-[1px] border-[#113E53] font-bold bg-[#113E53] rounded-full px-[20px] py-[12px] text-white font-header">
+          <button onClick={handleCreateLink} className="w-full mt-[16px] md:mt-0 md:ml-2 ml-0 md:w-[189px] border-[1px] border-[#113E53] font-bold bg-[#113E53] rounded-full px-[20px] py-[12px] text-white font-header">
             Create Smart Link
           </button>
         </div>

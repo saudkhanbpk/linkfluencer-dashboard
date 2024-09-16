@@ -173,3 +173,10 @@ export const getTopSources = async (
     return null;
   }
 };
+
+export const bulkUpload = async (
+  userId: string,
+  links:string[]
+) =>{
+
+}

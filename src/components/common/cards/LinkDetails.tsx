@@ -113,19 +113,11 @@ const LinkDetailsCard: React.FC<Prop> = ({ data, handleDetailsModalClose }) => {
 
       <div>
         <Swiper
-          slidesPerView={5}
+          slidesPerView={2.8}
           spaceBetween={12}
           freeMode={true}
-          breakpoints={{
-            200: {
-              slidesPerView: 2,
-            },
-            500: {
-              slidesPerView: 3.5,
-            },
-          }}
           modules={[FreeMode, Pagination]}
-          className="mySwiper"
+          className="mySwiper cursor-pointer"
         >
           <SwiperSlide className="border p-[12px] rounded-xl bg-white max-h-[100px] h-[70px]">
             <span className="text-xs font-content text-[#9B919D]">
@@ -179,16 +171,16 @@ const LinkDetailsCard: React.FC<Prop> = ({ data, handleDetailsModalClose }) => {
             </div>
           </SwiperSlide>
 
-          <SwiperSlide className="border p-[12px] rounded-xl bg-white max-h-[100px] h-[70px]">
+          <SwiperSlide className="p-[12px] rounded-xl bg-white max-h-[100px] h-[70px] border">
             <span className="text-xs font-content text-[#9B919D]">
               Best Time To Engage
             </span>
-            <div className="gap-2">
+            <div className="gap-2 flex items-baseline">
               {loadingBestTime ? (
                 <Loading />
               ) : (
                 <>
-                  <span className="text-[#292828] text-[24px] font-[500]">
+                  <span className="text-[#292828] text-[24px] font-[500] flex whitespace-nowrap">
                     {bestAverageTimeToEngage}
                   </span>
                   {bestAverageTimeToEngage !== 'No data' && (

@@ -16,7 +16,7 @@ const Circle: React.FC<CircleProps> = ({ value, maxValue }) => {
         opacity,
       }}
       aria-label={`Click count: ${value}`}
-    ></div>
+    >2</div>
   );
 };
 
