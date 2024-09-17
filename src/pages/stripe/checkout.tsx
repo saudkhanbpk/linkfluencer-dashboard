@@ -11,7 +11,7 @@ export const Checkout: React.FC<Props> = () => {
   const [loading, setLoading] = useState(false);
   const { label } = useParams();
 
-  const data = [
+  const data = [ 
     {
       Label: "Free",
       description: "Start to measure the impact of your daily engagement",
