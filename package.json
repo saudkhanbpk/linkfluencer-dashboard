@@ -59,5 +59,6 @@
     "eslint-plugin-prettier": "^5.2.1",
     "prettier": "^3.3.3",
     "tailwindcss": "^3.4.10"
-  }
+  },
+  "proxy": "https://linkfluencer-api-production.up.railway.app/"
 }
