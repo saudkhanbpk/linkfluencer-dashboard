@@ -7,7 +7,7 @@ import InfoPopup from '../components/bulkUpload/InfoPopup';
 import axios from 'axios';
 import { UserContext } from '../context/UserContext';
 import { handleDownloadBulkUploadTemplete } from '../utils/download';
-import UploadButton from '../components/bulkUpload/UploadButton';
+import UploadButton from '../components/bulkUpload/UButton';
 const BulkUpload: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [showInfo, setShowInfo] = useState(false);
