@@ -2,11 +2,11 @@ import { useState } from 'react';
 import { ILink } from '../../../interfaces/Link';
 import { CopyIcon, EditIcon, RightArrow, ShareIcon } from '../../../svg';
 import Tooltip from '../ToolTip';
-import IndicateDown from './IndicateDown';
 import IndicateUp from './IndicateUp';
 import FaviconLoader from '../FaviconFetcher';
 import { getLinkLabel } from '../../../utils/linkUtils';
 import copyToClipboard from '../../../utils/clipboardUtils';
+import IndicateDown from './IndicateDown';
 
 interface Props {
   link: ILink;
