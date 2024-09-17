@@ -2,6 +2,20 @@ import axiosInstance from '../config/axiosConfig';
 import { IUser } from '../interfaces/User';
 import { TimeInterval } from '../types/types';
 
+export const login = async (email: string, password: string): Promise<any> => {
+  try {
+    const response = await axiosInstance.post('/auth/login', {
+      email,
+      password,
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('Error when logging in', error);
+    return null;
+  }
+};
+
 export const fetchUser = async (): Promise<any | null> => {
   try {
     const response = await axiosInstance.get<IUser>('/auth/me');

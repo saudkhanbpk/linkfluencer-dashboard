@@ -174,9 +174,6 @@ export const getTopSources = async (
   }
 };
 
-export const bulkUpload = async (
-  userId: string,
-  links:string[]
-) =>{
-
-}
+export const bulkUpload = async (userId: string, links: string[]) => {
+  console.log(userId, links);
+};

@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from 'react';
+import { useState } from 'react';
 import Brand from './Brand';
 import User from './User';
 import Influencer from './Influencer';

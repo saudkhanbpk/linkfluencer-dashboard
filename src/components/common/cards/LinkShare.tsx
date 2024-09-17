@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from 'react';
 import {
   CrossIcon,
   EmailIcon,
@@ -8,8 +8,8 @@ import {
   ShareFilledIcon,
   TwitterIcon,
   WhatsappIcon,
-} from "../../../svg";
-import Tooltip from "../ToolTip";
+} from '../../../svg';
+import Tooltip from '../ToolTip';
 interface Prop {
   handleShareModalClose?: () => void;
   link: string;
@@ -18,40 +18,40 @@ interface Prop {
 const socialIconsList = [
   {
     icon: (
-      <FacebookIcon className={"size-8 text-[#113E53]"} onClick={undefined} />
+      <FacebookIcon className={'size-8 text-[#113E53]'} onClick={undefined} />
     ),
-    label: "Facebook",
+    label: 'Facebook',
   },
   {
     icon: (
-      <InstagramIcon className={"size-8 text-[#113E53]"} onClick={undefined} />
+      <InstagramIcon className={'size-8 text-[#113E53]'} onClick={undefined} />
     ),
-    label: "Instagram",
+    label: 'Instagram',
   },
   {
     icon: (
-      <TwitterIcon className={"size-8 text-[#113E53]"} onClick={undefined} />
+      <TwitterIcon className={'size-8 text-[#113E53]'} onClick={undefined} />
     ),
-    label: "Twitter",
+    label: 'Twitter',
   },
   {
     icon: (
-      <WhatsappIcon className={"size-8 text-[#113E53]"} onClick={undefined} />
+      <WhatsappIcon className={'size-8 text-[#113E53]'} onClick={undefined} />
     ),
-    label: "Whatsapp",
+    label: 'Whatsapp',
   },
   {
-    icon: <EmailIcon className={"size-8 text-[#113E53]"} onClick={undefined} />,
-    label: "E-mail",
+    icon: <EmailIcon className={'size-8 text-[#113E53]'} onClick={undefined} />,
+    label: 'E-mail',
   },
   {
     icon: (
       <ShareFilledIcon
-        className={"size-8 text-[#113E53]"}
+        className={'size-8 text-[#113E53]'}
         onClick={undefined}
       />
     ),
-    label: "More",
+    label: 'More',
   },
 ];
 
@@ -59,10 +59,10 @@ const copyToClipboard = (text: string) => {
   navigator.clipboard
     .writeText(text)
     .then(() => {
-      console.log("Text copied successfully!");
+      console.log('Text copied successfully!');
     })
     .catch((err) => {
-      console.log("Failed to copy text.");
+      console.log('Failed to copy text.');
     });
 };
 const LinkShareCard: React.FC<Prop> = ({ handleShareModalClose, link }) => {
@@ -71,7 +71,7 @@ const LinkShareCard: React.FC<Prop> = ({ handleShareModalClose, link }) => {
       <div className="flex justify-between mb-6">
         <span className="font-content text-[#113e53]">Share</span>
         <CrossIcon
-          className={"size-5 cursor-pointer"}
+          className={'size-5 cursor-pointer'}
           onClick={handleShareModalClose}
         />
       </div>
@@ -91,15 +91,15 @@ const LinkShareCard: React.FC<Prop> = ({ handleShareModalClose, link }) => {
         <span className=" text-neutral-500">Or share with link</span>
       </div>
       <div className="flex items-center p-2 my-5 rounded-3xl bg-[#F4F4F4] justify-between">
-        <span>{link ?? "-"}</span>
-        <Tooltip text={"copy"}>
+        <span>{link ?? '-'}</span>
+        <Tooltip text={'copy'}>
           <CopyIcon
             className={
-              "size-12 border cursor-pointer p-3 rounded-full bg-white"
+              'size-12 border cursor-pointer p-3 rounded-full bg-white'
             }
             onClick={() => {
               copyToClipboard(
-                "https://www.figma.com/file/NlfVhYygR9mAQasassdsada/Share..."
+                'https://www.figma.com/file/NlfVhYygR9mAQasassdsada/Share...',
               );
             }}
           />

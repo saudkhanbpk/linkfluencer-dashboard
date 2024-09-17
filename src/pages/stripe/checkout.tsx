@@ -1,95 +1,94 @@
-import { useState } from "react";
-import PlanCard from "../../components/common/cards/Plan";
-import { useParams } from "react-router-dom";
+import { useState } from 'react';
+import PlanCard from '../../components/common/cards/Plan';
+import { useParams } from 'react-router-dom';
 
-interface Props {}
-export const Checkout: React.FC<Props> = () => {
+export const Checkout: React.FC = () => {
   const { label } = useParams();
-  console.log("this is label ====>>>>",label);
-  
+  console.log('this is label ====>>>>', label);
+
   const data = [
     {
-      Label: "Free",
-      description: "Start to measure the impact of your daily engagement",
-      price: "Free",
-      image: "/assets/engagement.svg",
-      clicks: "10k Clicks",
+      Label: 'Free',
+      description: 'Start to measure the impact of your daily engagement',
+      price: 'Free',
+      image: '/assets/engagement.svg',
+      clicks: '10k Clicks',
       points: [
-        "Open Smart Links to over 30 + Native Apps",
-        "Analytics Dashboard",
-        "Traffic Source Analysis",
-        "Location Analysis",
-        "Conversion Analysis",
-        "Shorten URLs",
+        'Open Smart Links to over 30 + Native Apps',
+        'Analytics Dashboard',
+        'Traffic Source Analysis',
+        'Location Analysis',
+        'Conversion Analysis',
+        'Shorten URLs',
       ],
-      btnLabel: "Activate",
+      btnLabel: 'Activate',
     },
     {
-      Label: "Starter",
-      description: "Best to discover and feel the impact of the tool.",
-      price: "$49.99",
-      image: "/assets/engagement.svg",
-      clicks: "50k Clicks",
+      Label: 'Starter',
+      description: 'Best to discover and feel the impact of the tool.',
+      price: '$49.99',
+      image: '/assets/engagement.svg',
+      clicks: '50k Clicks',
       points: [
-        " Open Smart Links to over 30 + Native Apps",
-        "Traffic Source Analysis",
-        " Location Analysis",
-        "Conversion Analysis",
-        " Shorten URLs",
-        "Customise the generated URLs",
+        ' Open Smart Links to over 30 + Native Apps',
+        'Traffic Source Analysis',
+        ' Location Analysis',
+        'Conversion Analysis',
+        ' Shorten URLs',
+        'Customise the generated URLs',
       ],
-      btnLabel: "Buy Now",
+      btnLabel: 'Buy Now',
     },
     {
-      Label: "Grow",
-      description: "Best when you start to grow an audience across channels.",
-      price: "$99.99",
-      image: "/assets/engagement.svg",
-      clicks: "100k Clicks",
+      Label: 'Grow',
+      description: 'Best when you start to grow an audience across channels.',
+      price: '$99.99',
+      image: '/assets/engagement.svg',
+      clicks: '100k Clicks',
       points: [
-        "Open Smart Links to over 30+ Native Apps",
-        "Traffic Source Analysis",
-        "Location Analysis",
-        "Conversion Analysis",
-        "Shorten URLs",
-        "Customise the generated URLs",
+        'Open Smart Links to over 30+ Native Apps',
+        'Traffic Source Analysis',
+        'Location Analysis',
+        'Conversion Analysis',
+        'Shorten URLs',
+        'Customise the generated URLs',
       ],
-      btnLabel: "Buy Now",
+      btnLabel: 'Buy Now',
     },
     {
-      Label: "Scale",
-      description: "Best when you are ready to go viral.",
-      price: "$199.99",
-      image: "/assets/engagement.svg",
-      clicks: "250k Clicks",
+      Label: 'Scale',
+      description: 'Best when you are ready to go viral.',
+      price: '$199.99',
+      image: '/assets/engagement.svg',
+      clicks: '250k Clicks',
       points: [
-        "Open Smart Links to over 30+ Native Apps",
-        "Traffic Source Analysis",
-        "Location Analysis",
-        "Conversion Analysis",
-        "Shorten URLs",
-        "Customise the generated URLs",
+        'Open Smart Links to over 30+ Native Apps',
+        'Traffic Source Analysis',
+        'Location Analysis',
+        'Conversion Analysis',
+        'Shorten URLs',
+        'Customise the generated URLs',
       ],
-      btnLabel: "Buy Now",
+      btnLabel: 'Buy Now',
     },
   ];
   const [customerValues, setCustomerValues] = useState({
-    firstName: "",
-    lastName: "",
-    companyName: "",
-    postalCode: "",
-    address: "",
-    city: "",
-    country: "",
-    phone: "",
-    email: "",
+    firstName: '',
+    lastName: '',
+    companyName: '',
+    postalCode: '',
+    address: '',
+    city: '',
+    country: '',
+    phone: '',
+    email: '',
   });
   const [cardValues, setCardValues] = useState({
-    nameOnCard: "",
-    cardNumber: "",
-    expiryMonth: "",
-    expiryYear: "",
-    CVV: "",
+    nameOnCard: '',
+    cardNumber: '',
+    expiryMonth: '',
+    expiryYear: '',
+    CVV: '',
   });
 
   const handleCustomerChange = (e: any) => {
@@ -110,7 +109,7 @@ export const Checkout: React.FC<Props> = () => {
       };
     });
   };
-  const handleSubmit = ():void => {
+  const handleSubmit = (): void => {
     console.log({ customerValues, cardValues });
   };
   return (
@@ -242,7 +241,11 @@ export const Checkout: React.FC<Props> = () => {
           </div>
         </div>
         <div className="w-6/6 md:w-2/6">
-          <PlanCard key={2} data={data.find((val)=>val?.Label === label) || data[0] } onClick={handleSubmit}/>
+          <PlanCard
+            key={2}
+            data={data.find((val) => val?.Label === label) || data[0]}
+            onClick={handleSubmit}
+          />
         </div>
       </div>
     </div>

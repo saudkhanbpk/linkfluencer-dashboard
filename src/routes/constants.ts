@@ -1,6 +1,6 @@
-
 export const ROUTES = {
   HOME: '/',
+  SIGNIN: '/signin',
   TEST_DASHBOARD: '/test-dashboard',
   MY_LINKS: '/my-links',
   BULK_UPLOAD: '/bulk-upload',

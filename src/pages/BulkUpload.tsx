@@ -7,7 +7,7 @@ import SuccessMessage from '../components/bulkUpload/SuccessMessage';
 import InfoPopup from '../components/bulkUpload/InfoPopup';
 import axios from 'axios';
 import { UserContext } from '../context/UserContext';
-import {handleDownloadBulkUploadTemplete } from '../utils/download';
+import { handleDownloadBulkUploadTemplete } from '../utils/download';
 const BulkUpload: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [showInfo, setShowInfo] = useState(false);
@@ -41,15 +41,15 @@ const BulkUpload: React.FC = () => {
   }, [uploading]);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if(event.target.files && event.target.files.length > 0){
-    const file = event.target.files?.[0];
-    console.log({file});
-    if (file) {
-      setSelectedFile(file);
-      setUploadComplete(false);
-      setSmartLinksCreated(null);
+    if (event.target.files && event.target.files.length > 0) {
+      const file = event.target.files?.[0];
+      console.log({ file });
+      if (file) {
+        setSelectedFile(file);
+        setUploadComplete(false);
+        setSmartLinksCreated(null);
+      }
     }
-  }
   };
 
   const handleRemoveFile = () => {
@@ -62,30 +62,32 @@ const BulkUpload: React.FC = () => {
     document.getElementById('file-upload')?.click();
   };
 
-
-  const handleUpload = async() => {
+  const handleUpload = async () => {
     if (selectedFile) {
       setUploading(true);
       const formData = new FormData();
       formData.append('file', selectedFile);
 
-      const response = await axios.post(`http://localhost:5005/users/${user?._id}/links/upload`, formData,{
-        headers: {
-          'Content-Type': 'multipart/form-data',
+      const response = await axios.post(
+        `http://localhost:5005/users/${user?._id}/links/upload`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
         },
-      }
-    )
-    
+      );
+
       // setTimeout(() => {
-        setUploading(false);
-        setSmartLinksCreated(112);
-        setUploadComplete(true);
+      setUploading(false);
+      setSmartLinksCreated(112);
+      setUploadComplete(true);
       // }, 2000);
     }
   };
 
   const handleDownloadTemplate = () => {
-    handleDownloadBulkUploadTemplete()
+    handleDownloadBulkUploadTemplete();
   };
 
   const handleGoToLinks = () => {

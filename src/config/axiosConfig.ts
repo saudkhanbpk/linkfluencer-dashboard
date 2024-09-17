@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5005';
+const API_URL = process.env.REACT_APP_API_URL;
 
 const api = axios.create({
   baseURL: API_URL,
@@ -27,7 +27,7 @@ api.interceptors.response.use(
         }
       } catch (refreshError) {
         handleLogout();
-        window.location.href = 'http://localhost:3000/signin';
+        // window.location.href = `${process.env.REACT_APP_WEBSITE_URL}`;
         return Promise.reject(refreshError);
       }
     }
@@ -38,7 +38,7 @@ api.interceptors.response.use(
 
 export const refreshAccessToken = async () => {
   try {
-    const response = await api.get('/auth/refreshAccessToccken');
+    const response = await api.get('/auth/refreshAccessToken');
 
     if (response.status !== 200) {
       throw new Error('Failed to refresh token');
@@ -55,9 +55,9 @@ export const handleLogout = async () => {
   try {
     await api.post('/auth/logout');
     updateUserState(null);
-    window.location.href = 'http://localhost:3000/signin';
+    // window.location.href = `${process.env.REACT_APP_WEBSITE_URL}`;
   } catch (error) {
-    window.location.href = 'http://localhost:3000/signin';
+    // window.location.href = `${process.env.REACT_APP_WEBSITE_URL}`;
     console.error('Logout failed:', error);
   }
 };

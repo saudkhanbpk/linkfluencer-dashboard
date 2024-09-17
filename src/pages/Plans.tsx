@@ -1,5 +1,5 @@
 import PricingCard from '../components/common/cards/Plan';
-const Plans: React.FC = ({}) => {
+const Plans: React.FC = () => {
   const data = [
     {
       Label: 'Free',

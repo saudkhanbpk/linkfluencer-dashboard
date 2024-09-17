@@ -4,10 +4,13 @@ import SocialIcons from '../common/SocialIcons';
 import ShareLink from './ShareLink';
 interface Prop {
   handleShareModalClose?: () => void;
-  link:string
+  link: string;
 }
 
-const LinkShareCard: React.FC<Prop> = ({ handleShareModalClose, link="" }) => {
+const LinkShareCard: React.FC<Prop> = ({
+  handleShareModalClose,
+  link = '',
+}) => {
   return (
     <div className="md:w-[600px]">
       <div className="flex justify-between mb-6">
@@ -18,7 +21,7 @@ const LinkShareCard: React.FC<Prop> = ({ handleShareModalClose, link="" }) => {
         />
       </div>
       <SocialIcons />
-      <ShareLink link={link}/>
+      <ShareLink link={link} />
     </div>
   );
 };

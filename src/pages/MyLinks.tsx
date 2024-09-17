@@ -14,7 +14,12 @@ import Dropdown from '../components/common/Dropdown';
 import Model from '../components/common/models/Model';
 import LinkDetailsCard from '../components/common/cards/LinkDetails';
 import LinkEditCard from '../components/common/cards/LinkEdit';
-import { createLink, deleteLinks, getUserLinks, updateLink } from '../services/linkService';
+import {
+  createLink,
+  deleteLinks,
+  getUserLinks,
+  updateLink,
+} from '../services/linkService';
 import { UserContext } from '../context/UserContext';
 import LinkSquare from '../components/common/cards/LinkSquare';
 import { ILink } from '../interfaces/Link';
@@ -165,7 +170,7 @@ const MyLinks: React.FC = () => {
         });
     }
   };
-  const [copyLink, setCopyLink] = useState("")
+  const [copyLink, setCopyLink] = useState('');
   const detailsModelOpen = (value: any) => {
     const data = filteredData.find((val: ILink) => {
       return val._id === value;
@@ -182,17 +187,15 @@ const MyLinks: React.FC = () => {
   const handleShareModalClose = () => {
     setIsShareModalOpen(false);
   };
-  const handleShareModalOpen = (id:any) => {
-    console.log({id});
-    const selectedLink = filteredData.find((val:any) =>
-     {
-      return val._id === id
-     }
-    );
+  const handleShareModalOpen = (id: any) => {
+    console.log({ id });
+    const selectedLink = filteredData.find((val: any) => {
+      return val._id === id;
+    });
     console.log(selectedLink.originalUrl);
-    
+
     setCopyLink(selectedLink.originalUrl);
-    setIsShareModalOpen(true)
+    setIsShareModalOpen(true);
   };
   const fetchUserLinks = async () => {
     if (user && user._id) {
@@ -233,7 +236,7 @@ const MyLinks: React.FC = () => {
 
   const handleCreateLink = async () => {
     console.log(user);
-    
+
     if (user && user._id) {
       try {
         await createLink(user._id, newLink);
@@ -274,7 +277,10 @@ const MyLinks: React.FC = () => {
         />
       </Model>
       <Model isOpen={isShareModalOpen} onClose={handleShareModalClose}>
-        <LinkShareCard handleShareModalClose={handleShareModalClose} link={copyLink}/>
+        <LinkShareCard
+          handleShareModalClose={handleShareModalClose}
+          link={copyLink}
+        />
       </Model>
       <div className="flex flex-col p-[24px]">
         <div>
@@ -284,14 +290,19 @@ const MyLinks: React.FC = () => {
           <div className="flex items-center justify-between md:w-[340px] w-full h-[48px] rounded-full px-[16px] bg-white py-1">
             <input
               type="text"
-              onChange={(e)=>{setNewLink(e.target.value)}}
+              onChange={(e) => {
+                setNewLink(e.target.value);
+              }}
               value={newLink}
               placeholder="Paste your link here"
               className="h-full rounded-none w-full outline-none"
             />
             <Link45Icon className="size-5 text-gray-400" />
           </div>
-          <button onClick={handleCreateLink} className="w-full mt-[16px] md:mt-0 md:ml-2 ml-0 md:w-[189px] border-[1px] border-[#113E53] font-bold bg-[#113E53] rounded-full px-[20px] py-[12px] text-white font-header">
+          <button
+            onClick={handleCreateLink}
+            className="w-full mt-[16px] md:mt-0 md:ml-2 ml-0 md:w-[189px] border-[1px] border-[#113E53] font-bold bg-[#113E53] rounded-full px-[20px] py-[12px] text-white font-header"
+          >
             Create Smart Link
           </button>
         </div>

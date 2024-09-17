@@ -1,21 +1,21 @@
-interface useerData{
-  firstName?: "",
-  lastName?: "",
-  email?: "",
-  status?: "",
-  gender?: "",
-  country?: "",
-  city?: "",
-  mobileNumber?: "",
-  address?: "",
-  postalCode?: "",
-  birthDate?: "",
+interface useerData {
+  firstName?: '';
+  lastName?: '';
+  email?: '';
+  status?: '';
+  gender?: '';
+  country?: '';
+  city?: '';
+  mobileNumber?: '';
+  address?: '';
+  postalCode?: '';
+  birthDate?: '';
 }
 
-interface Props{
-  values?: useerData
+interface Props {
+  values?: useerData;
 }
-const User: React.FC<Props> = ({values}) => {
+const User: React.FC<Props> = ({ values }) => {
   return (
     <div className="h-full">
       <div className="flex flex-col md:flex-row items-center">

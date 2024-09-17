@@ -82,7 +82,7 @@ const DefaultDashboard: React.FC<DefaultDashboardProps> = ({
       )}
       {modalType === 'share' && selectedLink && (
         <Model isOpen onClose={closeModal}>
-          <LinkShareCard handleShareModalClose={closeModal} link=''/>
+          <LinkShareCard handleShareModalClose={closeModal} link="" />
         </Model>
       )}
 

@@ -11,6 +11,7 @@ const MyWallet: React.FC = () => {
   const [limit, setLimit] = useState('All');
   const [type, setType] = useState('Transaction');
   const { isMobile } = useDeviceDetect();
+
   const columns = [
     {
       title: 'No.',
@@ -41,7 +42,13 @@ const MyWallet: React.FC = () => {
       dataIndex: 'status',
       render: (row: any) => (
         <button
-          className={`${row.status === 'pending' ? 'bg-gray-100' : row.status === 'success' ? 'bg-green-100 text-green-500' : 'bg-red-100 text-red-500'} px-4 rounded-full`}
+          className={`${
+            row.status === 'pending'
+              ? 'bg-gray-100'
+              : row.status === 'success'
+                ? 'bg-green-100 text-green-500'
+                : 'bg-red-100 text-red-500'
+          } px-4 rounded-full`}
         >
           {row.status}
         </button>
@@ -51,7 +58,7 @@ const MyWallet: React.FC = () => {
       headerAlign: 'left',
       cellAlign: 'left',
     },
-    type == 'Purchasing' && {
+    type === 'Purchasing' && {
       title: 'Plan',
       dataIndex: 'plan',
       render: (row: any) => <span className="text-blue-500">{row.plan}</span>,
@@ -77,9 +84,11 @@ const MyWallet: React.FC = () => {
       cellAlign: 'left',
     },
   ];
+
   const tableData = {
     select: false,
   };
+
   useEffect(() => {
     const results = walletData.filter((item) =>
       Object.values(item).some((val) =>
@@ -93,7 +102,7 @@ const MyWallet: React.FC = () => {
     <div className="">
       <div className="flex flex-col p-[12px] sm:p-[24px]">
         <div className="flex flex-col">
-          <h1 className="text-2xl font-header">My Wallett</h1>
+          <h1 className="text-2xl font-header">My Wallet</h1>
           <div className="bg-white p-[24px] my-[24px] rounded-3xl flex flex-col md:flex-row items-center justify-between">
             <div className="w-full">
               <h1 className="text-[24px] font-[700] font-content text-[#172B4D] leading-none">
@@ -156,7 +165,9 @@ const MyWallet: React.FC = () => {
                 onClick={() => {
                   setLimit('All');
                 }}
-                className={`${limit === 'All' ? 'text-blue-500' : 'text-[#9B919D]'} cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
+                className={`${
+                  limit === 'All' ? 'text-blue-500' : 'text-[#9B919D]'
+                } cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
               >
                 All
               </li>
@@ -164,7 +175,9 @@ const MyWallet: React.FC = () => {
                 onClick={() => {
                   setLimit('Week');
                 }}
-                className={`${limit === 'Week' ? 'text-blue-500' : 'text-[#9B919D]'} cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
+                className={`${
+                  limit === 'Week' ? 'text-blue-500' : 'text-[#9B919D]'
+                } cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
               >
                 Week
               </li>
@@ -172,7 +185,9 @@ const MyWallet: React.FC = () => {
                 onClick={() => {
                   setLimit('Month');
                 }}
-                className={`${limit === 'Month' ? 'text-blue-500' : 'text-[#9B919D]'} cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
+                className={`${
+                  limit === 'Month' ? 'text-blue-500' : 'text-[#9B919D]'
+                } cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
               >
                 Month
               </li>
@@ -180,7 +195,9 @@ const MyWallet: React.FC = () => {
                 onClick={() => {
                   setLimit('Year');
                 }}
-                className={`${limit === 'Year' ? 'text-blue-500' : 'text-[#9B919D]'} cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
+                className={`${
+                  limit === 'Year' ? 'text-blue-500' : 'text-[#9B919D]'
+                } cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
               >
                 Year
               </li>
@@ -192,7 +209,7 @@ const MyWallet: React.FC = () => {
             <Dropdown
               label={
                 <div className="flex items-center gap-4">
-                  <h1 className="font-header">Transection History</h1>
+                  <h1 className="font-header">Transaction History</h1>
                   <DropIcon
                     className={'size-5 text-gray-500'}
                     onClick={() => {
@@ -201,64 +218,76 @@ const MyWallet: React.FC = () => {
                   />
                 </div>
               }
-              children={
-                <div className="bg-white border shadow-md w-[200px] rounded-3xl">
-                  <ul className="text-base">
-                    <li className="p-3 cursor-pointer hover:bg-gray-100 my-4">
-                      Transaction History
-                    </li>
-                    <li className="p-3 cursor-pointer hover:bg-gray-100 my-4">
-                      Purchasing History
-                    </li>
-                  </ul>
-                </div>
-              }
-            />
+            >
+              <div className="bg-white border shadow-md w-[200px] rounded-3xl">
+                <ul className="text-base">
+                  <li
+                    className="p-3 cursor-pointer hover:bg-gray-100 my-4"
+                    onClick={() => setType('Transaction')}
+                  >
+                    Transaction History
+                  </li>
+                  <li
+                    className="p-3 cursor-pointer hover:bg-gray-100 my-4"
+                    onClick={() => setType('Purchasing')}
+                  >
+                    Purchasing History
+                  </li>
+                </ul>
+              </div>
+            </Dropdown>
             <Dropdown
               label={
                 <div className="flex gap-2 items-center">
                   <span className="text-[#4D494F] font-header">{limit}</span>
-                  <DropIcon className={'size-4'} onClick={() => {}} />
+                  <DropIcon className={'size-4'} onClick={console.log} />
                 </div>
               }
               side="right"
-              children={
-                <ul className="bg-white shadow-md border py-2 rounded-2xl font-content">
-                  <li
-                    onClick={() => {
-                      setLimit('All');
-                    }}
-                    className={`${limit === 'All' ? 'text-blue-500' : 'text-[#9B919D]'} cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
-                  >
-                    All
-                  </li>
-                  <li
-                    onClick={() => {
-                      setLimit('Week');
-                    }}
-                    className={`${limit === 'Week' ? 'text-blue-500' : 'text-[#9B919D]'} cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
-                  >
-                    Week
-                  </li>
-                  <li
-                    onClick={() => {
-                      setLimit('Month');
-                    }}
-                    className={`${limit === 'Month' ? 'text-blue-500' : 'text-[#9B919D]'} cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
-                  >
-                    Month
-                  </li>
-                  <li
-                    onClick={() => {
-                      setLimit('Year');
-                    }}
-                    className={`${limit === 'Year' ? 'text-blue-500' : 'text-[#9B919D]'} cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
-                  >
-                    Year
-                  </li>
-                </ul>
-              }
-            />
+            >
+              <ul className="bg-white shadow-md border py-2 rounded-2xl font-content">
+                <li
+                  onClick={() => {
+                    setLimit('All');
+                  }}
+                  className={`${
+                    limit === 'All' ? 'text-blue-500' : 'text-[#9B919D]'
+                  } cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
+                >
+                  All
+                </li>
+                <li
+                  onClick={() => {
+                    setLimit('Week');
+                  }}
+                  className={`${
+                    limit === 'Week' ? 'text-blue-500' : 'text-[#9B919D]'
+                  } cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
+                >
+                  Week
+                </li>
+                <li
+                  onClick={() => {
+                    setLimit('Month');
+                  }}
+                  className={`${
+                    limit === 'Month' ? 'text-blue-500' : 'text-[#9B919D]'
+                  } cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
+                >
+                  Month
+                </li>
+                <li
+                  onClick={() => {
+                    setLimit('Year');
+                  }}
+                  className={`${
+                    limit === 'Year' ? 'text-blue-500' : 'text-[#9B919D]'
+                  } cursor-pointer duration-150 px-2 py-1 hover:bg-gray-100`}
+                >
+                  Year
+                </li>
+              </ul>
+            </Dropdown>
           </div>
         )}
         {!isMobile ? (
@@ -268,19 +297,22 @@ const MyWallet: React.FC = () => {
             tableData={tableData}
           />
         ) : (
-          walletData.map((val, index) => {
-            return (
-              <div className="border-y border-b py-[12px] h-auto flex flex-col justify-between">
-                <table className="">
-                  <tr className=" font-content">
+          walletData.map((val, index) => (
+            <div
+              key={index}
+              className="border-y border-b py-[12px] h-auto flex flex-col justify-between"
+            >
+              <table className="">
+                <tbody>
+                  <tr className="font-content">
                     <td className="font-semibold py-2 text-sm sm:text-[16px]">
                       Date
                     </td>
-                    <td className=" text-[#020D3A] text-sm sm:text-[16px]">
+                    <td className="text-[#020D3A] text-sm sm:text-[16px]">
                       {val?.datePaid}
                     </td>
                   </tr>
-                  <tr className=" font-content">
+                  <tr className="font-content">
                     <td className="font-semibold py-2 text-sm sm:text-[16px]">
                       Amount
                     </td>
@@ -288,38 +320,44 @@ const MyWallet: React.FC = () => {
                       {val?.amount}
                     </td>
                   </tr>
-                  <tr className=" font-content">
-                    <td className=" font-semibold py-2 text-sm sm:text-[16px]">
+                  <tr className="font-content">
+                    <td className="font-semibold py-2 text-sm sm:text-[16px]">
                       TRN
                     </td>
-                    <td className=" text-[#020D3A] text-sm sm:text-[16px]">
+                    <td className="text-[#020D3A] text-sm sm:text-[16px]">
                       {val?.id}
                     </td>
                   </tr>
-                  <tr className=" font-content">
-                    <td className="  font-semibold py-2 pr-4 text-sm sm:text-[16px]">
+                  <tr className="font-content">
+                    <td className="font-semibold py-2 pr-4 text-sm sm:text-[16px]">
                       Status
                     </td>
-                    <td className={' text-[#020D3A] text-sm sm:text-[16px]'}>
+                    <td className={'text-[#020D3A] text-sm sm:text-[16px]'}>
                       <span
-                        className={`${val.status === 'pending' ? 'bg-gray-100' : val.status === 'success' ? 'bg-green-100 text-green-500' : 'bg-red-100 text-red-500'} px-4 rounded-full`}
+                        className={`${
+                          val.status === 'pending'
+                            ? 'bg-gray-100'
+                            : val.status === 'success'
+                              ? 'bg-green-100 text-green-500'
+                              : 'bg-red-100 text-red-500'
+                        } px-4 rounded-full`}
                       >
                         {val?.status}
                       </span>
                     </td>
                   </tr>
-                  <tr className=" font-content">
-                    <td className="  font-semibold py-2 text-sm sm:text-[16px]">
+                  <tr className="font-content">
+                    <td className="font-semibold py-2 text-sm sm:text-[16px]">
                       Payment
                     </td>
-                    <td className=" text-[#020D3A] text-sm sm:text-[16px]">
+                    <td className="text-[#020D3A] text-sm sm:text-[16px]">
                       {val?.paymentMode}
                     </td>
                   </tr>
-                </table>
-              </div>
-            );
-          })
+                </tbody>
+              </table>
+            </div>
+          ))
         )}
       </div>
     </div>
