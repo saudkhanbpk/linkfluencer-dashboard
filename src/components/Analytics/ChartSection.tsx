@@ -43,7 +43,7 @@ const ChartSection: React.FC<ChartSectionProps> = ({
         </div>
         <div className="w-full md:w-1/2 border rounded-3xl h-[420px] bg-white p-[24px]">
           <h2 className="text-[24px] text-gray-700">Users Traffic By Region</h2>
-          <div className="flex flex-col flex-wrap mt-6">
+          <div className="flex flex-col flex-wrap mt-6 h-full pb-4">
             <CircleChart countries={topCountries} />
           </div>
         </div>

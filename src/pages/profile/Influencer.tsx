@@ -71,7 +71,6 @@ const Influencer: React.FC = () => {
       try {
         const updatedUser = await UserUpdate(user._id, values);
         setValues(updatedUser);
-        alert('Profile updated successfully');
       } catch (error) {
         alert('Failed to update profile');
       }

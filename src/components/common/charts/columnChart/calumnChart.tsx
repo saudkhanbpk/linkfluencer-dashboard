@@ -84,10 +84,8 @@ const ApexColumnChart: React.FC<ApexColumnChartProps> = ({ clickData }) => {
   };
 
   return (
-    <div className="w-full" style={{ maxHeight: '60vh', height: '100%', position: 'relative' }}>
-      <div style={{ width: '100%', height: '100%',}}>
+    <div className="w-full h-[100%] max-h-[550px] md:max-h-[350px] pb-2">
       <ReactApexChart options={options} series={series} type="bar" />
-    </div>
     </div>
   );
 };

@@ -98,7 +98,7 @@ const ApexColumnChart = () => {
   });
 
   return (
-    <div className="w-full h-[100%] max-h-[550px] md:max-h-[350px] pb-2">
+    <div className="w-full h-[100%] max-h-[550px] md:max-h-[350px] pb-2 ">
       <ReactApexChart
         options={options}
         series={series}
