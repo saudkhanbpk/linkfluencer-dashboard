@@ -1,5 +1,5 @@
 import React from 'react';
-import UploadButton from './UButton';
+import UploadButton from './UploadButton';
 
 interface FileInfoProps {
   file: File;
