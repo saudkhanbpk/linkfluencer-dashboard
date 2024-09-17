@@ -52,14 +52,6 @@ const BulkUpload: React.FC = () => {
   }
   };
 
-  // const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   if (event.target.files && event.target.files[0]) {
-  //     setSelectedFile(event.target.files[0]);
-  //     setUploadComplete(false);
-  //     setSmartLinksCreated(null);
-  //   }
-  // };
-
   const handleRemoveFile = () => {
     setSelectedFile(null);
     setUploadComplete(false);
@@ -83,8 +75,6 @@ const BulkUpload: React.FC = () => {
         },
       }
     )
-
-    console.log({response});
     
       // setTimeout(() => {
         setUploading(false);
