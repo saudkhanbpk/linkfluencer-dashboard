@@ -15,7 +15,7 @@ interface useerData {
 interface Props {
   values?: useerData;
 }
-const User: React.FC<Props> = ({ values }) => {
+const User: React.FC<Props> = () => {
   return (
     <div className="h-full">
       <div className="flex flex-col md:flex-row items-center">

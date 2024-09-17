@@ -2,8 +2,8 @@ import { useState } from 'react';
 
 const useFileUpload = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [showInfo, setShowInfo] = useState(false);
-  const [uploading, setUploading] = useState(false);
+  const [showInfo, _setShowInfo] = useState(false);
+  const [uploading, _setUploading] = useState(false);
   const [uploadComplete, setUploadComplete] = useState(false);
   const [smartLinksCreated, setSmartLinksCreated] = useState<number | null>(
     null,

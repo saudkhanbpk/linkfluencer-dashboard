@@ -68,15 +68,15 @@ const BulkUpload: React.FC = () => {
       const formData = new FormData();
       formData.append('file', selectedFile);
 
-      const response = await axios.post(
-        `http://localhost:5005/users/${user?._id}/links/upload`,
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        },
-      );
+      // const response = await axios.post(
+      //   `http://localhost:5005/users/${user?._id}/links/upload`,
+      //   formData,
+      //   {
+      //     headers: {
+      //       'Content-Type': 'multipart/form-data',
+      //     },
+      //   },
+      // );
 
       // setTimeout(() => {
       setUploading(false);
