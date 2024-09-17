@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import UploadButton from '../components/bulkUpload/UploadButton';
 import ProgressBar from '../components/bulkUpload/ProgressBar';
 import FileInfo from '../components/bulkUpload/FilteInfo';
 import SuccessMessage from '../components/bulkUpload/SuccessMessage';
@@ -7,7 +8,6 @@ import InfoPopup from '../components/bulkUpload/InfoPopup';
 import axios from 'axios';
 import { UserContext } from '../context/UserContext';
 import { handleDownloadBulkUploadTemplete } from '../utils/download';
-// import UploadButton from '../components/bulkUpload/UploadButton';
 const BulkUpload: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [showInfo, setShowInfo] = useState(false);
@@ -127,12 +127,12 @@ const BulkUpload: React.FC = () => {
               id="file-upload"
             />
             <div className="flex flex-col lg:flex-row gap-4 mt-8 lg:mt-12">
-              {/* <UploadButton label="Import" onClick={handleImport} />
+              <UploadButton label="Import" onClick={handleImport} />
               <UploadButton
                 label="Download Template"
                 onClick={handleDownloadTemplate}
                 variant="outline"
-              /> */}
+              />
             </div>
           </div>
         ) : (
