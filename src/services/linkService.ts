@@ -174,6 +174,23 @@ export const getTopSources = async (
   }
 };
 
+
+export const subscribePlan = async (
+  userId: string,
+  data:any
+) => {
+  try {
+    const response = await axiosInstance.post(
+      `/users/${userId}/subscribe`,data
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error('Error when fetching top sources', error);
+    return null;
+  }
+};
+
 export const bulkUpload = async (
   userId: string,
   links:string[]
