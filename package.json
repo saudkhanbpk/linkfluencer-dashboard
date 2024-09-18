@@ -26,6 +26,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "dev": "PORT=3001 react-scripts start",
     "start": "serve -s build",
     "build": "react-scripts build",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
@@ -60,5 +61,5 @@
     "prettier": "^3.3.3",
     "tailwindcss": "^3.4.10"
   },
-  "proxy": "https://linkfluencer-api-production.up.railway.app/"
+  "proxy": "http://localhost:5005"
 }

@@ -14,6 +14,7 @@ import {
   UserVisit,
 } from '../../../services/linkService';
 import Loading from '../Loading';
+import { getCountryFlag } from '../../../utils/countryUtils';
 
 interface Prop {
   data: ILink;
@@ -25,6 +26,7 @@ const LinkDetailsCard: React.FC<Prop> = ({ data, handleDetailsModalClose }) => {
   const [clicks, setClicks] = useState<number | null>(null);
   const [clicksTrend, setClicksTrend] = useState<any | null>(null);
   const [topCountry, setTopCountry] = useState<string | null>(null);
+  const [topCountryFlag, setTopCountryFlag] = useState<string>();
   const [topCity, setTopCity] = useState<string | null>(null);
   const [bestAverageTimeToEngage, setBestAverageTimeToEngage] = useState<
     string | null
@@ -60,6 +62,9 @@ const LinkDetailsCard: React.FC<Prop> = ({ data, handleDetailsModalClose }) => {
         const city = await getTopCityByLink(data.createdBy, data._id);
         setTopCity(city || 'No data');
         setLoadingTopCity(false);
+
+        const flag = getCountryFlag(country);
+        setTopCountryFlag(flag);
 
         const bestTime = await getBestAverageTimeToEngageByLink(
           data.createdBy,
@@ -147,7 +152,7 @@ const LinkDetailsCard: React.FC<Prop> = ({ data, handleDetailsModalClose }) => {
                     {topCountry}
                   </span>
                   <img
-                    src="/assets/usaflag.svg"
+                    src={topCountryFlag}
                     alt="country flag"
                     className="h-[24px] w-[24px]"
                   />
