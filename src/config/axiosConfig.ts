@@ -27,7 +27,7 @@ api.interceptors.response.use(
         }
       } catch (refreshError) {
         handleLogout();
-        // window.location.href = `${process.env.REACT_APP_WEBSITE_URL}`;
+        window.location.href = `/signin`;
         return Promise.reject(refreshError);
       }
     }
@@ -55,9 +55,9 @@ export const handleLogout = async () => {
   try {
     await api.post('/auth/logout');
     updateUserState(null);
-    // window.location.href = `${process.env.REACT_APP_WEBSITE_URL}`;
+    window.location.href = `/signin`;
   } catch (error) {
-    // window.location.href = `${process.env.REACT_APP_WEBSITE_URL}`;
+    window.location.href = `/signin`;
     console.error('Logout failed:', error);
   }
 };

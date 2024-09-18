@@ -1,9 +1,22 @@
-import React, { useState } from 'react';
-import { login } from '../services/userService';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { login, fetchUser } from '../services/userService';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkUser = async () => {
+      const user = await fetchUser();
+      if (user) {
+        navigate('/');
+      }
+    };
+
+    checkUser();
+  }, [navigate]);
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -13,9 +26,14 @@ const Login: React.FC = () => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    login(email, password);
+    try {
+      await login(email, password);
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
