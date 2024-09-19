@@ -60,6 +60,5 @@
     "eslint-plugin-prettier": "^5.2.1",
     "prettier": "^3.3.3",
     "tailwindcss": "^3.4.10"
-  },
-  "proxy": "http://localhost:5005"
+  }
 }
