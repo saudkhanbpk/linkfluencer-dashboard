@@ -10,24 +10,45 @@ const api = axios.create({
   },
 });
 
+let isRefreshing = false;
+let failedQueue: any[] = [];
+
+const processQueue = (error: any, token: string | null = null) => {
+  failedQueue.forEach((prom) => {
+    if (token) {
+      prom.resolve(api(prom.config));
+    } else {
+      prom.reject(error);
+    }
+  });
+
+  failedQueue = [];
+};
+
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
 
     if (error.response?.status === 401 && !originalRequest._retry) {
+      if (isRefreshing) {
+        return new Promise((resolve, reject) => {
+          failedQueue.push({ resolve, reject, config: originalRequest });
+        });
+      }
+
       originalRequest._retry = true;
+      isRefreshing = true;
 
       try {
         const refreshed = await refreshAccessToken();
-        if (refreshed) {
-          return api(originalRequest);
-        } else {
-          handleLogout();
-        }
+        isRefreshing = false;
+        processQueue(null, refreshed);
+        return api(originalRequest);
       } catch (refreshError) {
+        isRefreshing = false;
+        processQueue(refreshError, null);
         handleLogout();
-        window.location.href = `/signin`;
         return Promise.reject(refreshError);
       }
     }
@@ -44,10 +65,10 @@ export const refreshAccessToken = async () => {
       throw new Error('Failed to refresh token');
     }
 
-    return true;
+    return response.data.accessToken;
   } catch (error) {
     console.error('Error refreshing token:', error);
-    return false;
+    return null;
   }
 };
 
@@ -63,8 +84,7 @@ export const handleLogout = async () => {
 };
 
 const updateUserState = (user = null) => {
-  // Implement state management here, e.g., Redux dispatch or Context API update
-  // Example: dispatch({ type: 'SET_USER', payload: user });
+  // todo
 };
 
 export default api;
