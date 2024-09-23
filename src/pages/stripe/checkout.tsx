@@ -1,12 +1,17 @@
-import { useState } from 'react';
-import PlanCard from '../../components/common/cards/Plan';
-import { useParams } from 'react-router-dom';
+import { useContext, useState } from "react";
+import PlanCard from "../../components/common/cards/Plan";
+import { useParams } from "react-router-dom";
+import { UserContext } from "../../context/UserContext";
+import { subscribePlan } from "../../services/linkService";
 
-export const Checkout: React.FC = () => {
+interface Props {}
+export const Checkout: React.FC<Props> = () => {
+  const [success, setSuccess] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
   const { label } = useParams();
-  console.log('this is label ====>>>>', label);
 
-  const data = [
+  const data = [ 
     {
       Label: 'Free',
       description: 'Start to measure the impact of your daily engagement',
@@ -91,6 +96,8 @@ export const Checkout: React.FC = () => {
     CVV: '',
   });
 
+  
+
   const handleCustomerChange = (e: any) => {
     const { name, value } = e.target;
     setCustomerValues((preValue: any) => {
@@ -109,9 +116,85 @@ export const Checkout: React.FC = () => {
       };
     });
   };
-  const handleSubmit = (): void => {
-    console.log({ customerValues, cardValues });
+  // const handleSubmit = ():void => {
+  //   console.log({ customerValues, cardValues });
+  // };
+
+  const userContext = useContext(UserContext);
+
+  if (!userContext) {
+    throw new Error('useContext must be used within a UserProvider');
+  }
+  
+  const { user } = userContext;
+  const handleSubmit = async () => {
+    setLoading(true); // Start the loading process
+  
+    // Find the plan by its label
+    const selectedPlan = data.find((plan) => plan.Label.toLowerCase() === label?.toLowerCase());
+  
+    // If no plan is found, show an error
+    if (!selectedPlan) {
+      setError('Selected plan not found.');
+      setLoading(false);
+      return;
+    }
+  
+    // Extract the price and remove the $ sign
+    const amount = parseFloat(selectedPlan.price.replace('$', ''));
+  
+    // Check if cardValues and customerValues are populated
+    if (!cardValues || !customerValues) {
+      setError('Please provide all required card and customer details.');
+      setLoading(false);
+      return;
+    }
+  
+    const payload = {
+      stripeToken: {
+        amount: Math.floor(amount * 100), // Converting amount to cents
+        currency: 'usd',
+        type: 'card',
+        card: {
+          number: cardValues.cardNumber,
+          exp_month: cardValues.expiryMonth,
+          exp_year: cardValues.expiryYear,
+          cvc: cardValues.CVV,
+        },
+        name: cardValues.nameOnCard,
+        email: customerValues.email,
+        metadata: {
+          address: customerValues.address,
+          city: customerValues.city,
+          postcode: customerValues.postalCode,
+          country: customerValues.country,
+          phone: customerValues.phone,
+        },
+      },
+      plan: label?.toLowerCase(), // Pass the selected plan label
+    };
+  
+  
+    try {
+      if(user && user._id){
+
+      const response = await subscribePlan(user._id, payload); // Use subscribePlan function here
+  
+      if (response) {
+        setSuccess('Subscription successful!'); // Handle success response
+      } else {
+        setError('Subscription failed.'); // Handle failure case
+      }
+    }
+    } catch (err) {
+      console.error('Error uploading data:', err);
+      setError('Failed to upload data. Please try again.');
+    } finally {
+      setLoading(false); // Stop the loading process
+    }
   };
+  
+  
   return (
     <div className="">
       <div className="p-[24px]">
