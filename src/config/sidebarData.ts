@@ -30,6 +30,7 @@ export const sidebarData = [
     icon: '/assets/users.svg',
     route: ROUTES.USER_MANAGEMENT,
     type:['brand']
+    
   },
   {
     label: 'Campaign',
