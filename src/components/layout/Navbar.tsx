@@ -137,7 +137,7 @@ const Navbar = () => {
           </div>
           <div className="w-4/5 flex justify-between px-[24px]">
             {renderClicksLeft()}
-            <div className="flex items-center">
+            <div className="flex items-center gap-2">
               <div className="flex items-center w-[340px] h-[48px] rounded-full border px-[16px] pl-[14px] mr-[20px]">
                 <img
                   src="/assets/searchIcon.svg"

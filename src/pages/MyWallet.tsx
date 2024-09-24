@@ -128,7 +128,7 @@ const MyWallet: React.FC = () => {
           <div className="flex items-center justify-between">
             <Dropdown
               label={
-                <div className="flex items-center gap-4 border">
+                <div className="flex items-center gap-4">
                   <h1 className="text-[20px] font-header">{type} History</h1>
                   <DropIcon
                     className={'size-4 text-gray-500'}
@@ -139,7 +139,7 @@ const MyWallet: React.FC = () => {
                 </div>
               }
             >
-              <div className="bg-white border shadow-md w-[200px] rounded-3xl">
+              <div className="bg-white shadow-md w-[200px] rounded-3xl">
                 <ul className="text-base">
                   <li
                     className="p-3 cursor-pointer hover:bg-gray-100 my-4"
@@ -219,7 +219,7 @@ const MyWallet: React.FC = () => {
                 </div>
               }
             >
-              <div className="bg-white border shadow-md w-[200px] rounded-3xl">
+              <div className="bg-white shadow-md w-[200px] rounded-3xl">
                 <ul className="text-base">
                   <li
                     className="p-3 cursor-pointer hover:bg-gray-100 my-4"
@@ -245,7 +245,7 @@ const MyWallet: React.FC = () => {
               }
               side="right"
             >
-              <ul className="bg-white shadow-md border py-2 rounded-2xl font-content">
+              <ul className="bg-white shadow-md py-2 rounded-2xl font-content">
                 <li
                   onClick={() => {
                     setLimit('All');

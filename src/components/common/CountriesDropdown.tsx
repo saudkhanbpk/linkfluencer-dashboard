@@ -44,7 +44,7 @@ const CountriesDropdown: React.FC<CountriesDropdownProps> = ({
         </div>
       }
     >
-      <ul className="max-h-60 overflow-y-auto bg-white rounded shadow-lg">
+      <ul className="max-h-60 overflow-y-scroll bg-white rounded shadow-lg w-[250px]">
         {countries.map((country) => (
           <li
             key={country.iso2}
@@ -56,7 +56,7 @@ const CountriesDropdown: React.FC<CountriesDropdownProps> = ({
               alt={`${country.name} flag`}
               className="w-4 h-4 rounded-full"
             />
-            <span>{country.name}</span>
+            <span className='whitespace-nowrap'>{country.name}</span>
             <span>{`(${country.dialCode})`}</span>
           </li>
         ))}

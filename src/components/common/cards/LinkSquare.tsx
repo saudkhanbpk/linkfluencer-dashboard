@@ -118,11 +118,11 @@ const LinkSquare: React.FC<Props> = ({
         </span>
         {!minimize && (
           <div className="my-4 text-[#5890FF]">
-            {link.tags?.map((tag, index) => (
+            {link.tags?.length ? link.tags?.map((tag, index) => (
               <span key={index} className="mr-2">
                 {`#${tag}`}
               </span>
-            ))}
+            )):<span>-</span>}
           </div>
         )}
         <div>

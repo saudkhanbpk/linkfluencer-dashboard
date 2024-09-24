@@ -18,7 +18,7 @@ const UploadButton: React.FC<UploadButtonProps> = ({
 
   return (
     <button
-      className={`border-[1px] rounded-full px-[20px] mt-4 py-[12px] font-header ${buttonClass} whitespace-nowrap`}
+      className={`border-[1px] rounded-full px-[20px] mt-2 py-[12px] font-header ${buttonClass} whitespace-nowrap`}
       onClick={onClick}
     >
       {label}
