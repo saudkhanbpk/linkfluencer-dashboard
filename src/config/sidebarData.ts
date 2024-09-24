@@ -37,7 +37,6 @@ export const sidebarData = [
     type:['influencer', 'brand'],
     route: undefined,
   },
-  
 ];
 
 export const COUNTRIES = [{ name: 'EN' }, { name: 'FR' }, { name: 'ES' }];
