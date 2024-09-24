@@ -30,7 +30,7 @@ const Login: React.FC = () => {
     e.preventDefault();
     try {
       await login(email, password);
-      navigate(`${process.env.REACT_APP_DASHBOARD_URL}`);
+      navigate('/');
     } catch (error) {
       console.log(error);
     }
