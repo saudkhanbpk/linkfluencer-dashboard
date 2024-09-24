@@ -25,14 +25,12 @@ export const sidebarData = [
     route: ROUTES.ANALYTICS,
     type:['influencer', 'brand']
   },
-  {
-    label: 'User Management',
-    icon: '/assets/users.svg',
-    route: ROUTES.USER_MANAGEMENT,
-    type:['brand']
-
-  },
-  
+  // {
+  //   label: 'User Management',
+  //   icon: '/assets/users.svg',
+  //   route: ROUTES.USER_MANAGEMENT,
+  //   type:['brand']
+  // },
   {
     label: 'Campaign',
     icon: '/assets/compaignIcon.svg',
