@@ -4,7 +4,6 @@ const API_URL = process.env.REACT_APP_API_URL;
 
 const api = axios.create({
   baseURL: API_URL,
-  withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -25,6 +24,19 @@ const processQueue = (error: any, token: string | null = null) => {
   failedQueue = [];
 };
 
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('accessToken');
+    if (token) {
+      config.headers['Authorization'] = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  },
+);
+
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
@@ -44,6 +56,9 @@ api.interceptors.response.use(
         const refreshed = await refreshAccessToken();
         isRefreshing = false;
         processQueue(null, refreshed);
+
+        originalRequest.headers['Authorization'] = `Bearer ${refreshed}`;
+
         return api(originalRequest);
       } catch (refreshError) {
         isRefreshing = false;
@@ -59,13 +74,23 @@ api.interceptors.response.use(
 
 export const refreshAccessToken = async () => {
   try {
-    const response = await api.get('/auth/refreshAccessToken');
+    const refreshToken = localStorage.getItem('refreshToken');
+    if (!refreshToken) {
+      throw new Error('No refresh token available');
+    }
+
+    const response = await api.post('/auth/refreshToken', { refreshToken });
 
     if (response.status !== 200) {
       throw new Error('Failed to refresh token');
     }
 
-    return response.data.accessToken;
+    const { accessToken, refreshToken: newRefreshToken } = response.data;
+
+    localStorage.setItem('accessToken', accessToken);
+    localStorage.setItem('refreshToken', newRefreshToken);
+
+    return accessToken;
   } catch (error) {
     console.error('Error refreshing token:', error);
     return null;
@@ -75,6 +100,8 @@ export const refreshAccessToken = async () => {
 export const handleLogout = async () => {
   try {
     await api.post('/auth/logout');
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
     updateUserState(null);
     window.location.href = `/signin`;
   } catch (error) {
