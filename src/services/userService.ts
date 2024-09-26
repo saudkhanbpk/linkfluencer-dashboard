@@ -9,6 +9,9 @@ export const login = async (email: string, password: string): Promise<any> => {
       password,
     });
 
+    localStorage.setItem('accessToken', response.data.accessToken);
+    localStorage.setItem('refreshToken', response.data.refreshToken);
+
     return response.data;
   } catch (error) {
     console.error('Error when logging in', error);
