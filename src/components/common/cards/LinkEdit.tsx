@@ -86,7 +86,7 @@ const LinkEditCard: React.FC<Prop> = ({
           className="p-2 mr-0 rounded-l-full bg-gray-100 text-gray-500 cursor-not-allowed select-none"
           aria-disabled="true"
         >
-          linkfluencer.io/
+          {process.env.REACT_APP_NODE_API_DOMAIN}
         </span>
         <input
           type="text"

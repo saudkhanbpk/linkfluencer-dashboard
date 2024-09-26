@@ -87,7 +87,7 @@ const MyLinks: React.FC = () => {
       cellAlign: 'left',
       render: (row: any) => (
         <div className="flex items-center">
-          <span>{`linkfluencer.io/${row.shortUrl}`}</span>
+          <span>{`${process.env.REACT_APP_NODE_API_DOMAIN}/${row.shortUrl}`}</span>
         </div>
       ),
     },
@@ -194,7 +194,7 @@ const MyLinks: React.FC = () => {
     });
     console.log(selectedLink.originalUrl);
 
-    setCopyLink(selectedLink.originalUrl);
+    setCopyLink(selectedLink.shortUrl);
     setIsShareModalOpen(true);
   };
   const fetchUserLinks = async () => {

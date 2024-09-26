@@ -114,7 +114,7 @@ const LinkSquare: React.FC<Props> = ({
           className="text-[14px] font-content break-words"
           title={link.shortUrl}
         >
-          {`linkfluencer.io/${truncateText(link.shortUrl, maxLength)}`}
+          {`${process.env.REACT_APP_NODE_API_DOMAIN}/${truncateText(link.shortUrl, maxLength)}`}
         </span>
         {!minimize && (
           <div className="my-4 text-[#5890FF]">
