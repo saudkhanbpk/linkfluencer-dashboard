@@ -9,5 +9,6 @@ export const ROUTES = {
   PROFILE: '/profile',
   WALLET: '/wallet',
   PLANS: '/plans',
+  REDIRECT:'/redirect',
   CHECKOUT: '/checkout/:label',
 };

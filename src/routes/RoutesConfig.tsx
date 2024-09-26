@@ -13,6 +13,7 @@ import { Checkout } from '../pages/stripe/checkout';
 import { useEffect } from 'react';
 import ProtectedRoutes from './ProtectedRoutes';
 import Signin from '../pages/Signin';
+import Redirect from '../pages/redirect';
 
 const RoutesConfig = () => {
   // console.log(ROUTES.CHECKOUT);
@@ -26,6 +27,7 @@ const RoutesConfig = () => {
   return (
     <Routes>
       <Route path={ROUTES.SIGNIN} element={<Signin />} />
+      <Route path={ROUTES.REDIRECT} element={<Redirect />} />
       <Route element={<ProtectedRoutes />}>
         <Route path={ROUTES.HOME} element={<Layout />}>
           <Route index element={<Dashboard />} />
