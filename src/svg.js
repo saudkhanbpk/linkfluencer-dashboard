@@ -291,7 +291,6 @@ export const CrossIcon = ({ className, onClick }) => {
     </svg>
   );
 };
-
 export const SinglePersonIcon = ({ className, onClick }) => {
   return (
     <svg
