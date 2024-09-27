@@ -106,7 +106,7 @@ const LinkDetailsCard: React.FC<Prop> = ({ data, handleDetailsModalClose }) => {
           onClick={handleDetailsModalClose}
         />
       </div>
-      <p>{`${process.env.REACT_PUBLIC_WEBSITE_DOMAIN}/${data.shortUrl}`}</p>
+      <p>{`${process.env.REACT_APP_WEBSITE_DOMAIN}/${data.shortUrl}`}</p>
 
       <div className="my-4 text-[#5890FF]">
         {data.tags?.map((tag, index) => (

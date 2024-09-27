@@ -87,7 +87,7 @@ const MyLinks: React.FC = () => {
       cellAlign: 'left',
       render: (row: any) => (
         <div className="flex items-center">
-          <span>{`${process.env.REACT_PUBLIC_WEBSITE_DOMAIN}/${row.shortUrl}`}</span>
+          <span>{`${process.env.REACT_APP_WEBSITE_DOMAIN}/${row.shortUrl}`}</span>
         </div>
       ),
     },

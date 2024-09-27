@@ -15,11 +15,11 @@ console.log({link});
         <span className="text-neutral-500">Or share with link</span>
       </div>
       <div className="flex items-center p-2 my-5 rounded-3xl bg-[#F4F4F4] justify-between">
-        <span>{process.env.REACT_PUBLIC_WEBSITE_DOMAIN+"/"+link}</span>
+        <span>{process.env.REACT_APP_WEBSITE_DOMAIN+"/"+link}</span>
         <Tooltip text="copy">
           <SaveIcon
             className="size-12 border cursor-pointer p-3 rounded-full bg-white"
-            onClick={() => copyToClipboard(process.env.REACT_PUBLIC_WEBSITE_DOMAIN+"/"+link)}
+            onClick={() => copyToClipboard(process.env.REACT_APP_WEBSITE_DOMAIN+"/"+link)}
           />
         </Tooltip>
       </div>
