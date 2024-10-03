@@ -27,4 +27,9 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm ci
-    # - run: npm run build --if-present
+    - env:
+          REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
+          REACT_APP_NODE_API_DOMAIN: ${{ secrets.REACT_APP_NODE_API_DOMAIN }}
+          REACT_APP_WEBSITE_DOMAIN: ${{ secrets.REACT_APP_WEBSITE_DOMAIN }}
+          REACT_APP_WEBSITE_URL: ${{ secrets.REACT_APP_WEBSITE_URL }}
+    - run: pm2 restart linkfluencer-dashboard
