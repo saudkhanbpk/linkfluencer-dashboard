@@ -1,6 +1,3 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
-
 name: Node.js CI
 
 on:
@@ -11,7 +8,6 @@ on:
 
 jobs:
   build:
-
     runs-on: self-hosted
 
     strategy:
@@ -21,15 +17,20 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci
-    - env:
-          REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
-          REACT_APP_NODE_API_DOMAIN: ${{ secrets.REACT_APP_NODE_API_DOMAIN }}
-          REACT_APP_WEBSITE_DOMAIN: ${{ secrets.REACT_APP_WEBSITE_DOMAIN }}
-          REACT_APP_WEBSITE_URL: ${{ secrets.REACT_APP_WEBSITE_URL }}
-    - run: pm2 restart linkfluencer-dashboard
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Start app with PM2
+      run: pm2 restart linkfluencer-dashboard
+      env:
+        REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
+        REACT_APP_NODE_API_DOMAIN: ${{ secrets.REACT_APP_NODE_API_DOMAIN }}
+        REACT_APP_WEBSITE_DOMAIN: ${{ secrets.REACT_APP_WEBSITE_DOMAIN }}
+        REACT_APP_WEBSITE_URL: ${{ secrets.REACT_APP_WEBSITE_URL }}
