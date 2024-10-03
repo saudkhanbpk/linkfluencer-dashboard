@@ -16,7 +16,7 @@ const Login: React.FC = () => {
     };
 
     checkUser();
-  }, [navigate]);
+  },[navigate]);
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
