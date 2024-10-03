@@ -1,0 +1,36 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: self-hosted
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Start app with PM2
+      run: pm2 restart linkfluencer-dashboard
+      env:
+        REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
+        REACT_APP_NODE_API_DOMAIN: ${{ secrets.REACT_APP_NODE_API_DOMAIN }}
+        REACT_APP_WEBSITE_DOMAIN: ${{ secrets.REACT_APP_WEBSITE_DOMAIN }}
+        REACT_APP_WEBSITE_URL: ${{ secrets.REACT_APP_WEBSITE_URL }}
