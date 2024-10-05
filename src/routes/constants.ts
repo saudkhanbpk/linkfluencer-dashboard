@@ -1,6 +1,10 @@
 export const ROUTES = {
   HOME: '/',
   SIGNIN: '/signin',
+  SIGNUP: '/signup',
+  SIGNUP_INFLUENCER: '/signup-influencer',
+  SIGNUP_BRAND: '/signup-brand',
+  FORGET_PASSWORD: '/forget-password',
   TEST_DASHBOARD: '/test-dashboard',
   MY_LINKS: '/my-links',
   BULK_UPLOAD: '/bulk-upload',

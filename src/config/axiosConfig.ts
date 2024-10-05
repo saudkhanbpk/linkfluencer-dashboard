@@ -99,7 +99,6 @@ export const refreshAccessToken = async () => {
 
 export const handleLogout = async () => {
   try {
-    await api.post('/auth/logout');
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
     updateUserState(null);

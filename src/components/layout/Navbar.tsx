@@ -8,6 +8,7 @@ import { LogoutIcon, SinglePersonIcon } from '../../svg';
 import { ClickLeft, ProfileCompletion } from '../../services/userService';
 import { UserContext } from '../../context/UserContext';
 import useDeviceDetect from '../../helpers/screens';
+import { handleLogout } from '../../config/axiosConfig';
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -53,6 +54,10 @@ const Navbar = () => {
     navigate('/profile');
   };
 
+  const logout = () => {
+    handleLogout();
+  };
+
   const renderClicksLeft = () => (
     <div className="flex flex-col lg:flex-row items-center w-[375px] lg:h-[44px] lg:my-[26px]">
       <h1 className="font-header text-[18px] lg:text-[20px] font-bold mr-[16px] text-[#113E53]">
@@ -81,7 +86,7 @@ const Navbar = () => {
             <span>Profile</span>
           </Link>
         </li>
-        <li className="hover:bg-gray-100 w-full p-2 flex items-center">
+        <li className="hover:bg-gray-100 w-full p-2 flex items-center"  onClick={logout}>
           <LogoutIcon className="size-5 mr-2" onClick={undefined} />
           <span>Logout</span>
         </li>

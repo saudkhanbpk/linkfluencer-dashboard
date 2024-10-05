@@ -13,6 +13,9 @@ import { Checkout } from '../pages/stripe/checkout';
 import { useEffect } from 'react';
 import ProtectedRoutes from './ProtectedRoutes';
 import Signin from '../pages/Signin';
+import Signup from '../pages/Signup';
+import SignupInfluencer from '../pages/SignupInfluencer';
+import ForgetPassword from '../pages/ForgetPassword';
 import Redirect from '../pages/redirect';
 
 const RoutesConfig = () => {
@@ -27,6 +30,9 @@ const RoutesConfig = () => {
   return (
     <Routes>
       <Route path={ROUTES.SIGNIN} element={<Signin />} />
+      <Route path={ROUTES.SIGNUP} element={<Signup />} />
+      <Route path={ROUTES.SIGNUP_INFLUENCER} element={<SignupInfluencer />} />
+      <Route path={ROUTES.FORGET_PASSWORD} element={<ForgetPassword />} />
       <Route path={ROUTES.REDIRECT} element={<Redirect />} />
       <Route element={<ProtectedRoutes />}>
         <Route path={ROUTES.HOME} element={<Layout />}>
