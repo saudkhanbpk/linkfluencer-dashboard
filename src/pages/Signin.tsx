@@ -49,7 +49,7 @@ const Login: React.FC = () => {
       <h2>Connexion</h2>
       <form onSubmit={handleSubmit}>
         <div style={{ marginBottom: '1rem' }}>
-          <label htmlFor="email">Email:</label>
+          <label htmlFor="email">Emaill:</label>
           <input
             type="email"
             id="email"
