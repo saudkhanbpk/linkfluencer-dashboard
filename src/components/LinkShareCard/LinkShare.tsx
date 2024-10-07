@@ -20,7 +20,7 @@ const LinkShareCard: React.FC<Prop> = ({
           onClick={handleShareModalClose}
         />
       </div>
-      <SocialIcons />
+      <SocialIcons  link={link}/>
       <ShareLink link={link} />
     </div>
   );
