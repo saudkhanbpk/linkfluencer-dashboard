@@ -89,6 +89,7 @@ const SocialIcons: React.FC<props> = ({ link }) => {
       ),
       label: "Instagram",
     },
+    
     {
       icon: (
         // <TwitterShareButton url={`${process.env.REACT_APP_WEBSITE_DOMAIN}/link`}>
