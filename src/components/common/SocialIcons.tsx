@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   FacebookIcon,
   InstagramIcon,
@@ -6,40 +6,118 @@ import {
   WhatsappIcon,
   EmailIcon,
   ShareFilledIcon,
-} from '../../svg';
+} from "../../svg";
 
+const handleShare = (appName: keyof typeof deeplinks, data: string) => {
+  const userAgent = navigator.userAgent || navigator.vendor;
+  const isMobile =
+    /android/i.test(userAgent) || /iPad|iPhone|iPod/.test(userAgent);
+  console.log({ appName, data });
+
+  const deeplinks: {
+    [key: string]: {
+      mobile: string;
+      desktop: string;
+    };
+  } = {
+    facebook: {
+      mobile: `fb://share/?u=${data}`,
+      desktop: `https://www.facebook.com/sharer/sharer.php?u=${data}`,
+    },
+    instagram: {
+      mobile: `instagram://share/?u=${data}`,
+      desktop: `https://www.instagram.com/direct/new/?text=${data}`,
+    },
+    twitter: {
+      mobile: `twitter://post?text=${data}`,
+      desktop: `https://twitter.com/intent/tweet?text=${data}`,
+    },
+    whatsapp: {
+      mobile: `whatsapp://send?text=${data}`,
+      desktop: `https://web.whatsapp.com/send?text=${data}`,
+    },
+  };
+  if (isMobile) {
+    if (deeplinks[appName] && deeplinks[appName].mobile) {
+      window.location.href = deeplinks[appName].mobile;
+    } else {
+      console.error(`Invalid app name: ${appName}`);
+    }
+  } else {
+    if (deeplinks[appName] && deeplinks[appName].desktop) {
+      window.open(deeplinks[appName].desktop, "_blank");
+    } else {
+      console.error(`Invalid app name: ${appName}`);
+    }
+  }
+};
+const data = "this is the data"
 const socialIconsList = [
   {
     icon: (
-      <FacebookIcon className="size-8 text-[#113E53]" onClick={undefined} />
+      <FacebookIcon
+        className="size-8 text-[#113E53]"
+        onClick={() => {
+          handleShare("facebook", data);
+        }}
+      />
     ),
-    label: 'Facebook',
+    label: "facebook",
   },
   {
     icon: (
-      <InstagramIcon className="size-8 text-[#113E53]" onClick={undefined} />
+      <InstagramIcon
+        className="size-8 text-[#113E53]"
+        onClick={() => {
+          handleShare("instagram", data);
+        }}
+      />
     ),
-    label: 'Instagram',
-  },
-  {
-    icon: <TwitterIcon className="size-8 text-[#113E53]" onClick={undefined} />,
-    label: 'Twitter',
+    label: "Instagram",
   },
   {
     icon: (
-      <WhatsappIcon className="size-8 text-[#113E53]" onClick={undefined} />
+      <TwitterIcon
+        className="size-8 text-[#113E53]"
+        onClick={() => {
+          handleShare("twitter", data);
+        }}
+      />
     ),
-    label: 'Whatsapp',
-  },
-  {
-    icon: <EmailIcon className="size-8 text-[#113E53]" onClick={undefined} />,
-    label: 'E-mail',
+    label: "Twitter",
   },
   {
     icon: (
-      <ShareFilledIcon className="size-8 text-[#113E53]" onClick={undefined} />
+      <WhatsappIcon
+        className="size-8 text-[#113E53]"
+        onClick={() => {
+          handleShare("facebook", data);
+        }}
+      />
     ),
-    label: 'More',
+    label: "Whatsapp",
+  },
+  {
+    icon: (
+      <EmailIcon
+        className="size-8 text-[#113E53]"
+        onClick={() => {
+          handleShare("facebook", data);
+        }}
+      />
+    ),
+    label: "E-mail",
+  },
+  {
+    icon: (
+      <ShareFilledIcon
+        className="size-8 text-[#113E53]"
+        onClick={() => {
+          handleShare("facebook", data);
+        }}
+      />
+    ),
+    label: "More",
   },
 ];
 
