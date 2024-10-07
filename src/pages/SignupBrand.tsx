@@ -180,7 +180,7 @@ const SignupBrand = () => {
                 type="submit"
                 className="w-full p-3 m-2 cursor-pointer bg-[#020D3A] text-white rounded-full"
               >
-                Verify  OTP
+                Verify OTP
               </button>
             </form>
             <div className="flex justify-between items-center m-2">
