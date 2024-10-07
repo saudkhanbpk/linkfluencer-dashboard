@@ -26,6 +26,7 @@ import { ILink } from '../interfaces/Link';
 import LinkShareCard from '../components/LinkShareCard/LinkShare';
 import { fetchIcon } from '../utils/iconUtils';
 import { capitalizeFirstLetter } from '../utils/caseUtils';
+import { SortLinksByOptions } from '../types/enums';
 
 const MyLinks: React.FC = () => {
   const [minimize, setMinimize] = useState(false);
@@ -97,10 +98,6 @@ const MyLinks: React.FC = () => {
       render: (row: any) => (
         <div className="flex items-center">
           <label className="mr-2">{row.clickCount}</label>
-          {/* <Indicate
-            direction={row.indicateUp ? "up" : "down"}
-            percent={row.percent}
-          /> */}
         </div>
       ),
       key: 'clickCount',
@@ -199,9 +196,13 @@ const MyLinks: React.FC = () => {
   };
   const fetchUserLinks = async () => {
     if (user && user._id) {
-      const links = await getUserLinks(user._id);
+      const links = await getUserLinks(user._id, {
+        sortBy: SortLinksByOptions.NewlyAdded,
+      });
       setData(links);
+      
       setFilteredData(links);
+      // sortByDate('desc');
     }
   };
 
@@ -228,6 +229,18 @@ const MyLinks: React.FC = () => {
         return a.clickCount - b.clickCount;
       } else {
         return b.clickCount - a.clickCount;
+      }
+    });
+
+    setFilteredData(sortedData);
+  };
+
+  const sortByDate = (order: 'asc' | 'desc' = 'asc') => {
+    const sortedData = [...data].sort((a: any, b: any) => {
+      if (order === 'asc') {
+        return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+      } else {
+        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
       }
     });
 
@@ -381,7 +394,7 @@ const MyLinks: React.FC = () => {
                     >
                       Low to High Clicks
                     </li>
-                    <li className=" w-full px-4  font-content py-2 border-b">
+                    <li className=" w-full px-4  font-content py-2 border-b" onClick={()=> sortByDate('desc')}>
                       <span>By Dates</span>
                     </li>
                     <li className=" w-full px-4  font-content py-2">
