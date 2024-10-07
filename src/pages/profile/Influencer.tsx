@@ -280,7 +280,6 @@ const Influencer: React.FC = () => {
         <button className="md:mt-0 md:ml-2 ml-0 border-[1px] w-[120px] font-bold bg-[#F1F5F9] rounded-full px-[20px] py-[8px] text-[#113E53] font-header">
           Cancel
         </button>
-        <></>
         <button
           onClick={handleUpdatePassword}
           className="md:mt-0 md:ml-2 ml-0 border-[1px] w-[120px] border-[#113E53] font-bold bg-[#113E53] rounded-full px-[20px] py-[8px] text-white font-header"
