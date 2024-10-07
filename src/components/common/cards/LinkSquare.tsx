@@ -58,7 +58,8 @@ const LinkSquare: React.FC<Props> = ({
   };
 
   const handleCopy = (text: string) => {
-    copyToClipboard(text);
+    const link = `${process.env.REACT_APP_WEBSITE_DOMAIN}/${text}`;
+    copyToClipboard(link);
   };
 
   return (
