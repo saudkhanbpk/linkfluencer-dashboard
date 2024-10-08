@@ -2,20 +2,18 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import Logo from "../components/common/Logo";
 import { RightArrow } from "./../svg";
-import BrandImage from '../assets/signup_brand.png'; // Assurez-vous que ces chemins d'accès sont corrects
+import BrandImage from '../assets/signup_brand.png';
 import InfluencerImage from '../assets/signup_influencer.png';
 
 const Join: React.FC = () => {
   const navigate = useNavigate();
 
   const handleInfluencerClick = () => {
-    console.log("Influencer clicked");
     navigate("/signup-influencer");
   };
 
   const handleBrandClick = () => {
-    console.log("Brand clicked");
-    navigate("/signup-brand"); // Ajoutez la redirection pour Brand si nécessaire
+    navigate("/signup-brand");
   };
 
   return (

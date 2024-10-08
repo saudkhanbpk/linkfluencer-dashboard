@@ -8,6 +8,7 @@ import BlankDashboard from '../components/dashboard/BlankDashboard';
 import DefaultDashboard from '../components/dashboard/DefaultDashboard';
 import { SortLinksByOptions } from '../types/enums';
 import Loading from '../components/common/Loading';
+import { toast } from 'react-toastify';
 
 const Dashboard: React.FC = () => {
   const userContext = useContext(UserContext);
@@ -57,10 +58,11 @@ const Dashboard: React.FC = () => {
     if (user && user._id && newLink) {
       try {
         await createLink(user._id, newLink);
+        toast.success('Link created successfully!');
         setNewLink('');
         fetchUserLinks();
       } catch (error) {
-        console.error('Failed to create link:', error);
+        toast.error('Failed to create link');
       }
     }
   };

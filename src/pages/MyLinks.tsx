@@ -27,6 +27,7 @@ import LinkShareCard from '../components/LinkShareCard/LinkShare';
 import { fetchIcon } from '../utils/iconUtils';
 import { capitalizeFirstLetter } from '../utils/caseUtils';
 import { SortLinksByOptions } from '../types/enums';
+import { toast } from 'react-toastify';
 
 const MyLinks: React.FC = () => {
   const [minimize, setMinimize] = useState(false);
@@ -248,15 +249,14 @@ const MyLinks: React.FC = () => {
   };
 
   const handleCreateLink = async () => {
-    console.log(user);
-
     if (user && user._id) {
       try {
         await createLink(user._id, newLink);
+        toast.success('Link created successfully!');
         setNewLink('');
         fetchUserLinks();
       } catch (error) {
-        console.error('Failed to create link:', error);
+        toast.error('Failed to create link');
       }
     }
   };

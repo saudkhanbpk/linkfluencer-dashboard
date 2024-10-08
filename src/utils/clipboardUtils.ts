@@ -1,28 +1,29 @@
+import { toast } from "react-toastify";
+
 const copyToClipboard = async (text: string) => {
   if (navigator.clipboard && navigator.clipboard.writeText) {
     try {
       await navigator.clipboard.writeText(text);
-      console.log('Text copied successfully!');
+      toast.success('Link copied successfully!');
     } catch (err) {
-      console.error('Failed to copy text: ', err);
+      toast.error('Failed to copy text: ');
     }
   } else {
-    // Fallback for browsers that do not support the Clipboard API
     const textArea = document.createElement('textarea');
     textArea.value = text;
-    textArea.style.position = 'fixed';  // Prevent scrolling to bottom of page in MS Edge.
+    textArea.style.position = 'fixed'; 
     document.body.appendChild(textArea);
     textArea.focus();
     textArea.select();
     try {
       const successful = document.execCommand('copy');
       if (successful) {
-        console.log('Text copied successfully!');
+        toast.success('Link copied successfully!');
       } else {
-        console.error('Failed to copy text.');
+        toast.error('Failed to copy link.');
       }
     } catch (err) {
-      console.error('Failed to copy text: ', err);
+      toast.error('Failed to copy text: ');
     }
     document.body.removeChild(textArea);
   }
