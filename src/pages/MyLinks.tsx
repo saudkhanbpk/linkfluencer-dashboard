@@ -383,7 +383,7 @@ const MyLinks: React.FC = () => {
                     <FilterIcon className="size-8 cursor-pointer hover:bg-gray-100 p-1 rounded-full duration-200" />
                   }
                 >
-                  <ul className="w-[200px] flex justify-center flex-col items-center border bg-white rounded-2xl py-1 shadow-md">
+                  <ul className="w-[200px] flex justify-center flex-col items-center border bg-white rounded-2xl py-1 pt-0 pb-0 shadow-md">
                     <li
                       className=" w-full px-4  font-content py-2 border-b"
                       onClick={() => {
@@ -402,9 +402,6 @@ const MyLinks: React.FC = () => {
                     </li>
                     <li className=" w-full px-4  font-content py-2 border-b" onClick={()=> sortByDate('desc')}>
                       <span>By Dates</span>
-                    </li>
-                    <li className=" w-full px-4  font-content py-2">
-                      Menue Item x
                     </li>
                   </ul>
                 </Dropdown>
