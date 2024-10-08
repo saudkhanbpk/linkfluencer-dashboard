@@ -9,6 +9,7 @@ import { ILink } from '../../interfaces/Link';
 import { updateLink } from '../../services/linkService';
 import { UserContext } from '../../context/UserContext';
 import LinkShareCard from '../LinkShareCard/LinkShare';
+import { toast } from 'react-toastify';
 
 interface DefaultDashboardProps {
   links: ILink[];
@@ -56,8 +57,13 @@ const DefaultDashboard: React.FC<DefaultDashboardProps> = ({
   const handleEdit = async (updatedLink: ILink) => {
     closeModal();
     if (user) {
-      await updateLink(user._id, updatedLink);
-      await refetchLinks();
+      try {
+        await updateLink(user._id, updatedLink);
+        toast.success('Link updated successfully!');
+        await refetchLinks();
+      } catch (error) {
+        toast.error('Failed to update link.');
+      }
     }
   };
 

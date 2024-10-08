@@ -161,10 +161,11 @@ const MyLinks: React.FC = () => {
           const newData = filteredData.filter((val: any) => {
             return !selectedData.includes(val._id);
           });
+          toast.success('Links deleted successfully!');
           setFilteredData(newData);
         })
         .catch((err) => {
-          console.log(err);
+          toast.error('Failed to delete links.');
         });
     }
   };
@@ -213,13 +214,18 @@ const MyLinks: React.FC = () => {
 
   const handleEdit = async (updatedLink: ILink) => {
     if (user) {
-      const response = await updateLink(user._id, updatedLink);
-      if (response?.status == 200) {
-        const updatedArray = filteredData.map((obj: { _id: any }) =>
-          obj._id === response?.data._id ? response?.data : obj,
-        );
-        setFilteredData(updatedArray);
-        setIsEditModalOpen(false);
+      try {
+        const response = await updateLink(user._id, updatedLink);
+        if (response?.status === 200) {
+          const updatedArray = filteredData.map((obj: { _id: any }) =>
+            obj._id === response?.data._id ? response?.data : obj,
+          );
+          toast.success('Link updated successfully!');
+          setFilteredData(updatedArray);
+          setIsEditModalOpen(false);
+        }
+      } catch (error) {
+        toast.error('Failed to update link.');
       }
     }
   };
