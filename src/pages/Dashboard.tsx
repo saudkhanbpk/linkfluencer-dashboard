@@ -15,7 +15,7 @@ const Dashboard: React.FC = () => {
   const [userLinks, setUserLinks] = useState([]);
   const [selectedTab, setSelectedTab] = useState(0);
   const [newLink, setNewLink] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   if (!userContext) {
     throw new Error('useContext must be used within a UserProvider');
