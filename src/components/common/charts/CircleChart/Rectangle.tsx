@@ -6,7 +6,7 @@ interface RectangleProps {
 }
 
 const Rectangle: React.FC<RectangleProps> = ({ value, maxValue }) => {
-  const opacity = value / maxValue;
+  const opacity = maxValue !== 0 ? value / maxValue : 0;
 
   return (
     <div

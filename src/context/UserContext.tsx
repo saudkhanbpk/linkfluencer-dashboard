@@ -27,8 +27,6 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const location = useLocation();
 
   useEffect(() => {
-    console.log(location.pathname);
-
     const getUser = async () => {
       setLoading(true);
       try {

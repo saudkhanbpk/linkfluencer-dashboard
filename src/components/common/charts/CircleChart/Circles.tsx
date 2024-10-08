@@ -6,7 +6,7 @@ interface CircleProps {
 }
 
 const Circle: React.FC<CircleProps> = ({ value, maxValue }) => {
-  const opacity = value / maxValue;
+  const opacity = isNaN(value / maxValue) || maxValue === 0 ? 0 : value / maxValue;
 
   return (
     <div

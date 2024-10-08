@@ -87,7 +87,7 @@ export const ShareIcon = ({ className, onClick }) => {
 export const CopyIcon = ({
   className,
   onClick = () => {
-    console.log('Copy Icon Clicked');
+    // console.log('Copy Icon Clicked');
   },
 }) => {
   return (
