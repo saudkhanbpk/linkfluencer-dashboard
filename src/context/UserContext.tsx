@@ -12,6 +12,14 @@ interface UserContextType {
 
 export const UserContext = createContext<UserContextType | undefined>(undefined);
 
+const PUBLIC_ROUTES = [
+  '/signin',
+  '/signup',
+  '/signup-influencer',
+  '/signup-brand',
+  '/forget-password',
+];
+
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<IUser | null>(null);
   const [loading, setLoading] = useState(true);
@@ -19,17 +27,21 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const location = useLocation();
 
   useEffect(() => {
+    console.log(location.pathname);
+
     const getUser = async () => {
       setLoading(true);
       try {
         const userData = await fetchUser();
-        if (!userData) {
+        if (!userData && !PUBLIC_ROUTES.includes(location.pathname)) {
           navigate('/signin');
           return;
         }
         setUser(userData);
       } catch (err) {
-        navigate('/signin');
+        if (!PUBLIC_ROUTES.includes(location.pathname)) {
+          navigate('/signin');
+        }
       } finally {
         setLoading(false);
       }
