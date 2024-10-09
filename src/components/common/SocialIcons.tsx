@@ -224,6 +224,7 @@ const SocialIcons: React.FC<props> = ({ link }) => {
           <EmailIcon className="size-8 text-[#113E53]" onClick={undefined} />
         </EmailShareButton>
       ),
+      
       label: "E-mail",
     },
     {
