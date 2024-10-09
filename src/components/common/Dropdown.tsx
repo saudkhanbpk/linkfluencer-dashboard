@@ -5,6 +5,7 @@ interface DropdownProps {
   children: React.ReactNode; // This will be the dropdown items passed as children
   dropIcon?: boolean; // Determines if the dropdown icon should be displayed
   side?: string;
+  disabled?: boolean;
 }
 
 const Dropdown: React.FC<DropdownProps> = ({
@@ -12,11 +13,16 @@ const Dropdown: React.FC<DropdownProps> = ({
   children,
   dropIcon = false,
   side = 'left',
+  disabled = false,
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const toggleDropdown = () => setIsOpen(!isOpen);
+  const toggleDropdown = () => {
+    if (!disabled) {
+      setIsOpen(!isOpen);
+    }
+  };
 
   const handleClickOutside = (event: MouseEvent) => {
     if (
@@ -37,11 +43,13 @@ const Dropdown: React.FC<DropdownProps> = ({
   return (
     <div
       ref={dropdownRef}
-      className="relative inline-block text-left cursor-pointer z-50"
+      className={`relative inline-block text-left ${disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'} z-50`}
     >
       <span
         onClick={toggleDropdown}
-        className="inline-flex justify-between py-2 text-sm font-medium text-gray-700 focus:outline-none"
+        className={`inline-flex justify-between py-2 text-sm font-medium text-gray-700 focus:outline-none ${
+          disabled ? 'text-gray-400' : 'text-gray-700'
+        }`}
       >
         {label}
         {dropIcon && (
@@ -60,7 +68,7 @@ const Dropdown: React.FC<DropdownProps> = ({
           </svg>
         )}
       </span>
-      {isOpen && (
+      {isOpen && !disabled && (
         <div
           className={`origin-top-right absolute ${side}-0 mt-2 ring-black ring-opacity-5 focus:outline-none`}
         >

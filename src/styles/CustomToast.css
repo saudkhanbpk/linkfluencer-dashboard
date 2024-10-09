@@ -1,0 +1,17 @@
+.custom-toast-success {
+  background-color: white;
+  color: #58FF93;
+}
+
+.custom-toast-success .Toastify__progress-bar {
+  background-color: #58FF93;
+}
+
+.custom-toast-error {
+  background-color: white;
+  color: red;
+}
+
+.custom-toast-error .Toastify__progress-bar {
+  background-color: red;
+}

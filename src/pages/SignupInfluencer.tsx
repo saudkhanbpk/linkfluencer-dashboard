@@ -5,6 +5,7 @@ import { LeftArrow } from "../svg";
 import GoogleLogo from '../assets/google_logo.png';
 import FacebookLogo from '../assets/facebook_logo.png';
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const SignupInfluencer = () => {
   const [values, setValues] = useState({
@@ -15,17 +16,18 @@ const SignupInfluencer = () => {
   });
   const [otp, setOtp] = useState(""); // State for OTP input
   const [step, setStep] = useState(1); // Step 1 for Signup, Step 2 for OTP
-  const apiUrl = process.env.REACT_APP_API_URL; // Assurez-vous d'utiliser la bonne variable d'environnement
+  const apiUrl = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
 
   const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${apiUrl}auth/register`, values);
-      console.log(response);
-      setStep(2); // Proceed to OTP step
+      await axios.post(`${apiUrl}/auth/register`, values);
+      // setStep(2);
+      navigate("/signin");
+      toast.success("Account created successfully. Please login to continue.");
     } catch (error) {
-      console.error(error);
+      toast.error('An error occurred. Please try again.');
     }
   };
 

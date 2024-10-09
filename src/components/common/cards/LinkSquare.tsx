@@ -58,7 +58,8 @@ const LinkSquare: React.FC<Props> = ({
   };
 
   const handleCopy = (text: string) => {
-    copyToClipboard(text);
+    const link = `${process.env.REACT_APP_WEBSITE_DOMAIN}/${text}`;
+    copyToClipboard(link);
   };
 
   return (
@@ -118,11 +119,17 @@ const LinkSquare: React.FC<Props> = ({
         </span>
         {!minimize && (
           <div className="my-4 text-[#5890FF]">
-            {link.tags?.length ? link.tags?.map((tag, index) => (
-              <span key={index} className="mr-2">
-                {`#${tag}`}
-              </span>
-            )):<span>-</span>}
+            {link.tags?.length ? (
+              link.tags.map((tag, index) => (
+                tag.length > 0 ? (
+                  <span key={index} className="mr-2">
+                    {`#${tag}`}
+                  </span>
+                ) : null
+              ))
+            ) : (
+              <span></span>
+            )}
           </div>
         )}
         <div>

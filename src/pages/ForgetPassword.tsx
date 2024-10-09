@@ -26,8 +26,6 @@ const ForgotPassword = () => {
 
   const handlePasswordReset = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Logic to reset the password
-    console.log("Password reset successful");
     setStep(4);
   };
 

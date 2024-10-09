@@ -14,7 +14,7 @@ const data = [
 
 const Circle = ({ value, maxValue }) => {
   // Calculate opacity based on value
-  const opacity = (value / maxValue).toFixed(2);
+  const opacity = maxValue !== 0 ? (value / maxValue).toFixed(2) : 0;
 
   return (
     <div

@@ -40,6 +40,8 @@ const Influencer: React.FC = () => {
       flag: string;
     }[]
   >([]);
+  const [editMode, setEditMode] = useState(false);
+  const [editPasswordMode, setEditPasswordMode] = useState(false);
   const [selectedDialCode, setSelectedDialCode] = useState<string>('');
   const [selectedFlag, setSelectedFlag] = useState<string>('');
 
@@ -122,14 +124,14 @@ const Influencer: React.FC = () => {
               alt="profile-pic"
               className="h-[50px] w-[50px]"
             />
-            <h2 className="font-header text-[20px] font-[500]">FLYBIRD</h2>
+            <h2 className="font-header text-[20px] font-[500]">{user?.firstName ? `${user?.firstName},` : ''}</h2>
           </div>
           <span className="text-sm leading-none mt-4 mb-5 text-[#4F4949] font-content">
             Complete Your Profile for a Personalized Experience!
           </span>
-          <button className="border-[1px] w-[150px] text-sm md:w-auto border-[#113E53] font-bold bg-[#113E53] rounded-full px-[20px] py-[8px] text-white font-header">
+          {/* <button className="border-[1px] w-[150px] text-sm md:w-auto border-[#113E53] font-bold bg-[#113E53] rounded-full px-[20px] py-[8px] text-white font-header">
             Upload Photo
-          </button>
+          </button> */}
         </div>
         <div className="md:w-4/12 flex flex-col justify-between">
           <input
@@ -139,6 +141,7 @@ const Influencer: React.FC = () => {
             name="firstName"
             value={values.firstName}
             className="p-2 rounded-full border border-[#B3B3B2] w-full mb-4 outline-none"
+            disabled={!editMode}
           />
           <input
             type="text"
@@ -147,12 +150,14 @@ const Influencer: React.FC = () => {
             value={values.lastName}
             name="lastName"
             className="p-2 rounded-full border border-[#B3B3B2] w-full mb-4 outline-none"
+            disabled={!editMode}
           />
           <select
             className="p-2 rounded-full border border-[#B3B3B2] w-full mb-4"
             value={values.gender}
             name="gender"
             onChange={handleChange}
+            disabled={!editMode}
           >
             <option value="" disabled>
               Select Gender
@@ -168,6 +173,7 @@ const Influencer: React.FC = () => {
             onChange={handleChange}
             name="email"
             className="p-2 rounded-full border border-[#B3B3B2] w-full mb-4 outline-none"
+            disabled={!editMode}
           />
           <input
             type="date"
@@ -176,6 +182,7 @@ const Influencer: React.FC = () => {
             onChange={handleChange}
             name="birthDate"
             className="p-2 rounded-full border border-[#B3B3B2] w-full mb-4 outline-none"
+            disabled={!editMode}
           />
           <div className="rounded-full border border-[#B3B3B2] w-full mb-4 outline-none flex">
             <div className="border h-full rounded-l-full bg-gray-100 p-1 w-1/4 flex justify-center items-center gap-3 border-r border-gray-300">
@@ -185,6 +192,7 @@ const Influencer: React.FC = () => {
                 setSelectedFlag={setSelectedFlag}
                 selectedDialCode={selectedDialCode}
                 selectedFlag={selectedFlag}
+                disabled={!editMode}
               />
               <DropIcon
                 className="text-gray-500 size-4"
@@ -198,6 +206,7 @@ const Influencer: React.FC = () => {
               onChange={handleChange}
               name="mobileNumber"
               className="border w-full rounded-r-full px-2"
+              disabled={!editMode}
             />
           </div>
         </div>
@@ -209,6 +218,7 @@ const Influencer: React.FC = () => {
             onChange={handleChange}
             name="country"
             className="p-2 rounded-full border border-[#B3B3B2] w-full mb-4 outline-none"
+            disabled={!editMode}
           />
           <textarea
             placeholder="Enter Address"
@@ -217,6 +227,7 @@ const Influencer: React.FC = () => {
             name="address"
             className="w-full h-[50px] md:h-full rounded-3xl border border-gray-400 outline-none resize-none p-3 mb-4"
             cols={500}
+            disabled={!editMode}
           />
           <input
             type="text"
@@ -225,6 +236,7 @@ const Influencer: React.FC = () => {
             onChange={handleChange}
             name="postalCode"
             className="p-2 rounded-full border border-[#B3B3B2] w-full mb-4 outline-none"
+            disabled={!editMode}
           />
           <input
             type="text"
@@ -233,20 +245,36 @@ const Influencer: React.FC = () => {
             name="city"
             onChange={handleChange}
             className="p-2 rounded-full border border-[#B3B3B2] w-full mb-4 outline-none"
+            disabled={!editMode}
           />
         </div>
       </div>
       <div className="flex mt-6 justify-end gap-4">
-        <button className="md:mt-0 md:ml-2 ml-0 border-[1px] w-[120px] font-bold bg-[#F1F5F9] rounded-full px-[20px] py-[8px] text-[#113E53] font-header">
-          Cancel
-        </button>
+      {!editMode ? (
         <button
-          onClick={handleEdit}
+          onClick={() => setEditMode(true)} // Utilisation de la fonction fléchée pour appeler setEditMode
           className="md:mt-0 md:ml-2 ml-0 border-[1px] w-[120px] border-[#113E53] font-bold bg-[#113E53] rounded-full px-[20px] py-[8px] text-white font-header"
         >
-          Save
+          Edit
         </button>
-      </div>
+      ) : (
+        <>
+          <button
+            className="md:mt-0 md:ml-2 ml-0 border-[1px] w-[120px] font-bold bg-[#F1F5F9] rounded-full px-[20px] py-[8px] text-[#113E53] font-header"
+            onClick={() => setEditMode(false)}
+          >
+            Cancel
+          </button>
+          <button
+            onClick={handleEdit}
+            className="md:mt-0 md:ml-2 ml-0 border-[1px] w-[120px] border-[#113E53] font-bold bg-[#113E53] rounded-full px-[20px] py-[8px] text-white font-header"
+          >
+            Save
+          </button>
+        </>
+      )}
+    </div>
+
       <div className="flex flex-col mt-6 gap-4">
         <h1 className="text-4 font-[600] text-[#172B4D]">Password Set-up</h1>
         <div className="flex flex-col md:flex-row gap-4 mb-6">
@@ -257,6 +285,7 @@ const Influencer: React.FC = () => {
             name="oldPassword"
             onChange={handlePassChange}
             className="p-2 rounded-full border border-[#B3B3B2] w-6/6 md:w-2/6"
+            disabled={!editPasswordMode}
           />
           <input
             type="password"
@@ -265,6 +294,7 @@ const Influencer: React.FC = () => {
             name="conformNewPassword"
             onChange={handlePassChange}
             className="p-2 rounded-full border border-[#B3B3B2] w-6/6 md:w-2/6"
+            disabled={!editPasswordMode}
           />
           <input
             type="password"
@@ -273,20 +303,36 @@ const Influencer: React.FC = () => {
             name="newPassword"
             onChange={handlePassChange}
             className="p-2 rounded-full border border-[#B3B3B2] w-6/6 md:w-2/6"
+            disabled={!editPasswordMode}
           />
         </div>
       </div>
       <div className="flex justify-end gap-4">
-        <button className="md:mt-0 md:ml-2 ml-0 border-[1px] w-[120px] font-bold bg-[#F1F5F9] rounded-full px-[20px] py-[8px] text-[#113E53] font-header">
-          Cancel
-        </button>
+      {!editPasswordMode ? (
+        // Si editPasswordMode est false, afficher le bouton Edit
         <button
-          onClick={handleUpdatePassword}
+          onClick={() => setEditPasswordMode(true)}
           className="md:mt-0 md:ml-2 ml-0 border-[1px] w-[120px] border-[#113E53] font-bold bg-[#113E53] rounded-full px-[20px] py-[8px] text-white font-header"
         >
-          Save
+          Edit
         </button>
-      </div>
+      ) : (
+        <>
+          <button
+            onClick={() => setEditPasswordMode(false)}
+            className="md:mt-0 md:ml-2 ml-0 border-[1px] w-[120px] font-bold bg-[#F1F5F9] rounded-full px-[20px] py-[8px] text-[#113E53] font-header"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={handleUpdatePassword}
+            className="md:mt-0 md:ml-2 ml-0 border-[1px] w-[120px] border-[#113E53] font-bold bg-[#113E53] rounded-full px-[20px] py-[8px] text-white font-header"
+          >
+            Save
+          </button>
+        </>
+      )}
+    </div>
     </div>
   );
 };

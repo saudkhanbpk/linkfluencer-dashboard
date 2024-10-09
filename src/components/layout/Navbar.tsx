@@ -17,6 +17,7 @@ const Navbar = () => {
   const [clicksLeft, setClicksLeft] = useState<number | null>(null);
   const userContext = useContext(UserContext);
   const [completion, setCompletion] = useState(0);
+  const [search, _setSearch] = useState('');
 
   if (!userContext) {
     throw new Error('useContext must be used within a UserProvider');
@@ -47,7 +48,7 @@ const Navbar = () => {
   }, []);
 
   const handleBoostClick = () => {
-    navigate('/pricing');
+    navigate('/plans');
   };
 
   const handleCompleteProfileClick = () => {
@@ -152,6 +153,8 @@ const Navbar = () => {
                 <input
                   type="text"
                   placeholder="Search"
+                  autoComplete="off" 
+                  value={search}
                   className="h-full rounded-none outline-none"
                 />
               </div>

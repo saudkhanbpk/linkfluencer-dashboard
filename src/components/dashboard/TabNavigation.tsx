@@ -45,7 +45,7 @@ const TabNavigation: React.FC<TabNavigationProps> = ({
         </span>
       </span>
       <Dropdown label={<FilterIcon className="size-6" />} side="right">
-        <ul className="bg-white w-auto shadow-md border-0.5 rounded-lg py-2 border">
+        <ul className="bg-white w-auto shadow-md border-0.5 rounded-lg py-2 pt-0 pb-0 border">
           {tabs.map((tab, index) => (
             <li
               key={index}

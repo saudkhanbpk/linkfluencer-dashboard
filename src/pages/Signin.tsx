@@ -38,7 +38,6 @@ const Login: React.FC = () => {
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      console.log(values)
       await login(values.email, values.password);
       navigate('/');
 

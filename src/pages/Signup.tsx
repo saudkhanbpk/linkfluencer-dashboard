@@ -2,20 +2,18 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import Logo from "../components/common/Logo";
 import { RightArrow } from "./../svg";
-import BrandImage from '../assets/signup_brand.png'; // Assurez-vous que ces chemins d'accès sont corrects
+import BrandImage from '../assets/signup_brand.png';
 import InfluencerImage from '../assets/signup_influencer.png';
 
 const Join: React.FC = () => {
   const navigate = useNavigate();
 
   const handleInfluencerClick = () => {
-    console.log("Influencer clicked");
     navigate("/signup-influencer");
   };
 
   const handleBrandClick = () => {
-    console.log("Brand clicked");
-    navigate("/signup-brand"); // Ajoutez la redirection pour Brand si nécessaire
+    navigate("/signup-brand");
   };
 
   return (
@@ -42,13 +40,14 @@ const Join: React.FC = () => {
               <div className="flex flex-col justify-center relative">
                 <h1 className="font-[750] text-[20px]">Influencer</h1>
                 <p className="text-xl mt-2">Make Everyday A Pay Day</p>
-                <RightArrow className={'size-10 border p-2 rounded-full border-[#113E53] absolute right-0 bottom-0 bg-[#59FF93] hover:rotate-45 duration-150'} />
+                <RightArrow 
+                className={'size-10 border p-2 rounded-full border-[#113E53] absolute right-0 bottom-0 bg-[#59FF93] hover:rotate-45 duration-150'} 
+                onClick={handleInfluencerClick}
+                />
               </div>
             </div>
             <div
-              className="md:w-[370px] flex gap-2 border-black border rounded-2xl self-center p-2 cursor-pointer "
-              onClick={handleBrandClick}
-            >
+              className="md:w-[370px] flex gap-2 border-black border rounded-2xl self-center p-2 cursor-pointer" >
               <div className="self-center p-8 bg-[#F0F5FF] rounded-xl ">
                 <img
                   src={BrandImage}
@@ -60,7 +59,9 @@ const Join: React.FC = () => {
               <div className="flex flex-col justify-center relative">
                 <h1 className="font-[750] text-[20px]">Brand</h1>
                 <p className="text-xl mt-2">Take Your Brand To Public</p>
-                <RightArrow className={'size-10 border p-2 rounded-full border-[#113E53] absolute right-0 bottom-0 bg-[#59FF93] hover:rotate-45 duration-150'} />
+                <RightArrow 
+                  className={'size-10 border p-2 rounded-full border-[#113E53] absolute right-0 bottom-0 bg-[#59FF93] hover:rotate-45 duration-150'}
+                  onClick={handleBrandClick}/>
               </div>
             </div>
           </div>

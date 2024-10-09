@@ -37,7 +37,6 @@ const StatsSwiper: React.FC<SlidesSwiperProps> = ({
     const fetchFlag = () => {
       if (topCountry) {
         const countryFlag = getCountryFlag(topCountry);
-
         setFlag(countryFlag ?? '');
       }
     };
@@ -64,8 +63,8 @@ const StatsSwiper: React.FC<SlidesSwiperProps> = ({
   return (
     <Swiper
       slidesPerView={5}
-      spaceBetween={20}
-      freeMode
+      spaceBetween={12}
+      freeMode={true}
       breakpoints={{
         200: { slidesPerView: 1 },
         320: { slidesPerView: 1.2 },
@@ -76,14 +75,18 @@ const StatsSwiper: React.FC<SlidesSwiperProps> = ({
         1400: { slidesPerView: 5 },
       }}
       modules={[FreeMode, Pagination]}
-      className="mySwiper"
+      className="mySwiper cursor-pointer"
       style={{ maxWidth: '100%' }}
     >
       {slidesData.map((slide, index) => (
         <SwiperSlide
           key={index}
           className="border p-[24px] rounded-3xl bg-white max-h-[100px] h-[80px] max-w-full"
-          style={{ width: 'auto' }}
+          style={{
+            width: slide.label !== 'Best Time To Engage' ? '180px' : 'auto', // Fixed width for all except 'Best Time To Engage'
+            minWidth: slide.label === 'Best Time To Engage' ? '215px' : '180px', // Minimum width for 'Best Time To Engage'
+            whiteSpace: 'nowrap', // Prevent line breaking for the content
+          }}
         >
           <span className="text-xs font-content text-[#9B919D]">
             {slide.label}
@@ -96,7 +99,7 @@ const StatsSwiper: React.FC<SlidesSwiperProps> = ({
                 className="h-[24px] w-[24px]"
               />
             )}
-            <span className="text-[#292828] text-[24px] font-[500]">
+            <span className="text-[#292828] text-[24px] font-[500] whitespace-nowrap">
               {slide.value}
             </span>
             {slide.indicate && (

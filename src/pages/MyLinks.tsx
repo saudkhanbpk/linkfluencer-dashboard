@@ -26,6 +26,8 @@ import { ILink } from '../interfaces/Link';
 import LinkShareCard from '../components/LinkShareCard/LinkShare';
 import { fetchIcon } from '../utils/iconUtils';
 import { capitalizeFirstLetter } from '../utils/caseUtils';
+import { SortLinksByOptions } from '../types/enums';
+import { toast } from 'react-toastify';
 
 const MyLinks: React.FC = () => {
   const [minimize, setMinimize] = useState(false);
@@ -97,10 +99,6 @@ const MyLinks: React.FC = () => {
       render: (row: any) => (
         <div className="flex items-center">
           <label className="mr-2">{row.clickCount}</label>
-          {/* <Indicate
-            direction={row.indicateUp ? "up" : "down"}
-            percent={row.percent}
-          /> */}
         </div>
       ),
       key: 'clickCount',
@@ -163,10 +161,11 @@ const MyLinks: React.FC = () => {
           const newData = filteredData.filter((val: any) => {
             return !selectedData.includes(val._id);
           });
+          toast.success('Links deleted successfully!');
           setFilteredData(newData);
         })
         .catch((err) => {
-          console.log(err);
+          toast.error('Failed to delete links.');
         });
     }
   };
@@ -199,9 +198,13 @@ const MyLinks: React.FC = () => {
   };
   const fetchUserLinks = async () => {
     if (user && user._id) {
-      const links = await getUserLinks(user._id);
+      const links = await getUserLinks(user._id, {
+        sortBy: SortLinksByOptions.NewlyAdded,
+      });
       setData(links);
+      
       setFilteredData(links);
+      // sortByDate('desc');
     }
   };
 
@@ -211,13 +214,18 @@ const MyLinks: React.FC = () => {
 
   const handleEdit = async (updatedLink: ILink) => {
     if (user) {
-      const response = await updateLink(user._id, updatedLink);
-      if (response?.status == 200) {
-        const updatedArray = filteredData.map((obj: { _id: any }) =>
-          obj._id === response?.data._id ? response?.data : obj,
-        );
-        setFilteredData(updatedArray);
-        setIsEditModalOpen(false);
+      try {
+        const response = await updateLink(user._id, updatedLink);
+        if (response?.status === 200) {
+          const updatedArray = filteredData.map((obj: { _id: any }) =>
+            obj._id === response?.data._id ? response?.data : obj,
+          );
+          toast.success('Link updated successfully!');
+          setFilteredData(updatedArray);
+          setIsEditModalOpen(false);
+        }
+      } catch (error) {
+        toast.error('Failed to update link.');
       }
     }
   };
@@ -234,16 +242,27 @@ const MyLinks: React.FC = () => {
     setFilteredData(sortedData);
   };
 
-  const handleCreateLink = async () => {
-    console.log(user);
+  const sortByDate = (order: 'asc' | 'desc' = 'asc') => {
+    const sortedData = [...data].sort((a: any, b: any) => {
+      if (order === 'asc') {
+        return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+      } else {
+        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+      }
+    });
 
+    setFilteredData(sortedData);
+  };
+
+  const handleCreateLink = async () => {
     if (user && user._id) {
       try {
         await createLink(user._id, newLink);
+        toast.success('Link created successfully!');
         setNewLink('');
         fetchUserLinks();
       } catch (error) {
-        console.error('Failed to create link:', error);
+        toast.error('Failed to create link');
       }
     }
   };
@@ -364,7 +383,7 @@ const MyLinks: React.FC = () => {
                     <FilterIcon className="size-8 cursor-pointer hover:bg-gray-100 p-1 rounded-full duration-200" />
                   }
                 >
-                  <ul className="w-[200px] flex justify-center flex-col items-center border bg-white rounded-2xl py-1 shadow-md">
+                  <ul className="w-[200px] flex justify-center flex-col items-center border bg-white rounded-2xl py-1 pt-0 pb-0 shadow-md">
                     <li
                       className=" w-full px-4  font-content py-2 border-b"
                       onClick={() => {
@@ -381,11 +400,8 @@ const MyLinks: React.FC = () => {
                     >
                       Low to High Clicks
                     </li>
-                    <li className=" w-full px-4  font-content py-2 border-b">
+                    <li className=" w-full px-4  font-content py-2 border-b" onClick={()=> sortByDate('desc')}>
                       <span>By Dates</span>
-                    </li>
-                    <li className=" w-full px-4  font-content py-2">
-                      Menue Item x
                     </li>
                   </ul>
                 </Dropdown>

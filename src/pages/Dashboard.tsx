@@ -8,13 +8,14 @@ import BlankDashboard from '../components/dashboard/BlankDashboard';
 import DefaultDashboard from '../components/dashboard/DefaultDashboard';
 import { SortLinksByOptions } from '../types/enums';
 import Loading from '../components/common/Loading';
+import { toast } from 'react-toastify';
 
 const Dashboard: React.FC = () => {
   const userContext = useContext(UserContext);
   const [userLinks, setUserLinks] = useState([]);
   const [selectedTab, setSelectedTab] = useState(0);
   const [newLink, setNewLink] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   if (!userContext) {
     throw new Error('useContext must be used within a UserProvider');
@@ -57,10 +58,11 @@ const Dashboard: React.FC = () => {
     if (user && user._id && newLink) {
       try {
         await createLink(user._id, newLink);
+        toast.success('Link created successfully!');
         setNewLink('');
         fetchUserLinks();
       } catch (error) {
-        console.error('Failed to create link:', error);
+        toast.error('Failed to create link');
       }
     }
   };
