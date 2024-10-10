@@ -10,7 +10,7 @@ const Rectangle: React.FC<RectangleProps> = ({ value, maxValue }) => {
 
   return (
     <div
-      className="w-12 h-2"
+      className="w-12 h-2 border"
       style={{
         backgroundColor: '#30009C',
         opacity,

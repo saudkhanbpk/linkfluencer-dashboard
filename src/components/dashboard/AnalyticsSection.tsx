@@ -41,7 +41,23 @@ const AnalyticsSection: React.FC = () => {
       try {
         setLoadingCountries(true);
         const countries = await TopCountries(user._id, 'year');
-        setTopCountries(countries);
+
+
+        const getTopCountries = (countries: any[]) => {
+          const sortedData = countries.sort((a, b) => b.clicks - a.clicks);
+          return sortedData.slice(0, Math.min(6, countries.length));
+        };
+        
+        const topCountries = getTopCountries(countries);
+        
+        console.log({topCountries});
+
+
+
+
+        console.log({countries});
+        
+        setTopCountries(topCountries);
       } catch (error) {
         setError('Erreur lors de la récupération des pays principaux');
         console.error(error);

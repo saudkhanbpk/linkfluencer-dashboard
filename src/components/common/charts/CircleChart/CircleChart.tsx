@@ -35,14 +35,16 @@ const CircleChart: React.FC<CircleChartProps> = ({ countries = [] }) => {
             <span className="text-gray-700 lg:text-base">
               {country.country}
             </span>
+            <div className='border rounded-full'>
             <Circle value={country.clicks} maxValue={maxValue} />
+            </div>
           </div>
         ))}
       </div>
-      <div className="grid grid-cols-4 mt-4 lg:mt-6">
+      <div className="grid grid-cols-5">
         {legendValues.map((val, index) => (
-          <div key={index} className="flex flex-col items-center">
-            <Rectangle value={val} maxValue={maxValue} />
+          <div key={index} className="flex flex-col items-center mt-4">
+            <span className='border'><Rectangle value={val} maxValue={maxValue} /></span>
             <span className="text-sm text-gray-500">
               {val >= 1000 ? `${val / 1000}k` : val}
             </span>

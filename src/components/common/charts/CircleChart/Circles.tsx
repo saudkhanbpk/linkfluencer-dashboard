@@ -10,7 +10,7 @@ const Circle: React.FC<CircleProps> = ({ value, maxValue }) => {
 
   return (
     <div
-      className="w-7 h-7 md:w-9 md:h-9 rounded-full flex items-center justify-center"
+      className="w-7 h-7 md:w-9 md:h-9 rounded-full flex items-center justify-center border border-green-500"
       style={{
         backgroundColor: '#30009C',
         opacity,

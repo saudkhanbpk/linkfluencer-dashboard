@@ -172,7 +172,7 @@ interface props {
 const SocialIcons: React.FC<props> = ({ link }) => {
   const data = "this is the data";
   const twitterMessageLink = `https://twitter.com/messages/compose?text=${encodeURIComponent(`${process.env.REACT_APP_WEBSITE_DOMAIN}/link`)}`;
-  const instagramDirectLink = `https://www.instagram.com/direct/new/?text=${encodeURIComponent(link)}`;
+  const instagramDirectLink = `https://www.instagram.com/direct/new/?text=${process.env.REACT_APP_WEBSITE_DOMAIN}/link`;
   const socialIconsList = [
     {
       icon: (
@@ -224,7 +224,7 @@ const SocialIcons: React.FC<props> = ({ link }) => {
           <EmailIcon className="size-8 text-[#113E53]" onClick={undefined} />
         </EmailShareButton>
       ),
-      
+
       label: "E-mail",
     },
     {

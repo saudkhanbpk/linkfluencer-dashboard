@@ -22,6 +22,7 @@ const Circle = ({ value, maxValue }) => {
       style={{
         backgroundColor: `#30009C`,
         opacity: `${opacity}`, // Example color
+
       }}
     >
       {/* <span className="text-white font-semibold">{value}</span> */}
