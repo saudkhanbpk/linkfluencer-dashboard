@@ -84,7 +84,7 @@ const LinkDetailsCard: React.FC<Prop> = ({ data, handleDetailsModalClose }) => {
   }, [data._id, data.createdBy]);
 
   return (
-    <div className="md:w-[600px]">
+    <div className="w-[350px] md:w-[600px]">
       <FaviconLoader
         originalUrl={data.originalUrl}
         setFavicon={setLinkLogo}

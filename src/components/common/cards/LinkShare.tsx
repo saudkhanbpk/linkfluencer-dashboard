@@ -67,7 +67,7 @@ const copyToClipboard = (text: string) => {
 };
 const LinkShareCard: React.FC<Prop> = ({ handleShareModalClose, link }) => {
   return (
-    <div className="md:w-[600px]">
+    <div className="w-[350px] md:w-[600px]">
       <div className="flex justify-between mb-6">
         <span className="font-content text-[#113e53]">Share</span>
         <CrossIcon

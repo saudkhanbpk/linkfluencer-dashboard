@@ -43,7 +43,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   return (
     <div
       ref={dropdownRef}
-      className={`relative inline-block text-left ${disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'} z-50`}
+      className={`relative inline-block text-left ${disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
     >
       <span
         onClick={toggleDropdown}
@@ -70,7 +70,7 @@ const Dropdown: React.FC<DropdownProps> = ({
       </span>
       {isOpen && !disabled && (
         <div
-          className={`origin-top-right absolute ${side}-0 mt-2 ring-black ring-opacity-5 focus:outline-none`}
+          className={`origin-top-right absolute ${side}-0 mt-2 ring-black ring-opacity-5 focus:outline-none z-50`}
         >
           <div className="" onClick={toggleDropdown}>
             {children}

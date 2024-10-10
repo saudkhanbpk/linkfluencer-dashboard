@@ -15,7 +15,7 @@ const Model: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-2xl p-6 shadow-lg"
+        className="bg-white rounded-2xl p-6 shadow-lg z-50 mx-2"
         onClick={(e) => e.stopPropagation()}
       >
         {children}

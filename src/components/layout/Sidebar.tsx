@@ -1,10 +1,11 @@
-import { NavLink, useNavigate } from 'react-router-dom';
-import ProgressBar from '../common/ProgressBar';
-import { useMinimizeContext } from '../../context/LayoutContext';
-import { sidebarData } from '../../config/sidebarData';
-import { UserContext } from '../../context/UserContext';
-import { useContext, useEffect, useState } from 'react';
-import { ProfileCompletion } from '../../services/userService';
+import { NavLink, useNavigate } from "react-router-dom";
+import ProgressBar from "../common/ProgressBar";
+import { useMinimizeContext } from "../../context/LayoutContext";
+import { sidebarData } from "../../config/sidebarData";
+import { UserContext } from "../../context/UserContext";
+import { useContext, useEffect, useState } from "react";
+import { ProfileCompletion } from "../../services/userService";
+import Tooltip, { SidebarTooltip } from "../common/ToolTip";
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ const Sidebar = () => {
   const displayCompletion = () => completion !== 100 && !minimize;
 
   const handleCompleteProfileClick = () => {
-    navigate('/profile');
+    navigate("/profile");
   };
 
   return (
@@ -38,21 +39,32 @@ const Sidebar = () => {
                 to={val.route}
                 className={({ isActive }) =>
                   `flex items-center cursor-pointer py-[12px] ${
-                    !minimize && 'px-[5px] lg:px-[20]'
+                    !minimize && "px-[5px] lg:px-[20]"
                   } rounded-full font-content ${
                     isActive
-                      ? 'bg-gray-100 text-black'
-                      : 'bg-transparent text-[#4D494F]'
+                      ? "bg-gray-100 text-black"
+                      : "bg-transparent text-[#4D494F]"
                   }`
                 }
               >
-                <img
-                  src={val?.icon}
-                  alt="dashboard"
-                  className={`ml-[10px] mr-[12px]`}
-                />
+                {minimize ? (
+                  <SidebarTooltip text={val?.label}>
+                    <img
+                      src={val?.icon}
+                      alt="dashboard"
+                      className={`ml-[10px] mr-[12px]`}
+                    />
+                  </SidebarTooltip>
+                ) : (
+                  <img
+                    src={val?.icon}
+                    alt="dashboard"
+                    className={`ml-[10px] mr-[12px]`}
+                  />
+                )}
+
                 <span
-                  className={`${minimize ? 'hidden' : ''} whitespace-nowrap`}
+                  className={`${minimize ? "hidden" : ""} whitespace-nowrap`}
                 >
                   {val?.label}
                 </span>
@@ -60,7 +72,7 @@ const Sidebar = () => {
             ) : (
               <div
                 className={`flex items-center cursor-pointer py-[12px] ${
-                  !minimize && 'px-[5px] lg:px-[20]'
+                  !minimize && "px-[5px] lg:px-[20]"
                 } rounded-full font-content bg-transparent text-[#afafaf]`}
               >
                 <img
@@ -69,12 +81,12 @@ const Sidebar = () => {
                   className={`ml-[10px] mr-[12px]`}
                 />
                 <div className="flex flex-col lg:flex-row">
-                  <span className={`${minimize ? 'hidden' : 'block'} mr-2`}>
+                  <span className={`${minimize ? "hidden" : "block"} mr-2`}>
                     {val?.label}
                   </span>
                   <span
                     className={`${
-                      minimize ? 'hidden' : 'block'
+                      minimize ? "hidden" : "block"
                     } text-primary font-bold`}
                   >
                     SOON!
@@ -93,7 +105,7 @@ const Sidebar = () => {
                 Hi {user?.firstName}
               </h1>
               <span className="text-[14px] mt-[10px] leading-none font-content whitespace-nowrap">
-                {' '}
+                {" "}
                 Your Profile is left Incomplete
               </span>
               <div className="my-[24px]">

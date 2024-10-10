@@ -181,7 +181,7 @@ const SocialIcons: React.FC<props> = ({ link }) => {
           // quote={data}
           title={`please checkout my profile`}
         >
-          <FacebookIcon className="size-8 text-[#113E53]" onClick={undefined} />
+          <FacebookIcon className="size-6 md:size-8 text-[#113E53]" onClick={undefined} />
         </FacebookShareButton>
       ),
       label: "facebook",
@@ -191,7 +191,7 @@ const SocialIcons: React.FC<props> = ({ link }) => {
         <a href={instagramDirectLink} target="_blank" rel="noopener noreferrer">
           <InstagramIcon
             onClick={undefined}
-            className="size-8 text-[#113E53]"
+            className="size-6 md:size-8 text-[#113E53]"
           />
         </a>
       ),
@@ -203,7 +203,7 @@ const SocialIcons: React.FC<props> = ({ link }) => {
           title="Above is my link to the post"
           url={`${process.env.REACT_APP_WEBSITE_DOMAIN}/link`}
         >
-          <TwitterIcon className={"size-8"} onClick={undefined} />
+          <TwitterIcon className={"size-6 md:size-8"} onClick={undefined} />
         </TwitterShareButton>
       ),
       label: "Twitter",
@@ -213,7 +213,7 @@ const SocialIcons: React.FC<props> = ({ link }) => {
         <WhatsappShareButton
           url={`${process.env.REACT_APP_WEBSITE_DOMAIN}/link`}
         >
-          <WhatsappIcon className="size-8 text-[#113E53]" onClick={undefined} />
+          <WhatsappIcon className="size-6 md:size-8 text-[#113E53]" onClick={undefined} />
         </WhatsappShareButton>
       ),
       label: "Whatsapp",
@@ -221,7 +221,7 @@ const SocialIcons: React.FC<props> = ({ link }) => {
     {
       icon: (
         <EmailShareButton url={`${process.env.REACT_APP_WEBSITE_DOMAIN}/link`} title="this is my link">
-          <EmailIcon className="size-8 text-[#113E53]" onClick={undefined} />
+          <EmailIcon className="size-6 md:size-8 text-[#113E53]" onClick={undefined} />
         </EmailShareButton>
       ),
 
@@ -230,7 +230,7 @@ const SocialIcons: React.FC<props> = ({ link }) => {
     {
       icon: (
         <ShareFilledIcon
-          className="size-8 text-[#113E53]"
+          className="size-6 md:size-8 text-[#113E53]"
           onClick={undefined}
         />
       ),
@@ -238,11 +238,11 @@ const SocialIcons: React.FC<props> = ({ link }) => {
     },
   ];
   return (
-    <div className="flex justify-start gap-6 mt-8 mb-16">
+    <div className="flex justify-between gap-6 mt-8 mb-8 md:mb-16">
       {socialIconsList.map((val, index) => (
         <div key={index} className="text-center">
-          <div className="p-6 rounded-full bg-[#9D9D9D0A] mb-2">{val.icon}</div>
-          <span className="text-[#113E53]">{val.label}</span>
+          <div className="md:p-6 rounded-full bg-[#9D9D9D0A] md:mb-2">{val.icon}</div>
+          <span className="text-[#113E53] hidden md:block">{val.label}</span>
         </div>
       ))}
     </div>

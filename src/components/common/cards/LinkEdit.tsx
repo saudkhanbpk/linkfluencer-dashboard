@@ -70,7 +70,7 @@ const LinkEditCard: React.FC<Prop> = ({
   }, [handleEdit, link, shortUrl, tags]);
 
   return (
-    <div className="md:w-[500px]">
+    <div className="min-w-[350px] md:w-[500px] z-50">
       <h1 className="text-[24px] font-header">Edit Link</h1>
       <input
         type="text"
@@ -94,7 +94,7 @@ const LinkEditCard: React.FC<Prop> = ({
           onChange={handleShortUrlChange}
           placeholder="Smart Link"
           name="link"
-          className="flex-1 p-2 rounded-r-full border-none"
+          className="p-2 rounded-r-full border-none relative w-full"
         />
       </div>
 

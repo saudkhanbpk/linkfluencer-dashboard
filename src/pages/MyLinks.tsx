@@ -281,7 +281,7 @@ const MyLinks: React.FC = () => {
   }, []);
 
   return (
-    <div className="w-full border pb-2 relative">
+    <div className="w-full border pb-2 relative bg-white h-full">
       <Model isOpen={isEditModalOpen} onClose={handleEditModalClose}>
         <LinkEditCard
           link={edit}
@@ -301,7 +301,7 @@ const MyLinks: React.FC = () => {
           link={copyLink}
         />
       </Model>
-      <div className="flex flex-col p-[24px]">
+      <div className="flex flex-col p-[24px] bg-[#F0F5FF]">
         <div>
           <h1 className="text-2xl font-header">My Links</h1>
         </div>

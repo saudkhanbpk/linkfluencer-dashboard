@@ -13,4 +13,16 @@ const Tooltip = ({ children, text }) => {
   );
 };
 
+
+export const SidebarTooltip = ({ children, text }) => {
+  return (
+    <div className="group z-50 flex items-center">
+      {children}
+      <div style={{marginLeft:"40px"}} className="absolute z-50 bg-white shadow-md text-gray-800 text-sm rounded py-1 px-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+        {text}
+      </div>
+    </div>
+  );
+};
+
 export default Tooltip;
