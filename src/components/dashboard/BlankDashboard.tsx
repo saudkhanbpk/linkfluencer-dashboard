@@ -15,6 +15,7 @@ const BlankDashboard: React.FC = () => {
             alt="dashboard-girl"
             className="w-full object-cover h-[170px] rounded-lg"
           />
+          
           <div className="bg-white rounded-full flex items-center py-[8px] px-[10px] my-[14px]">
             <img
               src="/assets/instagram.svg"
