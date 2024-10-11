@@ -271,7 +271,7 @@ const BulkUpload: React.FC = () => {
   };
 
   return (
-    <div className="p-[12px] md:p-[24px] bg-white min-h-[85vh]">
+    <div className="p-[12px] md:p-[24px] bg-white min-h-full">
       <div>
         <h1 className="text-2xl font-header">Bulk Upload</h1>
       </div>
