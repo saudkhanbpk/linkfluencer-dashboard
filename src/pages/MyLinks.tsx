@@ -281,7 +281,7 @@ const MyLinks: React.FC = () => {
   }, []);
 
   return (
-    <div className="w-full border pb-2 relative bg-white h-full">
+    <div className="w-full pb-2 relative bg-white h-full">
       <Model isOpen={isEditModalOpen} onClose={handleEditModalClose}>
         <LinkEditCard
           link={edit}
@@ -326,7 +326,7 @@ const MyLinks: React.FC = () => {
           </button>
         </div>
       </div>
-      <div className="bg-white  p-[24px]">
+      <div className="bg-white p-[24px]">
         {!isDelete ? (
           <div className="flex flex-col md:flex-row md:items-center justify-between">
             <div className="border-b-2 flex items-center w-full md:w-[300px]">
